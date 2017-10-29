@@ -85,6 +85,9 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+Define a metric for measuring similarity of programming problems
+for introductory programming
+
 Theses are rumoured to be the capstones of education, so I decided
 to write one of my own. If all goes well, I will soon have a
 diploma under my belt. Wish me luck!
@@ -117,19 +120,15 @@ alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
 % 1. Introduction
 %
 \chapter{Similarity}
-
 \begin{markdown}
-in many fields, but not this problem
-- In bioinformatics, a sequence alignment is a way of arranging the sequences of DNA, RNA, or protein to identify regions of similarity Similarity Matrix of Proteins
-- In data processing: Document Similarity
-- Plagiarism
 
-Closest = Similarity Techniques for Detecting Source Code Plagiarism 
+There is a lot of research about similarity in many fields bioinformatics (sequence alignment, similarity matrix of proteins), data >>>processing/retrieval<<< (document similarity), plagiarism detection and many more. But only a few mentions about comparing programming problems are currently published. When we talk about programming problems we in most cases mean problems created for interactive programming environments for introductory programming. Some examples of environements are [Robotanik](https://tutor.fi.muni.cz/), []>>>robot z modling how students learn to program<<<](http://example.com), [Lightbot]().
 
-Modeling How Students Learn to Program
+Problems are specified by grid with tiles which have different meaning. Users are suppose to write program for >>>entity/character<<< to fullfill some task. Most common task is to visit all tiles of some type. For example collect all flowers in Robotanik. Sometimes problems also limit >>>user/learner<<< to subset of all available commands or length of program is limited.
 
-Define a metric for measuring similarity of programming problems
-for introductory programming
+>>>Closest = Similarity Techniques for Detecting Source Code Plagiarism
+Modeling How Students Learn to Program <<<
+
 \end{markdown}
 
 %
@@ -137,8 +136,7 @@ for introductory programming
 %
 \subsection{Possible usage}
 
-Define a metric for measuring similarity of programming problems
-for introductory programming
+When we define metrics for measuring similarity of programming problems we can use them for different purposes.
 
 recommendations: do not recommend very similar problems to those that were solved without problems, do recommend similar problems if student struggled
 
@@ -148,35 +146,21 @@ user interface (nezoradene problemy, vytvorit nejake zoradenie ktore vizera rozu
 
 "management" of problem pool (redundant problems, missing problems, …)
 	plot to plane
-    
+
 and more
 
 \section{Metric types}
 
-\subsection{Performance}
+We can define different metrics for comparing programming problems. It's possible to divide metrics into 3 categories based on data that is used.
 
-based on performance of students while solving problems (solution time, number of attempts, ...)
-"correlation" based similarity (performance on two problems correlates)
+*Problem statement* in interactive programming environments can be used to collect features used in problem. Similarity is mostly computed using distance of vectors describing some features of problem. This category includes usage of tiles in problem, allowed commands, size of level, >>>and more?<<<.
 
-\subsection{Solution syntax}
+*Solution syntax* metrics differ greatly with method used by users to write solutions - programs. For programming environments using >>>standard<<< programming languages like Java metrics comparing preprocessed source-code and analysis of solution abstract syntax tree (AST) can be used. In both methods we can compute similarity as edit distance (>>>LLLL edit distance<<< and Tree edit distance respectively) or presence of keywords, their count>>>,..<<<
+Some programming environment doesn't support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Robomise >>>and Scratch<<< uses >>>NESTED DROP AND FILL<<< interface. It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
+Metrics can also make use of multiple solutions collected from users.
 
-simple text features (presence of keywords, count)
-
-analysis of solution abstract syntax tree (AST)
-	tree edit distance
-    
-edit distance
-
-~use of multiple solutions~
-
-\subsection{Problem statement}
-
-for standar text problems...
-text of problem statement (natual language keywords used)
-input/output specification
-
-for interactive rpogramming enviroemnts..
-"features" used in problem - tiles on game board
+*Performance based* metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used,
+With this type of metrics we compute similarity as correlation of performance on two problems.
 
 \section{(Scicentific) Question, Goal}
 
@@ -185,7 +169,7 @@ for interactive rpogramming enviroemnts..
 
 2. Use "human data" (expert/student judgement) experiment -- collect judgement about (dis)similarity of items and compare with automatic metrics.
 paired comparisons: similarity of A and B on scale 1 to 10
-triplets: Given problem A, which is more similar: B or C? 
+triplets: Given problem A, which is more similar: B or C?
 
 3. Tool which will
 \end{markdown}
