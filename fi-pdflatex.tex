@@ -141,12 +141,12 @@ and more
 
 \section{Metric types}
 
-We can define different metrics for comparing programming problems. It's possible to divide metrics into 3 categories based on data that is used.
+We can define different metrics for comparing programming problems. It is possible to divide metrics into 3 categories based on data that is used.
 
 *Problem statement* in interactive programming environments can be used to collect features used in problem. Similarity is mostly computed using distance of vectors describing some features of problem. This category includes usage of tiles in problem, allowed commands, size of level, >>>and more?<<<.
 
-*Solution syntax* metrics differ greatly with method used by users to write solutions - programs. For programming environments using >>>standard<<< programming languages like Java metrics comparing preprocessed source-code and analysis of solution abstract syntax tree (AST) can be used. In both methods we can compute similarity as edit distance (>>>LLLL edit distance<<< and Tree edit distance respectively) or presence of keywords, their count>>>,..<<<
-Some programming environment doesn't support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Robomise >>>and Scratch<<< uses >>>NESTED DROP AND FILL<<< interface. It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
+*Solution syntax* metrics differ greatly with method used by users to write solutions - programs. For programming environments using >>>standard<<< programming languages like Java metrics comparing preprocessed source-code and analysis of solution abstract syntax tree (AST) can be used. In both methods we can compute similarity as edit distance (Levenshtein edit distance and Tree edit distance respectively) or presence of keywords, their count>>>,..<<<
+Some programming environment does not support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Robomise >>>and Scratch<<< uses >>>NESTED DROP AND FILL<<< interface. It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
 Metrics can also make use of multiple solutions collected from users.
 
 *Performance based* metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used,
@@ -411,7 +411,7 @@ f \\
     \end{align}
 
   \item The \texttt{alignat} environment is similar to
-    \texttt{align}, but it doesn't insert horizontal spaces between
+    \texttt{align}, but it doesn\'t insert horizontal spaces between
     the individual columns:
     \begin{alignat}{2}
       a + b + c &+ d       &   &= 0 \\
