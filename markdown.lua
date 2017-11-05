@@ -58,7 +58,7 @@
 -- those in the standard .ins files.
 -- 
 local metadata = {
-    version   = "2.5.4",
+    version   = "2.5.3",
     comment   = "A module for the conversion from markdown to plain TeX",
     author    = "John MacFarlane, Hans Hagen, Vít Novotný",
     copyright = "2009-2017 John MacFarlane, Hans Hagen; " ..
@@ -72,12 +72,11 @@ local unicode = require("unicode")
 local md5 = require("md5")
 local M = {}
 local defaultOptions = {}
-defaultOptions.cacheDir = "."
-defaultOptions.outputDir = "."
 defaultOptions.blankBeforeBlockquote = false
 defaultOptions.blankBeforeCodeFence = false
 defaultOptions.blankBeforeHeading = false
 defaultOptions.breakableBlockquotes = false
+defaultOptions.cacheDir = "."
 defaultOptions.citationNbsps = true
 defaultOptions.citations = false
 defaultOptions.codeSpans = true
