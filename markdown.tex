@@ -45,15 +45,17 @@
 %% 
 %% The names of the source files used are shown above.
 %% 
-\def\markdownLastModified{2017/05/07}%
-\def\markdownVersion{2.5.3}%
+\def\markdownLastModified{2017/09/12}%
+\def\markdownVersion{2.5.4}%
 \let\markdownBegin\relax
 \let\markdownEnd\relax
 \let\markdownInput\relax
 \def\markdownOptionHelperScriptFileName{\jobname.markdown.lua}%
 \def\markdownOptionInputTempFileName{\jobname.markdown.in}%
 \def\markdownOptionOutputTempFileName{\jobname.markdown.out}%
-\def\markdownOptionCacheDir{./_markdown_\jobname}%
+\def\markdownOptionErrorTempFileName{\jobname.markdown.err}%
+\def\markdownOptionCacheDir{\markdownOptionOutputDir/_markdown_\jobname}%
+\def\markdownOptionOutputDir{.}%
 \let\markdownOptionBlankBeforeBlockquote\undefined
 \let\markdownOptionBlankBeforeCodeFence\undefined
 \let\markdownOptionBlankBeforeHeading\undefined
@@ -268,9 +270,9 @@
 \def\markdownLuaRegisterIBCallback#1{\relax}%
 \def\markdownLuaUnregisterIBCallback#1{\relax}%
 \def\markdownInfo#1{%
-  \message{(l.\the\inputlineno) markdown.tex info: #1.}}%
+  \immediate\write-1{(l.\the\inputlineno) markdown.tex info: #1.}}%
 \def\markdownWarning#1{%
-  \message{(l.\the\inputlineno) markdown.tex warning: #1}}%
+  \immediate\write16{(l.\the\inputlineno) markdown.tex warning: #1}}%
 \def\markdownError#1#2{%
   \errhelp{#2.}%
   \errmessage{(l.\the\inputlineno) markdown.tex error: #1}}%
@@ -350,9 +352,7 @@
 \ifx\markdownOptionBreakableBlockquotes\undefined\else
   breakableBlockquotes = \markdownOptionBreakableBlockquotes,
 \fi
-\ifx\markdownOptionCacheDir\undefined\else
   cacheDir = "\markdownOptionCacheDir",
-\fi
 \ifx\markdownOptionCitations\undefined\else
   citations = \markdownOptionCitations,
 \fi
@@ -390,6 +390,7 @@
 \ifx\markdownOptionInlineFootnotes\undefined\else
   inlineFootnotes = \markdownOptionInlineFootnotes,
 \fi
+  outputDir = "\markdownOptionOutputDir",
 \ifx\markdownOptionPreserveTabs\undefined\else
   preserveTabs = \markdownOptionPreserveTabs,
 \fi
@@ -415,7 +416,8 @@ end
 local md = require("markdown")
 local convert = md.new(\markdownLuaOptions)
 }%
-\csname newwrite\endcsname\markdownLuaExecuteFileStream
+\csname newread\endcsname\markdownInputFileStream
+\csname newwrite\endcsname\markdownOutputFileStream
 \begingroup
   \catcode`\^^I=12%
   \gdef\markdownReadAndConvertTab{^^I}%
@@ -427,7 +429,7 @@ local convert = md.new(\markdownLuaOptions)
   \catcode`\\=12%
   |gdef|markdownReadAndConvert#1#2{%
     |begingroup%
-    |immediate|openout|markdownLuaExecuteFileStream%
+    |immediate|openout|markdownOutputFileStream%
       |markdownOptionInputTempFileName%
     |markdownInfo{Buffering markdown input into the temporary %
       input file "|markdownOptionInputTempFileName" and scanning %
@@ -437,11 +439,11 @@ local convert = md.new(\markdownLuaOptions)
     |markdownMakeOther%
     |def|markdownReadAndConvertProcessLine##1#1##2#1##3|relax{%
       |ifx|relax##3|relax%
-        |immediate|write|markdownLuaExecuteFileStream{##1}%
+        |immediate|write|markdownOutputFileStream{##1}%
       |else%
         |def^^M{%
           |markdownInfo{The ending token sequence was found}%
-          |immediate|closeout|markdownLuaExecuteFileStream%
+          |immediate|closeout|markdownOutputFileStream%
           |endgroup%
           |markdownInput|markdownOptionInputTempFileName%
           #2}%
@@ -490,21 +492,43 @@ local convert = md.new(\markdownLuaOptions)
       compiler with the --shell-escape or the --enable-write18 flag,
       or set shell_escape=t in the texmf.cnf file}%
   \fi}%
-\def\markdownLuaExecute#1{%
-  \immediate\openout\markdownLuaExecuteFileStream=%
-    \markdownOptionHelperScriptFileName
-  \markdownInfo{Writing a helper Lua script to the file
-    "\markdownOptionHelperScriptFileName"}%
-  \immediate\write\markdownLuaExecuteFileStream{%
-    local kpse = require('kpse')
-    kpse.set_program_name('luatex') #1}%
-  \immediate\closeout\markdownLuaExecuteFileStream
-  \markdownInfo{Executing a helper Lua script from the file
-    "\markdownOptionHelperScriptFileName" and storing the result in the
-    file "\markdownOptionOutputTempFileName"}%
-  \markdownExecute{texlua "\markdownOptionHelperScriptFileName" >
-    "\markdownOptionOutputTempFileName"}%
-  \input\markdownOptionOutputTempFileName\relax}%
+\begingroup
+  \catcode`|=0%
+  \catcode`\\=12%
+  |gdef|markdownLuaExecute#1{%
+    |immediate|openout|markdownOutputFileStream=%
+      |markdownOptionHelperScriptFileName
+    |markdownInfo{Writing a helper Lua script to the file
+      "|markdownOptionHelperScriptFileName"}%
+    |immediate|write|markdownOutputFileStream{%
+      local ran_ok, error = pcall(function()
+        local kpse = require('kpse')
+        kpse.set_program_name('luatex')
+        #1
+      end)
+      if not ran_ok then
+        local file = io.open("%
+          |markdownOptionOutputDir
+          /|markdownOptionErrorTempFileName", "w")
+        if file then
+          file:write(error .. "\n")
+          file:close()
+        end
+        print('\\markdownError{An error was encountered while executing
+               Lua code}{For further clues, examine the file
+               "|markdownOptionOutputDir
+               /|markdownOptionErrorTempFileName"}')
+      end}%
+    |immediate|closeout|markdownOutputFileStream
+    |markdownInfo{Executing a helper Lua script from the file
+      "|markdownOptionHelperScriptFileName" and storing the result in the
+      file "|markdownOptionOutputTempFileName"}%
+    |markdownExecute{texlua "|markdownOptionOutputDir
+      /|markdownOptionHelperScriptFileName" > %
+      "|markdownOptionOutputDir
+      /|markdownOptionOutputTempFileName"}%
+    |input|markdownOptionOutputTempFileName|relax}%
+|endgroup
 \else
 \markdownInfo{Using mode 2: Direct Lua access}%
 \def\markdownLuaExecute#1{\directlua{local print = tex.print #1}}%
@@ -514,6 +538,8 @@ local convert = md.new(\markdownLuaOptions)
   \catcode`\\=12%
   |gdef|markdownInput#1{%
     |markdownInfo{Including markdown document "#1"}%
+    |openin|markdownInputFileStream#1
+    |closein|markdownInputFileStream
     |markdownLuaExecute{%
       |markdownPrepare
       local input = assert(io.open("#1","r")):read("*a")

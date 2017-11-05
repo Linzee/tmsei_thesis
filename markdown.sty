@@ -46,17 +46,28 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}%
+\RequirePackage{keyval}
+\RequirePackage{url}
+\RequirePackage{graphicx}
+\RequirePackage{ifthen}
+\RequirePackage{fancyvrb}
+\RequirePackage{csvsimple}
 \newenvironment{markdown}\relax\relax
 \newenvironment{markdown*}[1]\relax\relax
 \newcommand\markdownSetup[1]{%
   \setkeys{markdownOptions}{#1}}%
-\RequirePackage{keyval}
 \define@key{markdownOptions}{helperScriptFileName}{%
   \def\markdownOptionHelperScriptFileName{#1}}%
 \define@key{markdownOptions}{inputTempFileName}{%
   \def\markdownOptionInputTempFileName{#1}}%
 \define@key{markdownOptions}{outputTempFileName}{%
   \def\markdownOptionOutputTempFileName{#1}}%
+\define@key{markdownOptions}{errorTempFileName}{%
+  \def\markdownOptionErrorTempFileName{#1}}%
+\define@key{markdownOptions}{cacheDir}{%
+  \def\markdownOptionCacheDir{#1}}%
+\define@key{markdownOptions}{outputDir}{%
+  \def\markdownOptionOutputDir{#1}}%
 \define@key{markdownOptions}{blankBeforeBlockquote}[true]{%
   \def\markdownOptionBlankBeforeBlockquote{#1}}%
 \define@key{markdownOptions}{blankBeforeCodeFence}[true]{%
@@ -65,8 +76,6 @@
   \def\markdownOptionBlankBeforeHeading{#1}}%
 \define@key{markdownOptions}{breakableBlockquotes}[true]{%
   \def\markdownOptionBreakableBlockquotes{#1}}%
-\define@key{markdownOptions}{cacheDir}{%
-  \def\markdownOptionCacheDir{#1}}%
 \define@key{markdownOptions}{citations}[true]{%
   \def\markdownOptionCitations{#1}}%
 \define@key{markdownOptions}{citationNbsps}[true]{%
@@ -367,9 +376,6 @@
 \define@key{markdownOptions}{rendererPrototypes}{%
   \setkeys{markdownRendererPrototypes}{#1}%
   \def\KV@prefix{KV@markdownOptions@}}%
-\RequirePackage{url}
-\RequirePackage{graphicx}
-\RequirePackage{ifthen}
 \ifx\markdownOptionTightLists\undefined
   \@ifclassloaded{beamer}{}{
     \RequirePackage{paralist}}
@@ -393,8 +399,6 @@
     olEndTight = {\markdownRendererOlEnd},
     dlBeginTight = {\markdownRendererDlBegin},
     dlEndTight = {\markdownRendererDlEnd}}}}
-\RequirePackage{fancyvrb}
-\RequirePackage{csvsimple}
 \markdownSetup{rendererPrototypes={
   lineBreak = {\\},
   leftBrace = {\textbraceleft},
