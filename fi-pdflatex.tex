@@ -75,7 +75,7 @@
     thanks        = {These are the acknowledgements for my thesis, which can
 
                      span multiple paragraphs.},
-    bib           = example.bib,
+    bib           = thesis.bib,
 }
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
@@ -104,55 +104,78 @@
 Define a metric for measuring similarity of programming problems
 for introductory programming
 
-%
-% 1. Introduction
-%
-\chapter{Similarity}
-\begin{markdown}
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+}
 
-There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), data >>>processing/retrieval<<< (document similarity), plagiarism detection and many more. But only a few mentions about comparing programming problems are currently published. When we talk about programming problems we in most cases mean problems created for interactive programming environments for introductory programming. Some examples of environments are [Robotanik](https://tutor.fi.muni.cz/), []>>>robot z modeling how students learn to program<<<](http://example.com), [Lightbot]().
-
-Problems are specified by grid with tiles which have different meaning. Users are suppose to write program for >>>entity/character<<< to fullfill some task. Most common task is to visit all tiles of some type. For example collect all flowers in Robotanik. Sometimes problems also limit >>>user/learner<<< to subset of all available commands or length of program is limited.
-
->>>Closest = Similarity Techniques for Detecting Source Code Plagiarism
-Modeling How Students Learn to Program <<<
-
-\end{markdown}
 
 %
-% 2. General info
+% 1. General, about similarity of programming problems
 %
-\subsection{Possible usage}
 
-When we define metrics for measuring similarity of programming problems we can use them for different purposes.
+# Similarity
 
-recommendations: do not recommend very similar problems to those that were solved without problems, do recommend similar problems if student struggled
+There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), data retrieval (document similarity), plagiarism detection and many more. On other hand there is only a few mentions about comparing programming problems currently published.
 
-hints
+% TODO?
+> Similarity Techniques for Detecting Source Code Plagiarism
+> Modeling How Students Learn to Program
 
-user interface (nezoradene problemy, vytvorit nejake zoradenie ktore vizera rozumne)
+## Programming environments
 
-"management" of problem pool (redundant problems, missing problems, …)
-	plot to plane
+% TODO
+I would like to define what programming environment and programming problems is for me..
 
-and more
+When we talk about programming problems we in most cases mean problems created for interactive programming environments for introductory programming. Some examples of environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
 
-\section{Metric types}
+Problems in this environments are specified by grid with tiles which have different meaning. Users are supposed to write program for some entity to fulfil given task. Most common task is to visit all tiles of some type. In Robotanik student are asked to build program guiding robot to collect all flowers.
+
+Some programming environments try to constrain student in order to produce more creative solutions. One possible limitation is allowing student to use only subset of all available commands. Another approach is to limit length of program.
+
+## Possible usage
+
+When we define metrics for measuring similarity of programming problems we can use them for different purposes. Most of them are useful for adaptive programming environments. First possible usage is recommendation of problems for student to solve. We do not want to recommend very similar problems to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
+
+% TODO
+
+When hints ~[@hosseini2017study]
+
+% TODO A study of concept-based similarity approaches for recommending program examples
+
+% TODO This can be more general
+
+Another idea I am quite found of is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from.
+
+Authors of systems can use our metrics for gaining insight of problem pool. It is possible to detect redundant problems, maybe even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author.
+
+## Metric types
 
 We can define different metrics for comparing programming problems. It is possible to divide metrics into 3 categories based on data that is used.
 
-*Problem statement* in interactive programming environments can be used to collect features used in problem. Similarity is mostly computed using distance of vectors describing some features of problem. This category includes usage of tiles in problem, allowed commands, size of level, >>>and more?<<<.
+**Problem statement** in interactive programming environments can be used to collect features used in problem. Similarity is mostly computed using distance of vectors describing some features of problem. This category includes usage of tiles in problem, allowed commands, size of level, and more.
 
-*Solution syntax* metrics differ greatly with method used by users to write solutions - programs. For programming environments using >>>standard<<< programming languages like Java metrics comparing preprocessed source-code and analysis of solution abstract syntax tree (AST) can be used. In both methods we can compute similarity as edit distance (Levenshtein edit distance and Tree edit distance respectively) or presence of keywords, their count>>>,..<<<
-Some programming environment does not support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Robomise >>>and Scratch<<< uses >>>NESTED DROP AND FILL<<< interface. It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
-Metrics can also make use of multiple solutions collected from users.
+**Solution syntax** metrics differ greatly with method used by users to input solutions. We can divide them to textual which are written in commonly used programming languages like Java and visual.
 
-*Performance based* metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used,
-With this type of metrics we compute similarity as correlation of performance on two problems.
+% TODO
+Metrics comparing textual solutions can use all methods known from information retrieval (tf–idf) on source-code text. Another possible approach is to use AST (abstract syntax tree) which is available for almost all of this programming languages. In both cases we can compute similarity as edit distance (Levenshtein edit distance and Tree edit distance respectively), presence of keywords, count of keywords and many more.
 
-\section{(Scicentific) Question, Goal}
+% TODO neprepisane! nekonzistentne s blokom nadtym
+Some programming environments does not support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Programming enthronements Robomise and Scratch use [Blockly](https://developers.google.com/blockly/) (like) user interface.
+It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
 
-\begin{markdown}
+All metrics defined for single solution can also be extended to collect information from multiple students and all their attempts.
+
+**Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. With this type of metrics we compute similarity as correlation of one or multiple statistics.
+
+## (Scicentific) Question, Goal
+
 1. Do different (types of) metrics correlate? I.e., is there "one underlying similarity" or do they rather measure different aspects of problem similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
 
 2. Use "human data" (expert/student judgment) experiment -- collect judgment about (dis)similarity of items and compare with automatic metrics.
@@ -160,39 +183,41 @@ paired comparisons: similarity of A and B on scale 1 to 10
 triplets: Given problem A, which is more similar: B or C?
 
 3. Tool which will
-\end{markdown}
 
-\section{Robotanik}
+
+%
+% 2. Data specific
+%
+
+# Robotanik
 
 Most of the experiments were executed on data collected from programming environment Robotanik available at [tutor.fi.muni.cz](http://tutor.fi.muni.cz/).
+
+## Evaluation
+
+### Compare metrics
+
+### Collecting crowd-truth
+
 
 %
 % 3. Implementation specific
 %
-\chapter{Implementation}
-\section{My metrics}
 
-\subsection{Problem structure}
+# Tool
 
-\subsection{Solution}
+## My metrics
+### Problem statement
 
-\subsection{Performance}
+### Solutions
 
-\section{Evaluation}
+### Performance data
 
-\subsection{Compare metrics}
-compare metrics
+## Tool capabilities
 
-\subsection{Collecting expert data}
-collect expert options
-	methods, triplets, scale
-    Rand index
+\end{markdown*}
 
-
-\chapter{These are}
-\section{the available}
-\subsection{sectioning}
-\subsubsection{commands.}
+\chapter{------------------------------------------}
 \paragraph{Paragraphs and}
 \subparagraph{subparagraphs are available as well.}
 Inside the text, you can also use unnumbered lists,
