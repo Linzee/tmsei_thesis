@@ -127,6 +127,10 @@ There is a lot of research about similarity in many different fields like bioinf
 % TODO?
 > Similarity Techniques for Detecting Source Code Plagiarism
 > Modeling How Students Learn to Program
+% CITE from similarity techniques:
+% The abstract nature of computer source code, however, limits the feasibility of applying such tools to computational artifacts
+%...different approaches has to be used
+% possible ambiguities in program semantics, other features, such as arbitrary identifier names, variable whitespace, and nonlinear sequencing of code, present difficulties in textual similarity analysis unique to program source code.
 
 ## Programming environments
 
@@ -166,15 +170,28 @@ We can define different metrics for comparing programming problems. It is possib
 % TODO
 Metrics comparing textual solutions can use all methods known from information retrieval (tf–idf) on source-code text. Another possible approach is to use AST (abstract syntax tree) which is available for almost all of this programming languages. In both cases we can compute similarity as edit distance (Levenshtein edit distance and Tree edit distance respectively), presence of keywords, count of keywords and many more.
 
+%%% There exist many well-defined metrics to measure simi-
+%%% larity. Each of these is typically specified in terms of an in-
+%%% verse characteristic—edit distance. Edit distance is defined
+%%% as the minimum number of applications from a defined set
+%%% of operations necessary to transform one instance of a struc-
+%%% ture to another. Variations in edit distance correspond to
+%%% differences in structures, the set of defined operations, and
+%%% relative weights among their applications.
+
 % TODO neprepisane! nekonzistentne s blokom nadtym
 Some programming environments does not support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Programming enthronements Robomise and Scratch use [Blockly](https://developers.google.com/blockly/) (like) user interface.
 It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
 
 All metrics defined for single solution can also be extended to collect information from multiple students and all their attempts.
 
+% TODO one possible implementeation is to use averege of clacualted features
+
 **Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. With this type of metrics we compute similarity as correlation of one or multiple statistics.
 
 ## (Scicentific) Question, Goal
+
+In the rest of the >>>thesis<<< we will try to answer several questions.
 
 1. Do different (types of) metrics correlate? I.e., is there "one underlying similarity" or do they rather measure different aspects of problem similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
 
