@@ -10,6 +10,7 @@
 
 %  general
 %   Similarity
+%   Programming environments
 %   Possible usage
 %   Metric types
 %   (Scicentific) Question, Goal
@@ -131,12 +132,13 @@ There is a lot of research about similarity in many different fields like bioinf
 
 recommender systems
 
+duplicated code
+plagiarism - modified to disguise plagiarism
+
 % TODO
 not problmes but source code similarity -> plagiatorism ~[@beth2014comparison], source quality control ~[@]
 
 % TODO?
-> Similarity Techniques for Detecting Source Code Plagiarism
-> Modeling How Students Learn to Program
 % CITE from similarity techniques:
 % The abstract nature of computer source code, however, limits the feasibility of applying such tools to computational artifacts
 %...different approaches has to be used
@@ -144,10 +146,11 @@ not problmes but source code similarity -> plagiatorism ~[@beth2014comparison], 
 % TODO
 "leveraging human intelligence” instead of its use for automatic intelligent method ~[@baker2016stupid]
 
+
+
 ## Programming environments
 
-% TODO
-I would like to define what programming environment and programming problems is for me..
+In this section we would like to define what programming environment and programming problems are for us.
 
 When we talk about programming problems we in most cases mean problems created for interactive programming environments for introductory programming. Some examples of environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
 
@@ -169,52 +172,59 @@ When hints ~[@hosseini2017study]
 
 Another idea I am quite found of is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from.
 
-clusters can serve as a basis for knowledge component  definition  or  refinemen ~[@pelanekmeasuring]
+clusters can serve as a basis for knowledge component  definition  or  refinemen ~[@pelanek2017measuring]
 
 Authors of systems can use our metrics for gaining insight of problem pool. It is possible to detect redundant problems, maybe even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author.
 
 ## Metric types
 
-We can define different metrics for comparing programming problems. It is possible to divide metrics into 3 categories based on data that is used.
+% TODO microtrailer
+
+### Data
+
+We can define different metrics for comparing programming problems. It is possible to divide metrics into 4 categories based on data used.
 
 **Problem statement** in interactive programming environments can be used to collect features used in problem. Similarity is mostly computed using distance of vectors describing some features of problem. This category includes usage of tiles in problem, allowed commands, size of level, and more.
 
-**Solution syntax** metrics differ greatly with method used by users to input solutions. We can divide them to textual which are written in commonly used programming languages like Java and visual.
+**Manual labeling** provides us with information not directly related to problem statement but specific for each problem. Some examples of this data are division of problems to categories or levels, difficulty of problem. We are not interested in using this kind of data alone, but they can by used to aid in some other metric.
 
-% TODO
-Metrics comparing textual solutions can use all methods known from information retrieval (tf–idf) on source-code text. Another possible approach is to use AST (abstract syntax tree) which is available for almost all of this programming languages. In both cases we can compute similarity as edit distance (Levenshtein edit distance and Tree edit distance respectively), presence of keywords, count of keywords and many more.
+**Solution** based metrics differ greatly with method used by users to input solutions. We can divide them to textual and visual programming languages. Commonly used programming languages like Python or Java are text-based. Hovever some programming environments for the sake of simplicity use alternative approach. E.g. Robotanik uses commands (blocks) that can be placed in rows representing functions. Programming enthronements Robomise and Scratch use [Blockly](https://developers.google.com/blockly/) (like) user interface where user builds trees from predefined nested blocks.
 
-%%% There exist many well-defined metrics to measure simi-
-%%% larity. Each of these is typically specified in terms of an in-
-%%% verse characteristic—edit distance. Edit distance is defined
-%%% as the minimum number of applications from a defined set
-%%% of operations necessary to transform one instance of a struc-
-%%% ture to another. Variations in edit distance correspond to
-%%% differences in structures, the set of defined operations, and
-%%% relative weights among their applications.
+When dealing with solutions we usually have more than one example solution. This means we may want to somehow extended metrics to use solutions from all students their attempts. Simplest way is to average of calculated features. We will talk more about computing features in next section.
 
-% TODO neprepisane! nekonzistentne s blokom nadtym
-Some programming environments does not support text as solution but some simpler alternative is provided for learners. For example Robotanik uses commands (blocks) that can be placed in rows representing functions. Programming enthronements Robomise and Scratch use [Blockly](https://developers.google.com/blockly/) (like) user interface.
-It is usually simpler to convert solutions into some string or tree which can be used with standard methods.
+**Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. Metrics using performance data are widely applicable to many systems ~[@pelanek2017measuring]
 
-All metrics defined for single solution can also be extended to collect information from multiple students and all their attempts.
+**Combined** metrics may produce more accurate results with smaller amount of data. But it is harder to construct and evaluate them. We will talk more about them in later chapters.
 
-% TODO one possible implementeation is to use averege of clacualted features
+### Similarity techniques
 
-**Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. With this type of metrics we compute similarity as correlation of one or multiple statistics.
+Following section will discuss different techniques used to compute similarity of two problems using data described in previous section.
 
-## (Scicentific) Question, Goal
+Many similarity techniques are based on edit distance. Similarity is then typically specified as $1/{1+d}$ where $d$ is edit distance. Then edit distance is defined as minimum number of operations necessary to transform one instance of structure to another.
 
-In the rest of the >>>thesis<<< we will try to answer several questions.
+*Text/token-based* techniques can be applied to data describing **problem statement** and **solution**. We can use different techniques known from information retrieval. Sometimes it is required to modify this standard techniques when using with data from visual programming environments.
 
-1. Do different (types of) metrics correlate? I.e., is there "one underlying similarity" or do they rather measure different aspects of problem similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
+One of simplest methods is using bag-of-words. In our problems we can either count occurrences of each tile type used in problem statement or commands used in solution. Many of text-based techniques can be applied to multiple sources of data. In either case we will end up with vector of features describing data. This means we have to apply additional step to retrieve similarity of two problems. This step will be applying some distance metric on pairs of feature vectors. Some possible similarity metrics are Euclidean similarity and Cosine similarity.
 
-2. Use "human data" (expert/student judgment) experiment -- collect judgment about (dis)similarity of items and compare with automatic metrics.
-paired comparisons: similarity of A and B on scale 1 to 10
-triplets: Given problem A, which is more similar: B or C?
+Edit distances can also be applied to different kind of data. When analyzing text we can use Levenshtein distance which can be used to directly compare two problems.
 
-3. Tool which will
+Also techniques mostly used in plagiarism detection like w-shingling and winnowing ~[@schleimer2003winnowing] may be used.
 
+There are many other more complex information retrieval and natural language processing techniques. However wont be using them in this work because solutions in Robotanik are really short and we think more complex techniques can't give us any significant benefit.
+
+*Tree-based* techniques are often used in measuring source code similarity using Abstract syntax trees (AST). We can compute similarity of two trees as their tree edit distance.
+
+*Graph-based* techniques may also use edit distance or some other metrics describing graphs. For **solutions** we can generate program dependence graphs (PDG)~[@davey1995development], control flow graphs (CFG).
+
+## Goal
+
+In the rest of the thesis we will try to answer several questions:
+
+- What types of metric can be used on data available from tutoring system Robotanik.
+
+- Do different metrics correlate? Do they measure different aspects of problem similarity or is there one underlying common similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
+
+- Implement simple tool which will be able to ease comparing grid based problems and their solutions.
 
 %
 % 2. Data specific
@@ -222,13 +232,23 @@ triplets: Given problem A, which is more similar: B or C?
 
 # Robotanik
 
-Most of the experiments were executed on data collected from programming environment Robotanik available at [tutor.fi.muni.cz](http://tutor.fi.muni.cz/).
+Most of the experiments were executed on data collected from programming environment Robotanik available at [tutor.fi.muni.cz](http://tutor.fi.muni.cz/). Robotanik is programming environment with 78 handcrafted problems for student to solve. Goal of the student is to write program for robot to traverse board and collect all flowers. Each problem has board filled with tiles of stones, colored tiles (green, red, brown) and flowers.
 
-## Evaluation
+**Problem statements**
 
-### Compare metrics
+**Solutions**
 
-### Collecting crowd-truth
+**Performance data**
+
+## Chosen metrics
+
+In this thesis we are consider only some metrics. We will describe them in detail in this chapter.
+
+### Problem statement
+
+### Solutions
+
+### Performance data
 
 
 %
@@ -237,14 +257,17 @@ Most of the experiments were executed on data collected from programming environ
 
 # Tool
 
-## My metrics
-### Problem statement
-
-### Solutions
-
-### Performance data
-
 ## Tool capabilities
+
+## Chosen metrics
+
+## Evaluation
+
+### Compare metrics
+
+### Collecting crowd-truth
+
+## Visualisations
 
 \end{markdown*}
 
