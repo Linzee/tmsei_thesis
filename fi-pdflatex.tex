@@ -128,21 +128,14 @@ for introductory programming
 
 # Similarity
 
-There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), data retrieval (document similarity), plagiarism detection and many more. On other hand there is only a few mentions about comparing programming problems currently published.
+In this chapter we will talk in general about similarity and where it is used in related fields. Then we will define context of programming environments and problems. After that we will talk about possible usage of results of this work. The last section is describing goals of this thesis.
 
-recommender systems
+There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more. On other hand there is only a few mentions about comparing programming problems currently published.
 
-duplicated code
-plagiarism - modified to disguise plagiarism
+One closely related area is recommender systems which differ from our problem only slightly. Both areas have users and items. Only difference is that we have data about user performance for each item and recommender systems use rating of items.
 
-% TODO
-not problmes but source code similarity -> plagiatorism ~[@beth2014comparison], source quality control ~[@]
+There is quite a few areas using code similarity. Main difference is that we also have some problem statements and data about performance of students when solving problems which we can use. Those areas are source code duplicity, plagiarism ~[@beth2014comparison].
 
-% TODO?
-% CITE from similarity techniques:
-% The abstract nature of computer source code, however, limits the feasibility of applying such tools to computational artifacts
-%...different approaches has to be used
-% possible ambiguities in program semantics, other features, such as arbitrary identifier names, variable whitespace, and nonlinear sequencing of code, present difficulties in textual similarity analysis unique to program source code.
 % TODO
 "leveraging human intelligence” instead of its use for automatic intelligent method ~[@baker2016stupid]
 
@@ -160,21 +153,13 @@ Some programming environments try to constrain student in order to produce more 
 
 ## Possible usage
 
-When we define metrics for measuring similarity of programming problems we can use them for different purposes. Most of them are useful for adaptive programming environments. First possible usage is recommendation of problems for student to solve. We do not want to recommend very similar problems to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
+When we define metrics for measuring similarity of programming problems we can use them for different purposes in programming environments. First possible usage is recommendation of problems for student to solve. We do not want to recommend very similar problems to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
 
-% TODO
+Another possible usage is generating hints by selecting similar example from database of example source codes. Similarity of user solutions was used by @hosseini2017study for this purpose.
 
-When hints ~[@hosseini2017study]
+Another idea we are quite interested in is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from. Even when system has problems divided into groups author can use our metrics to verify that groups are formed correctly and refine them. ~[@pelanek2017measuring]
 
-% TODO A study of concept-based similarity approaches for recommending program examples
-
-% TODO This can be more general
-
-Another idea I am quite found of is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from.
-
-clusters can serve as a basis for knowledge component  definition  or  refinemen ~[@pelanek2017measuring]
-
-Authors of systems can use our metrics for gaining insight of problem pool. It is possible to detect redundant problems, maybe even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author.
+Authors of systems can use this metrics for gaining insight of problem pool. It is possible to detect redundant problems, maybe even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author. Large amount of problems close to each other suggests there is lot of similar problems. When there is some problem standing alone it suggests that author of system may want to add more of similar problems.
 
 ## Metric types
 
@@ -212,6 +197,13 @@ Also techniques mostly used in plagiarism detection like w-shingling and winnowi
 
 There are many other more complex information retrieval and natural language processing techniques. However wont be using them in this work because solutions in Robotanik are really short and we think more complex techniques can't give us any significant benefit.
 
+
+% TODO?
+% CITE from similarity techniques:
+% The abstract nature of computer source code, however, limits the feasibility of applying such tools to computational artifacts
+%...different approaches has to be used
+% possible ambiguities in program semantics, other features, such as arbitrary identifier names, variable whitespace, and nonlinear sequencing of code, present difficulties in textual similarity analysis unique to program source code.
+
 *Tree-based* techniques are often used in measuring source code similarity using Abstract syntax trees (AST). We can compute similarity of two trees as their tree edit distance.
 
 *Graph-based* techniques may also use edit distance or some other metrics describing graphs. For **solutions** we can generate program dependence graphs (PDG)~[@davey1995development], control flow graphs (CFG).
@@ -230,9 +222,15 @@ In the rest of the thesis we will try to answer several questions:
 % 2. Data specific
 %
 
+\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 # Robotanik
 
+In this chapter we will talk more about things that are specific to Robotanik and data used in our analysis.
+
 Most of the experiments were executed on data collected from programming environment Robotanik available at [tutor.fi.muni.cz](http://tutor.fi.muni.cz/). Robotanik is programming environment with 78 handcrafted problems for student to solve. Goal of the student is to write program for robot to traverse board and collect all flowers. Each problem has board filled with tiles of stones, colored tiles (green, red, brown) and flowers.
+
+## Data
 
 **Problem statements**
 
@@ -268,6 +266,8 @@ In this thesis we are consider only some metrics. We will describe them in detai
 ### Collecting crowd-truth
 
 ## Visualisations
+
+\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{markdown*}
 
