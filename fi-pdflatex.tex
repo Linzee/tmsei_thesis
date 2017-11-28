@@ -65,7 +65,7 @@
     type          = bc,
     author        = Dominik Gmiterko,
     gender        = m,
-    advisor       = John Smith,
+    advisor       = Radek Pelánek,
     title         = {Similarity of programming problems},
     TeXtitle      = {Similarity of programming problems},
     keywords      = {similarity, metrics, programming, keyword2, ...},
@@ -193,7 +193,7 @@ Following section will discuss different techniques used to compute similarity o
 
 **Text/token-based** techniques can be applied to data describing problem statement and solution. We can use different techniques known from information retrieval. Sometimes it is required to modify this standard techniques when using with data from visual programming environments.
 
-One of simplest methods is using bag-of-words. In our problems we can either count occurrences of each tile type used in problem statement or commands used in solution. Many of text-based techniques can be applied to multiple sources of data. In either case we will end up with vector of features describing data. This means we have to apply additional step to retrieve similarity of two problems. This step will be applying some distance metric on pairs of feature vectors. Some possible similarity metrics are Euclidean similarity and Cosine similarity.
+One of simplest methods is using bag-of-words. In our problems we can either count occurrences of each tile type used in problem statement or commands used in solution. Many of text-based techniques can be applied to multiple sources of data. In either case we will end up with vector of features describing data. This means we have to apply additional step to retrieve similarity of two problems. Applying some standard similarity metric like Euclidean similarity or Cosine similarity results in final problems similarity.
 
 Edit distances can also be applied to different kind of data. When analyzing text we can use Levenshtein distance which can be used to directly compare two problems.
 
