@@ -1,4 +1,4 @@
-all: tmp build
+all: build
 
 clean:
 	rm -rf tmp

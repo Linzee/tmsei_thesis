@@ -102,8 +102,6 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Define a metric for measuring similarity of programming problems
-for introductory programming
 
 \begin{markdown*}{%
   hybrid,
@@ -120,7 +118,18 @@ for introductory programming
 % Introduction
 %
 
-% TODO co je citatelov ciel, na co sa moze tesit
+Tutoring systems are computer-based systems designed to introduce users into various domains.
+They usually have large amount of items which enables them to provide personalized experience. To maintain this large pool of items efficiently we need to be able to decide which items are useful and which are not. Also large portion of tutoring systems are focusing on teaching elementary programming. Learning of programming is a complex activity. This makes it important to choose best problems for users to solve.
+This are reason why it is useful to be able to measure similarity of items in tutoring systems as similarity of items can help us improve tutoring system.
+
+Goal of this thesis is to define metrics for measuring similarity of programming problems for introductory programming. Results of this first part can be then used to determine clusters of similar problems and provide visualization that show structure of problem pool.
+
+When developing metrics we used data collected from students who solved problems in Robotanik (single task from Problem Solving Tutor developed at Faculty of Informatics at Masaryk University).
+
+Besides Introduction and Conclusion chapters, this thesis is structured into three additional chapters. First chapter talks in general about problem of measuring similarity of programming problems. It explains difference between program and programming problem, which data we have available and techniques used for measuring similarity of problems. Second chapter advances level deeper and describe everything what is specific to data we used. First part of chapter describes programming environment of Robotanik and data from it. Second part focuses in detail on metrics we used in experiments. Last chapter gives overview of implementation and usage of metrics and their evaluation.
+
+
+
 
 %
 % 1. General, about similarity of programming problems
@@ -128,22 +137,21 @@ for introductory programming
 
 # Similarity
 
-%TODO
-In this chapter we will talk in general about similarity and where it is used in related fields. Then we will define context of programming environments and problems. After that we will talk about possible usage of results of this work. The last section is describing goals of this thesis.
+In this chapter we will talk in general about similarity and where it is used in related fields. Then we will define context of programming environments and problems. Which allows us talk about possible usage of results of this work. Most of the chapter focuses on explaining what kinds of data are available when comparing programming problems in different programming environments and techniques to do so. Last section is describing goals of this specific thesis.
 
-There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more. On other hand there is only a few mentions about comparing programming problems currently published.
+There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more. On other hand currently there is almost none research focused at comparing programming problems.
 
-One closely related area is recommender systems which differ from our problem only slightly. Both areas have users and items. Only difference is that we have data about user performance for each item and recommender systems use rating of items.
+One closely related area is recommender systems which differ from our problem only slightly. Both areas have users and items. Only difference is that we know how well user did while solving specific item and recommender systems use rating of the items.
 
-There is quite a few areas using code similarity. Main difference is that we also have some problem statements and data about performance of students when solving problems which we can use. Those areas are source code duplicity, plagiarism ~[@beth2014comparison].
+Another related area is dealing with measuring code similarity. They use similarity to detect plagiarism~[@beth2014comparison] and source code quality. Main difference is that we can use more data about problem. We also have some problem statement and data about performance of students when solving problem.
 
 ## Programming environments
 
 In this section we would like to define what programming environment and programming problems are for us.
 
-When we talk about programming problems we in most cases mean problems created for interactive programming environments for introductory programming. Some examples of environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
+When we talk about programming problems we in most cases mean problems created in interactive programming environments for learning introductory programming. Some examples of programming environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
 
-Problems in this environments are specified by grid with tiles which have different meaning. Users are supposed to write program for some entity to fulfil given task. Most common task is to visit all tiles of some type. In Robotanik student are asked to build program guiding robot to collect all flowers.
+Problems in this environments are specified by board divided to grid which is filled with tiles where each type of tile has different meaning. Users are supposed to write program for some entity to fulfill given task. Most common task is to visit all \uv{goal} tiles. In Robotanik student are asked to build program guiding robot to collect all flowers.
 
 Some programming environments try to constrain student in order to produce more creative solutions. One possible limitation is allowing student to use only subset of all available commands. Another approach is to limit length of program.
 
@@ -153,11 +161,11 @@ When we define metrics for measuring similarity of programming problems we can u
 
 Another possible usage is generating hints by selecting similar example from database of example source codes. Similarity of user solutions was used by @hosseini2017study for this purpose.
 
-Previous use cases were using problem similarity automatically inside tutoring system. Another approach is to bringing human beings into the decision-making loop. Visualizations based on similarity metrics can be used to inform them what changes may be useful. ~[@baker2016stupid]
+Previous use cases were using problem similarity automatically inside tutoring system. Another approach is to bringing human beings into the decision-making loop~[@baker2016stupid]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful.
 
-Authors of systems can use this metrics for gaining insight of problem pool. It is possible to detect redundant problems, maybe even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author. Large amount of problems close to each other suggests there is lot of similar problems. When there is some problem standing alone it suggests that author of system may want to add more of similar problems.
+Authors of systems can use this metrics for gaining insight of problem pool. It is possible to detect redundant problems, even tell which problems are missing. One way of achieving this is plotting problems to plane and displaying it to author. Large amount of problems close to each other suggests there is lot of similar problems. When there is some problem standing alone it suggests that author of system may want to add more of similar problems.
 
-Last idea we are quite interested in is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from. Even when system already has problems categorized author can use our metrics to verify that groups are formed correctly and refine them. ~[@pelanek2017measuring]
+Last idea we are quite interested in is automatic construction of user interface. When we have large amount of problems without any present categorization we can use problem similarity to construct categories for student to select from. Even when system already has problems categorized author can use our metrics to verify that groups are formed correctly and refine them.~[@pelanek2017measuring]
 
 ## Metric types
 
@@ -175,7 +183,7 @@ We can define different metrics for comparing programming problems. It is possib
 
 When dealing with solutions we usually have more than one example solution. This means we may want to somehow extended metrics to use solutions from all students their attempts. Simplest way is to average of calculated features. We will talk more about computing features in next section.
 
-**Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. Metrics using performance data are widely applicable to many systems ~[@pelanek2017measuring]
+**Performance based** metrics requires having collected data about students while solving problems. Example of data that falls in this category is solution time, number of attempts, hints used. Metrics using performance data are widely applicable to many systems~[@pelanek2017measuring]
 
 **Combined** metrics may produce more accurate results with smaller amount of data. But it is harder to construct and evaluate them. We will talk more about them in later chapters.
 
@@ -183,23 +191,25 @@ When dealing with solutions we usually have more than one example solution. This
 
 Following section will discuss different techniques used to compute similarity of two problems using data described in previous section.
 
-*Text/token-based* techniques can be applied to data describing **problem statement** and **solution**. We can use different techniques known from information retrieval. Sometimes it is required to modify this standard techniques when using with data from visual programming environments.
+**Text/token-based** techniques can be applied to data describing problem statement and solution. We can use different techniques known from information retrieval. Sometimes it is required to modify this standard techniques when using with data from visual programming environments.
 
 One of simplest methods is using bag-of-words. In our problems we can either count occurrences of each tile type used in problem statement or commands used in solution. Many of text-based techniques can be applied to multiple sources of data. In either case we will end up with vector of features describing data. This means we have to apply additional step to retrieve similarity of two problems. This step will be applying some distance metric on pairs of feature vectors. Some possible similarity metrics are Euclidean similarity and Cosine similarity.
 
 Edit distances can also be applied to different kind of data. When analyzing text we can use Levenshtein distance which can be used to directly compare two problems.
 
-Also techniques mostly used in plagiarism detection like w-shingling and winnowing ~[@schleimer2003winnowing] may be used.
+Also techniques mostly used in plagiarism detection like w-shingling and winnowing~[@schleimer2003winnowing] may be used.
 
 There are many other more complex information retrieval and natural language processing techniques. However wont be using them in this work because solutions in Robotanik are really short and we think more complex techniques can't give us any significant benefit.
 
 Abstract nature of source code limits usefulness of text-based processing techniques. Most programming languages allow to write many ambiguous programs which are doing same thing. Most common reasons are identifier renaming, line reordering, variable whitespace count. This is reason to implement more abstract techniques using different aspects of programs. We will list some of them in the rest of this section.
 
-Many similarity techniques are based on edit distance. Similarity is then typically specified as $1/{1+d}$ where $d$ is edit distance. Then edit distance is defined as minimum number of operations necessary to transform one instance of structure to another.
+Many similarity techniques are based on edit distance. Similarity is then typically specified as $1/(1+d)$ where $d$ is edit distance. Where edit distance is minimum number of operations necessary to transform one instance of structure to another.
 
-*Tree-based* techniques are often used in measuring source code similarity using Abstract syntax trees (AST). Similarity of two trees is computed as their tree edit distance.
+**Tree-based** techniques are often used in measuring source code similarity using Abstract syntax trees (AST). Similarity of two trees is computed as their tree edit distance.
 
-*Graph-based* techniques may also use edit distance or some other metrics describing graphs. For **solutions** we can generate program dependence graphs (PDG)~[@davey1995development], control flow graphs (CFG).
+**Graph-based** techniques may also use edit distance or some other metrics describing graphs. For solutions we can generate program dependence graphs (PDG)~[@wang2014detection], control flow graphs (CFG).
+
+**Correlation-based** -- for some types of data (e.g. user solving time) there is no need to preprocess them and some similarity metric like euclidean similarity can be used directly.
 
 ## Goal
 
@@ -209,11 +219,7 @@ In the rest of the thesis we will try to answer several questions:
 
 - Do different metrics correlate? Do they measure different aspects of problem similarity or is there one underlying common similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
 
-- ???
-
-\iffalse
-- Implement simple tool which will be able to ease comparing grid based problems and their solutions.
-\fi
+- Implement simple tool which will be able to ease determining similarity of grid based programming problems.
 
 %
 % 2. Data specific
