@@ -6,23 +6,6 @@
 %% conditions are required by law.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Content:
-
-%  general
-%   Similarity
-%   Programming environments
-%   Possible usage
-%   Metric types
-%   (Scicentific) Question, Goal
-% data specific
-%   Robotanik
-%   Evaluation
-%   Collecting expert data
-% implementation specific
-%   my metrics
-%   Tool
-%   Data Format
-
 \documentclass[
   digital, %% This option enables the default options for the
            %% digital version of a document. Replace with `printed`
@@ -30,10 +13,11 @@
            %% of a document.
   table,   %% Causes the coloring of tables. Replace with `notable`
            %% to restore plain tables.
-  lof,     %% Prints the List of Figures. Replace with `nolof` to
+  nolof,     %% Prints the List of Figures. Replace with `nolof` to
            %% hide the List of Figures.
-  lot,     %% Prints the List of Tables. Replace with `nolot` to
+  nolot,     %% Prints the List of Tables. Replace with `nolot` to
            %% hide the List of Tables.
+  nocover
   %% More options are listed in the user guide at
   %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fi.pdf>.
 ]{fithesis3}
@@ -99,6 +83,30 @@
 \usepackage{floatrow} %% Putting captions above tables
 \floatsetup[table]{capposition=top}
 \begin{document}
+
+\chapter*{VB000}
+
+\begin{otherlanguage}{slovak}
+{\bf Predbežné zadanie:}
+
+\noindent
+Goal of this thesis is to define metrics for measuring similarity of programming problems for single task (Robotanik) from Problem Solving Tutor (tutor.fi.muni.cz). Specific goals:
+
+\begin{itemize}
+\item Provide an overview of relevant related research.
+\item Propose metrics for measuring similarity of programming problems, analyze differences between them.
+\item Verify possibility of using similarity in management of large problem pool.
+\end{itemize}
+
+\noindent
+{\bf Predpokládaný vedúci:} Radek Pelánek
+\\
+\\
+\noindent
+Generovanie bibliografickych zaznamov ponechavam na Bib{\LaTeX}u.
+
+\end{otherlanguage}
+
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -127,8 +135,6 @@ Goal of this thesis is to define metrics for measuring similarity of programming
 When developing metrics we used data collected from students who solved problems in Robotanik (single task from Problem Solving Tutor developed at Faculty of Informatics at Masaryk University).
 
 Besides Introduction and Conclusion chapters, this thesis is structured into three additional chapters. First chapter talks in general about problem of measuring similarity of programming problems. It explains difference between program and programming problem, which data we have available and techniques used for measuring similarity of problems. Second chapter advances level deeper and describe everything what is specific to data we used. First part of chapter describes programming environment of Robotanik and data from it. Second part focuses in detail on metrics we used in experiments. Last chapter gives overview of implementation and usage of metrics and their evaluation.
-
-
 
 
 %
@@ -219,7 +225,7 @@ In the rest of the thesis we will try to answer several questions:
 
 - Do different metrics correlate? Do they measure different aspects of problem similarity or is there one underlying common similarity? If there are multiple aspects, what is the relation between them? How do we use them in practical applications?
 
-- Implement simple tool which will be able to ease determining similarity of grid based programming problems.
+- Implement simple tool which will be able to ease measuring similarity of grid based programming problems.
 
 %
 % 2. Data specific
