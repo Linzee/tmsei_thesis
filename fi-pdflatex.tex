@@ -143,27 +143,27 @@ Besides Introduction and Conclusion chapters, this thesis is structured into thr
 
 # Similarity
 
-In this chapter we will talk in general about similarity and where it is used in related fields. Then we will define context of programming environments and problems. Which allows us talk about possible usage of results of this work. Most of the chapter focuses on explaining what kinds of data are available when comparing programming problems in different programming environments and techniques to do so. Last section is describing goals of this specific thesis.
+In this chapter we will talk in general about similarity and where it is used in related fields. Then we will define context of programming environments and problems. Which allows us talk about possible usage of results of this work. Most of the chapter focuses on explaining what kinds of data are available when comparing programming problems in different programming environments and techniques to do so. Last section describes goals of the thesis.
 
-There is a lot of research about similarity in many different fields like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more. On other hand currently there is almost none research focused at comparing programming problems.
+A lot of research has been dedicated to similarity in many different fields computer science like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more. On other hand currently there is almost no research focused directly at comparing programming problems.
 
-One closely related area is recommender systems which differ from our problem only slightly. Both areas have users and items. Only difference is that we know how well user did while solving specific item and recommender systems use rating of the items.
+One closely related area is recommender systems which differs from problem similarity only slightly. Both areas are distinguishing users and items. Only difference is that we know how well user did while solving specific item and recommender systems use rating of the items.
 
-Another related area is dealing with measuring code similarity. They use similarity to detect plagiarism~[@beth2014comparison] and source code quality. Main difference is that we can use more data about problem. We also have some problem statement and data about performance of students when solving problem.
+Another related areas make use of measuring code similarity. For example it can be used in plagiarism detection~[@beth2014comparison] and analysis of source code quality (detection of redundant functions). Main difference is that we can use more data about problem. We also have some problem statement and data about performance of students when solving problem.
 
 ## Programming environments
 
 In this section we would like to define what programming environment and programming problems are for us.
 
-When we talk about programming problems we in most cases mean problems created in interactive programming environments for learning introductory programming. Some examples of programming environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
+When we talk about programming problems we mean problems created in interactive programming environments. Programming environments are tutoring systems dedicated to teaching introductory programming. Some examples of programming environments are [Robotanik](https://tutor.fi.muni.cz/), [Karel](http://stanford.edu/~cpiech/karel/ide.html), Lightbot.
 
 Problems in this environments are specified by board divided to grid which is filled with tiles where each type of tile has different meaning. Users are supposed to write program for some entity to fulfill given task. Most common task is to visit all \uv{goal} tiles. In Robotanik student are asked to build program guiding robot to collect all flowers.
 
-Some programming environments try to constrain student in order to produce more creative solutions. One possible limitation is allowing student to use only subset of all available commands. Another approach is to limit length of program.
+Some programming environments try to constrain student in order to produce more creative solutions. One possible limitation is allowing student to use only subset of all available commands. Another approach is to limit length of program. Limiting length prevents student from manually placing each step into program and forces him to think of more general solution using loops or recursion.
 
 ## Possible usage
 
-When we define metrics for measuring similarity of programming problems we can use them for different purposes in programming environments. First possible usage is recommendation of problems for student to solve. We do not want to recommend very similar problems to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
+After defining metrics for measuring similarity of programming problems we can use them for different purposes in programming environments. First, most direct, usage is recommendation of problems for student to solve. We do not want to recommend very similar problems to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
 
 Another possible usage is generating hints by selecting similar example from database of example source codes. Similarity of user solutions was used by @hosseini2017study for this purpose.
 
