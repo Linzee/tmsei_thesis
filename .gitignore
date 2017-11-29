@@ -10,7 +10,6 @@ fi-pdflatex.lot
 fi-pdflatex.markdown.in
 fi-pdflatex.markdown.lua
 fi-pdflatex.out
-fi-pdflatex.pdf
 fi-pdflatex.run.xml
 fi-pdflatex.toc
 texput.log
