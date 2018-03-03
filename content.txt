@@ -1,19 +1,64 @@
 Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický postup.
 
-%Introduction
-%Content
+## Introduction
+- interactive educatinal systems
+- items
+- focus on systems with large amount of items
+- reasons why it is useful, managemet of problem pool
+  - "empowering humans"
+- recommender systems
+- goal of this work
+
+## Similarity
 - Possible usage
 - Tools
   (using item similarity)
   - Sprava item pool
   - Sprava taxonomy
 - Computing similarity of items
-  - Data types
-  - Metric types
-  - Steps, sialeny diagram
-- Used Data
+  - item
+    - item statement
+    - item solution
+    - performance
+  - workflow
+    (studied in ML)
+    - simplified diagram
+    - feature matrix
+      - data transforamtions, normalization
+    - item simialrity matrix
+    - directly compute simialrity
+      - (string/tree) edit distance
+      - performance
+    - projections
+  - someone else is taking care of different posisiblilities of computing similatity
+- Datasets
   - Cestina
   - Programming environments
+  - Matmat
+-
+## Evaulation
+  - Problem #1
+    - same tyme of question (one of two choices), different contexts
+    - in many context items are divided into clusters based correct answer i/y when there is no information about this in data used for computing similarity
+    - how is similarity computed
+    - used metric type doesn't affect results
+  - Problem #2
+    - 3 clusters based on 3 levels of questions diffiulty
+    - how users tend to solve them
+    - simulated data experiment
+
+  - Umime matiku
+
+    - (re)Usage in other concepts
+      - Systemy v akych sa to da vyuzit
+
+## Conclusion
+- Problems specific for dataset may arise
+- Now we understand how structure of system may affect performance data
+- Reusable in other systems
+
+<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3
+
 - Tools
   (using item similarity)
   - Sprava item pool
@@ -26,13 +71,3 @@ Cílem práce je prozkoumat metody pro měření podobnosti výukových položek
     - Priradenie problemov do existujucich kategorii
     - Vygenerovanie rozdelenia
   - Structure of scripts
-- Results
-  - Cestina
-    -
-  - Matematika
-    -
-- (re)Usage in other enthronements
-  - Systemy v akych sa to da vyuzit
-%Conclusion
--
-- Reusable in other systems
