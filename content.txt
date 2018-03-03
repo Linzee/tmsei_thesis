@@ -1,0 +1,38 @@
+Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický postup.
+
+%Introduction
+%Content
+- Possible usage
+- Tools
+  (using item similarity)
+  - Sprava item pool
+  - Sprava taxonomy
+- Computing similarity of items
+  - Data types
+  - Metric types
+  - Steps, sialeny diagram
+- Used Data
+  - Cestina
+  - Programming environments
+- Tools
+  (using item similarity)
+  - Sprava item pool
+    - Vizualizacia
+    - Detekcia nadbytocnych itemov
+    - Detekcia outsiderov
+    - Navrh chybajucich itemov
+  - Sprava taxonomy
+    - Validacia existujuceho rozdelenia itemov
+    - Priradenie problemov do existujucich kategorii
+    - Vygenerovanie rozdelenia
+  - Structure of scripts
+- Results
+  - Cestina
+    -
+  - Matematika
+    -
+- (re)Usage in other enthronements
+  - Systemy v akych sa to da vyuzit
+%Conclusion
+-
+- Reusable in other systems

@@ -1,0 +1,99 @@
+Dear Radek Pelánek,
+
+We had many high quality paper submissions and unfortunately we could not accept your paper  (Measuring Item Similarity in Introductory Programming) as a full paper for Learning@Scale 2018.  We hope you find the reviews helpful in improving your work.  Please consider submitting your paper, in 2 page form, as a work-in-progress paper for Learning@Scale 2018. Work-in-progress submissions should be submitted on EasyChair and are due March 24, 2018.
+
+Your conference co-chairs,
+Ken Koedinger
+Scott Klemmer
+
+
+----------------------- REVIEW 1 ---------------------
+PAPER: 2
+TITLE: Measuring Item Similarity in Introductory Programming
+AUTHORS: Radek Pelánek, Tomáš Effenberger, Matěj Vaněk, Vojtěch Sassmann and Dominik Gmiterko
+
+Overall evaluation: 0 (borderline paper)
+
+----------- Overall evaluation -----------
+The submission attempts to provide an evaluation of similarity measures based on textual information.  The evaluation is threefold, first assessing how a measure behaves over different features extracted from words, second assessing the agreement between measures over text data, and a third assessment where the similarity (distance) measures are used for clustering items and where the clusters are compared to a set of predefined item label categories.
+
+The goal of estimating the reliability and validity of item similarity measures is relevant and important.  The work makes a relevant, though limited contribution towards this end.
+
+One limitation is the relatively small set of items and domains.
+
+Another limitation is due to the presentation: the goals and the findings are not clearly expressed and it becomes difficult to understand the results.  Reliance on more formal definitions of the work done and results would be a useful complement to help clear out ambiguity in the text.
+
+In particular, I find the contribution of the similarity specific measure and agreement between measures studies unclear.  The author claims that this exploration leads to 4 recommendations (p.9), but I fail to see this link and the recommendations often correspond to standard practice.
+
+- Titles are misleading: "Impact on Measure Application" is really an assessment of how similar is the clustering to an expert defined categorization of items (which I would name "target categories" or "expert labels", rather than "ground truth" since there may be different "truths" per expert)
+- diff. between semantics/topics and difficulty
+
+- "items are *order* by"
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 2
+TITLE: Measuring Item Similarity in Introductory Programming
+AUTHORS: Radek Pelánek, Tomáš Effenberger, Matěj Vaněk, Vojtěch Sassmann and Dominik Gmiterko
+
+Overall evaluation: -2 (reject)
+
+----------- Overall evaluation -----------
+The authors tackle a meta problem which is an important one that many folks in ML and edu tools grapple with: what is the appropriate way to represent problems and solutions? What is the appropriate way to capture the structure within them, so that structural, skill-related similarities across superficially distinct problems can be recognized and leveraged?
+
+I appreciate how this paper calls readers' attention to how representation and metric design are related to each other and affect results. There are no 'neutral' choices!
+
+However, I had difficulty understanding this paper as a "framework" paper. The general approach provided by the authors, as represented in Fig. 2, fails to call out what is novel, or how this is different from a standard clustering analysis pipeline design. The three levels of abstraction (listed on p.9) do not give people a framework for making similarity metric design decisions, they're making "explicit the many choices that we need to make to specify a similarity measure" which is very important! I realize this is perhaps just a question of language (specifically, what counts as a 'framework'), but I think it's important for helping readers comprehend the contribution.
+
+The paper's contribution, as I understood it, is the description of three levels of analysis that would allow the reader to explore the sensitivity of their application-specific outcomes with respect to a set of possible similarity analyses (representations and similarity metrics).
+
+Is it possible to show, not tell, more about how these three levels of abstraction for exploring similarity measures affects education-relevant outcomes?  Currently, the analysis results are shallow and expected, such as calling out that measures that use the same source of data in different ways were often correlated. Can the authors show how these metric design choices affect real world outcomes, such as the usefulness of the resulting clusters, rated by teachers who might want to use them?
+
+Argumentation & Presentation
+I would encourage the authors to examine overly general or imprecise statements made throughout the paper, to see if they can be appropriately qualified or defined. I'm afraid that, otherwise, readers will balk at these overly general statements, which can be refuted with counter examples. Examples which I feel need such treatment:
+"For high quality education, we need large pools of items to solve."
+"To use a large item pool efficiently, we need to be able to navigate it."
+
+Other statements are made without any follow-up explanation, justification, or citation, such as:
+"Evaluation of quality of similarity measures is difficult." (I agree, and I feel this is at the heart of the argument for writing this paper, but there's no succinct summarization of *why* it's hard.)
+"Using a bag-of-words with log-counts (possibly with some feature weights normalization, such as IDF) is a reasonable compromise." A reasonable comprise with respect to what? Each application is different.
+
+A lot of space is spent arguing for why similarity metrics are useful in educational contexts for various applications. Unless these applications are specifically addressed as part of the evaluation, I think less space can be spent on this. The audience for this conference does not need to be convinced that item similarity is useful.
+
+Nearly all uses of quotation marks in this paper are unnecessary.
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 2
+TITLE: Measuring Item Similarity in Introductory Programming
+AUTHORS: Radek Pelánek, Tomáš Effenberger, Matěj Vaněk, Vojtěch Sassmann and Dominik Gmiterko
+
+Overall evaluation: -2 (reject)
+
+----------- Overall evaluation -----------
+This paper poses a useful question but has very little in the way of
+results.  As the authors note, an automated approach to determining
+similarity of items in a pool is to featurize the items, select a
+distance metric, and thus construct a similarity matrix.  That is well
+known.  However, the hard part is how to engineer the features and how
+to select an appropriate distance metric.  To these questions the paper
+offers no new insight over the related work cited.
+
+While a lot of related work is cited in the area of similarity
+measurement generally, relatively little is cited in the area of
+determining similarity between computer programs specifically.  Indeed,
+scanning the References of some of those that are cited, such as the
+papers by Piech et al, Yin et al, and Nguyen et al, suggests there's a
+substantial software engineering literature in addition to the more
+recent education-focused literature on finding similar examples.
+
+THe idea of combining "content-based" similarity with
+"performance-based" similarity is interesting, but not well explored.  I
+suggest the authors focus on one or two specific methods of determining
+similarity, identify a substantial and well-calibrated ground truth set
+(for example, using either manual coding with inter-rater agreement or
+other standard techniques) and more fully explore a specific approach,
+rather than trying to make very general comments about a variety of
+approaches but without the support of actionable and calibratable
+results, as occurs in this paper.
+simi
