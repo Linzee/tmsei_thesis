@@ -82,3 +82,22 @@ evaulation
     agreement of measures
     ways of computing agreement
 ...
+
+
+
+
+
+<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3
+
+- Tools
+  (using item similarity)
+  - Sprava item pool
+    - Vizualizacia
+    - Detekcia nadbytocnych itemov
+    - Detekcia outsiderov
+    - Navrh chybajucich itemov
+  - Sprava taxonomy
+    - Validacia existujuceho rozdelenia itemov
+    - Priradenie problemov do existujucich kategorii
+    - Vygenerovanie rozdelenia
+  - Structure of scripts
