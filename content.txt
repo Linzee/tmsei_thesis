@@ -1,20 +1,29 @@
 Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický postup.
 
 ## Introduction
-- interactive educatinal systems
-- items
+- interactive educational systems
 - focus on systems with large amount of items
-- reasons why it is useful, managemet of problem pool
-  - "empowering humans"
-- recommender systems
+- one possible method, using similarity of items
 - goal of this work
+- structure of this work
 
 ## Similarity
-- Possible usage
-- Tools
-  (using item similarity)
-  - Sprava item pool
-  - Sprava taxonomy
+- Intro to chapter
+  - Structure
+  - Using similarity in related fields
+    - Difference
+- Items
+  - why this term
+  - data sources
+    - statement
+    - solution
+    - performance
+- Why is similarity of items useful
+  - "navigate" problem pool
+  - "empowering humans"
+  - Tools (using item similarity)
+    - Sprava item pool
+    - Sprava taxonomy
 - Computing similarity of items
   - item
     - item statement
@@ -56,18 +65,3 @@ Cílem práce je prozkoumat metody pro měření podobnosti výukových položek
 - Problems specific for dataset may arise
 - Now we understand how structure of system may affect performance data
 - Reusable in other systems
-
-<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3
-
-- Tools
-  (using item similarity)
-  - Sprava item pool
-    - Vizualizacia
-    - Detekcia nadbytocnych itemov
-    - Detekcia outsiderov
-    - Navrh chybajucich itemov
-  - Sprava taxonomy
-    - Validacia existujuceho rozdelenia itemov
-    - Priradenie problemov do existujucich kategorii
-    - Vygenerovanie rozdelenia
-  - Structure of scripts
