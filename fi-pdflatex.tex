@@ -118,6 +118,7 @@
 % --------------------------- %
 
 % interactive educational systems
+
 Tutoring systems are computer-based systems designed to introduce users into various domains.
 They usually have large amount of items which enables them to provide personalized experience. To maintain this large pool of items efficiently we need to be able to decide which items are useful and which are not.
 
@@ -128,6 +129,7 @@ They usually have large amount of items which enables them to provide personaliz
 % goal of this work
 
 % structure of this work
+
 Besides Introduction and Conclusion chapters, this thesis is structured into three additional chapters. First chapter talks in general about problem of measuring similarity of programming problems. It explains difference between program and programming problem, which data we have available and techniques used for measuring similarity of problems. Second chapter advances level deeper and describe everything what is specific to data we used. First part of chapter describes programming environment of Robotanik and data from it. Second part focuses in detail on metrics we used in experiments. Last chapter gives overview of implementation and usage of metrics and their evaluation.
 
 # Similarity
@@ -137,25 +139,34 @@ Besides Introduction and Conclusion chapters, this thesis is structured into thr
 % --------------------------- %
 
 % Intro to chapter
+
 %% Structure
+
 In this chapter we will talk in general about questions in learning systems, and computing their similarity. Most of the chapter focuses on explaining what kinds of data are available when comparing questions in learning systems and techniques to do so. Last section describes goals of the thesis.
 
 %% Using similarity in related fields
+
 A lot of research has been dedicated to similarity in many different fields computer science like bioinformatics (sequence alignment, similarity matrix of proteins), information retrieval (document similarity), plagiarism detection and many more.
 
 %TODO este sme nepovedali ze pouzivame performance, presunut
+
 One closely related area is recommender systems which differs from problem similarity only slightly. Both areas are distinguishing users and items. Only difference is that we know how well user did while solving specific item and recommender systems use rating of the items.
 
 %%% Main difference from educational systems
+
 Main difference is that we can use more data about problem. We also have some problem statement and data about performance of students when solving problem.
 
 ## Items
+
 % Items
+
 %% Why this term
+
 In this work we use the term “items” (problems, questions, assignments) when we refer to single entry in educational system which users can answer to. Since many aspects of this work are generally applicable we decided to use this general term. In some learning systems this can refer to simple choice from two options in another complex tasks which user solves in matter of minutes.
 On other side of the spectrum are systems for teaching introductional programming. Users tend to spend few minutes solving each task and there is fewer of them.
 
 %% Data sources
+
 To further specify the context of our research, we will describe characteristics of items. For computing similarity of items it is most important knowing which data are available to us. Therefore we describe items by sources of data can be used for measuring similarity.
 
 - **Item statement:** specification of the item that a learner should solve, e.g., as a natural language description of the task.
@@ -173,10 +184,31 @@ As we mentioned previously key part of learning solving of educational items.
 
 ## Computing similarity of items
 % Computing similarity of items
+
 The general approach to measuring and using similarity of educational items
 
 ## Used datasets
 % Datasets
+
+% types of data (real, simualted), why?, real, simulated
+
+In our analysis we use both real data from educational system and simulated data. There is a reason why use both as only real-world data are useful for concluding any results. However evaluation of this data is often complicated as we do not know truth about many of their aspects. That's why we used simulated data for validating some of our conclusions. We will talk more in depth about how we generated simulated data in next chapter when describing their specific usage.
+
+Most of used real-world data comes from system [Umíme česky](https://umimecesky.cz/). Later we have validated our results by also using data from its sibling system [Umíme matiku](https://umimematiku.cz/). We think it is useful as data come from another context but are provided in same format and therefore can be used directly in previously created tools.
+
+### Umíme česky
+% czech grammar, "fill-in-the-blank" with two choices, correctness and time, multiple grammar concepts, example of one exercise
+
+[Umíme česky](https://umimecesky.cz/) is system for practice of Czech grammar. System contains multiple exercise types, but in our analysis we use only one exercise - simple "fill-in-the-blank" with two possible answers. This type of exercise can be then viewed by student in multiple ways.
+%TODO all views of exercise
+
+!["fill-in-the-blank" example question](img/umimecesky_doplnovacka)
+
+We focused only on "fill-in-the-blank" exercises but they can still be used to train many concepts of Czech grammar.
+%TODO different concepts in grammar
+
+### Umíme matiku
+
 
 # Evaulation
 
@@ -184,6 +216,38 @@ The general approach to measuring and using similarity of educational items
 % Evaulation                  %
 % --------------------------- %
 
+% Description of common projection output
+
+% Regularities
+
+%% How is projection (similarity) computed
+
+## Answer regularity
+% Answer regularity
+%% Description of problem, items are divided into clusters based correct answer (i/y) when there is no information about this in data used for computing similarity
+
+%% Quantification for different concepts
+
+%% Used metric type doesn't affect results
+
+%% Total similarity
+
+## Level regularity
+% Level regularity
+%% Description of problem, 3 clusters based on 3 levels of questions difficulty, how users tend to solve them
+
+%% Missing data, structure
+
+%%% Simulated data experiment
+
+%% Quantification of level clustering, split and compare with truth
+
+## Another context
+% Another context
+
+%% Replicated in another context of math
+
+%% (re)Usage in other concepts
 
 # Conclusion
 
