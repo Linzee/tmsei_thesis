@@ -218,9 +218,55 @@ We focused only on "fill-in-the-blank" exercises but they can still be used to t
 
 % Description of common projection output
 
+%% why is projection useful
+
+it is hard to say anything about data when tehre is a lot of it
+we especialy focused on systems which consist of TODO1000s of solvable items and even more users
+in cases like this it is not possible to look at data about each item individually
+possible with projection of many-dimensional data into 2 dimensions.
+
+%% similarity and projection
+
+Many different data can be used for computing projections
+we want from this projection to have some attributes
+the most important one is that items in projection should be closer to each other if they are more similar to each other than if they are not similar at all
+
+%% how does projection look like, possibel answers and levels
+
+Figure \ref{common_projection} shows how common projection looks like. This particular projection consist of 273 items TODOpatriacich into one TODOknowledge component.
+
+Most TODOknowledge components in system Umíme česky are spitted into multiple difficulty levels.
+
+Items in displayed concept are divided into three levels. This is shown in image with three different colors (first level with red, second with green and third in blue).
+
+![Basic projection of one context in Umíme česky\label{common_projection}](img/common_projection)
+
 % Regularities
 
+After looking at image you can notice some regularities.
+
+
 %% How is projection (similarity) computed
+
+To better understand how was this image created we have to understand how it is computed. We will describe it following section. This is default work-flow we used in most cases. Whenever we don't specify otherwise all projections were produced using this work-flow.
+
+%%% Performance matrix
+
+1. First step we have to do is converting raw logged information about user answers to performance matrix. This matrix consist of entries for each user-item pair. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In most cases we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. Another possible choice is to incorporate user solving time into this value. TODO possible choices are described in [] Performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+
+%%% Similarity matrix
+
+2. Next step is computing similarity matrix. Matrix $S$ is square matrix where each position $S_{ij}$ denotes similarity of items $i$ and $j$. In our case similarity is computed as correlation of two columns $i$ and $j$ in performance matrix. This means we look at users who solved both items $i$ and $j$ and compute Pearson correlation of this user performance entries.
+
+%%% PCA, (TSNE)
+
+3. The last (optional) step is producing 2D projection. This can be achieved by using many techniques for computing low dimensional projections. We choose principal component analysis (PCA). Two principal components are then used for 2D visualizations.
+
+%%% Why this work-flow, performance data (not item statement)
+
+We choose this specific work-flow as we think it is utilizing data about items which hold most information about their similarity. As other possible choices are item statement and solutions provided by students they do not hold as much information. Item statements in our particular exercises consist only of few Czech words. Also student solution is only choice from two provided options. Item statement and solutions can be used more effectively in other contexts like programming, mathematics, physics, or chemistry.
+
+This choice of work-flow is also relatively simple and easy to understand. It consist of few steps which can be studied separately and interchanged.
 
 ## Answer regularity
 % Answer regularity
