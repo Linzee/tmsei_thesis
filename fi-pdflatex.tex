@@ -231,7 +231,7 @@ Many different data can be used for computing projections
 we want from this projection to have some attributes
 the most important one is that items in projection should be closer to each other if they are more similar to each other than if they are not similar at all
 
-%% how does projection look like, possibel answers and levels
+%% how does projection look like, possible answers and levels
 
 Figure \ref{common_projection} shows how common projection looks like. This particular projection consist of 273 items TODOpatriacich into one TODOknowledge component.
 
@@ -241,26 +241,40 @@ Items in displayed concept are divided into three levels. This is shown in image
 
 ![Basic projection of one context in Umíme česky\label{common_projection}](img/common_projection)
 
-% Regularities
+## Visible Properties of projection
+% Visible Properties of projection
+
+%% Similar words near each other
+
+%% Regularities
+
+%% This causes similar words to end-up far away one from another
 
 After looking at image you can notice some regularities.
 
-
+### Computation of item similarity
 %% How is projection (similarity) computed
 
 To better understand how was this image created we have to understand how it is computed. We will describe it following section. This is default work-flow we used in most cases. Whenever we don't specify otherwise all projections were produced using this work-flow.
 
 %%% Performance matrix
 
-1. First step we have to do is converting raw logged information about user answers to performance matrix. This matrix consist of entries for each user-item pair. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In most cases we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. Another possible choice is to incorporate user solving time into this value. TODO possible choices are described in [] Performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+1. First step we have to do is converting raw logged information about user answers to performance matrix. This matrix consist of entries for each user-item pair. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In most cases we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. Another possible choice is to incorporate user solving time into this value. TODO possible choices are described in article [] Performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
 
 %%% Similarity matrix
 
-2. Next step is computing similarity matrix. Matrix $S$ is square matrix where each position $S_{ij}$ denotes similarity of items $i$ and $j$. In our case similarity is computed as correlation of two columns $i$ and $j$ in performance matrix. This means we look at users who solved both items $i$ and $j$ and compute Pearson correlation of this user performance entries.
+2. Next step is computing similarity matrix. Matrix $S$ is square matrix where each position $S_{ij}$ denotes similarity of items $i$ and $j$. In our case similarity is computed as correlation of two columns $i$ and $j$ in performance matrix. This means we look only at users who solved both items $i$ and $j$ and compute Pearson correlation coefficient of their performance.
 
 %%% PCA, (TSNE)
 
-3. The last (optional) step is producing 2D projection. This can be achieved by using many techniques for computing low dimensional projections. We choose principal component analysis (PCA). Two principal components are then used for 2D visualizations.
+3. The last (optional) step is producing 2D projection. This can be achieved by using many techniques for computing low dimensional projections.
+
+%%%% PCA over TSNE
+
+We choose to use Principal component analysis (PCA) and there is several reasons for doing so.
+Result of PCA is deterministic. It produces same result for same input. This is not true for TSNA which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is one less variation to results caused by algorithm. It is easier to compare results when altering metrics used fro computing item similarities.
+
+First two principal components of PCA are then used for 2D visualizations.
 
 %%% Why this work-flow, performance data (not item statement)
 
@@ -268,25 +282,50 @@ We choose this specific work-flow as we think it is utilizing data about items w
 
 This choice of work-flow is also relatively simple and easy to understand. It consist of few steps which can be studied separately and interchanged.
 
+
+## Level regularity
+% Level regularity
+%% Description of problem, 3 clusters based on 3 levels of questions difficulty
+
+%%% cause? how users tend to solve them
+
+%%% why is this unsuitable
+
+%%%% Example of similar words far away one from another
+
+### Sparseness of performance matrix
+%% question? can missing data affect result of similarity calculation
+
+%%% Simulated data experiment
+
+%%% filtered on users who solved 50 of each level
+
+## Different performance metrics
+% Different performance metrics
+
+%%% what different measures measure
+
+%% Quantification of level clustering, split and compare with truth
+
 ## Answer regularity
 % Answer regularity
 %% Description of problem, items are divided into clusters based correct answer (i/y) when there is no information about this in data used for computing similarity
 
-%% Quantification for different concepts
-
-%% Used metric type doesn't affect results
-
 %% Total similarity
 
-## Level regularity
-% Level regularity
-%% Description of problem, 3 clusters based on 3 levels of questions difficulty, how users tend to solve them
+%%% total similarity histograms by answer
 
-%% Missing data, structure
+%%% quantification for different concepts
 
-%%% Simulated data experiment
+%% Users are choosing one answer by default when they do not know answer
 
-%% Quantification of level clustering, split and compare with truth
+%%% it is usually answer on left, but there are exceptions koncovky pridavnych mien je to Y (v pravo)
+
+%%% how to detect this in performance data? / what can we detect in data?
+
+%% Division of user answers 50-50, but not for correct answers
+
+
 
 ## Another context
 % Another context

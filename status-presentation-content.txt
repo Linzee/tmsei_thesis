@@ -1,0 +1,15 @@
+- typical projection from Umime cesky
+- regularities, inspect more in detail
+- ked vas bude nieco zauimat tak ma zastavte
+- all/multiple concepts
+- levels regularity
+  - performance matrix structure
+  - filtered on users who solved 50 of each
+  - different metrics
+- answers regularity
+  - projection of time data
+  - similairty matrix - total similarity of answers
+    - histograms
+    - typicky odpoved v lavo, ale pri koncovkach pridavnych mien je to Y (v pravo)
+    - correlation with performance
+    - correlation with % of questions

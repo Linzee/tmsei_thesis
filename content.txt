@@ -46,15 +46,37 @@ Cílem práce je prozkoumat metody pro měření podobnosti výukových položek
   - Matmat
 -
 ## Evaulation
-  - Problem #1
-    - same tyme of question (one of two choices), different contexts
-    - in many context items are divided into clusters based correct answer i/y when there is no information about this in data used for computing similarity
-    - how is similarity computed
-    - used metric type doesn't affect results
-  - Problem #2
-    - 3 clusters based on 3 levels of questions diffiulty
-    - how users tend to solve them
-    - simulated data experiment
+- Description of common projection output
+  - why is projection useful
+  - similarity and projection
+  - example of similar words together, usage (as mentioned before)
+- Visible Properties of projection
+  - similar word together
+  - level regularities
+    - nice, but not useful
+    - causes that similar word end up far away
+    - How is projection (similarity) computed
+      - Performance matrix
+      - Similarity matrix
+      - PCA, (T-SNE)
+- Level regualrity
+  - phenomenon description, 3 clusters based on 3 levels of questions diffiulty
+    - cause? how users tend to solve them
+    - why is this unsuitable
+  - question? can missing data affect result of similarity calculation
+    - simulated data experiment, structure
+    - filtered on users who solved 50 of each level
+- using different metrics
+  - what different measures measure
+- Answer regularity
+  - phenomenon description, in many context items are divided into clusters based correct answer i/y when there is no information about this in data used for computing similarity
+  - Why bother? understand why it is there
+  - similairty matrix - total similarity of answers
+    - histograms
+  - users are choosing one answer by default when they dont know answer
+    - it is usualy answer on left, but there are exceptions koncovky pridavnych mien je to Y (v pravo)
+    - how to detect this in performance data?
+  - Division of user answers 50-50, but not for correct answers
 
   - Umime matiku
 
