@@ -10,6 +10,10 @@
   - projection of time data
   - similairty matrix - total similarity of answers
     - histograms
-    - typicky odpoved v lavo, ale pri koncovkach pridavnych mien je to Y (v pravo)
+    - typicky odpoved vlavo, ale pri koncovkach pridavnych mien je to Y (vpravo)
     - correlation with performance
+      - simualted data with different correctness dont show this phenomenon
     - correlation with % of questions
+    - users use both answers the same!
+    - there is no relative difference in performance for correctness like for time
+    - default answer simulation ???

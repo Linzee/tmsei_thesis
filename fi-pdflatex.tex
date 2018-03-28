@@ -227,24 +227,36 @@ possible with projection of many-dimensional data into 2 dimensions.
 
 %% similarity and projection
 
-Many different data can be used for computing projections
-we want from this projection to have some attributes
-the most important one is that items in projection should be closer to each other if they are more similar to each other than if they are not similar at all
+In general we want our projection to put similar items together. This can be achieved in many different ways. It is important to choose correct source of data and method of processing them prior to applying dimensionality reduction.
 
 %% how does projection look like, possible answers and levels
 
-Figure \ref{common_projection} shows how common projection looks like. This particular projection consist of 273 items TODOpatriacich into one TODOknowledge component.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=10cm]{img/common_projection}
+  \end{center}
+  \caption{Basic projection of one knowledge component in Umíme česky}
+  \label{fig:commonprojection}
+\end{figure}
 
-Most TODOknowledge components in system Umíme česky are spitted into multiple difficulty levels.
-
-Items in displayed concept are divided into three levels. This is shown in image with three different colors (first level with red, second with green and third in blue).
-
-![Basic projection of one context in Umíme česky\label{common_projection}](img/common_projection)
+Figure \ref{fig:commonprojection} shows how common projection looks like. This particular projection shows 273 items of single concept from system. Each item is represented as one dot in the image and its proximity to others represents how similar they are.
 
 ## Visible Properties of projection
 % Visible Properties of projection
 
 %% Similar words near each other
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=10cm]{img/similar_words}
+  \end{center}
+  \caption{Similar words close to each other}
+  \label{similarwords}
+\end{figure}
+
+we want to use results of calculated similarity and projections for managing item pool. That puts some constrains on how ideal results look like.
+
+We want similar items to end as close to each other as possible. When using performance as data source this is especially items using same skill are projected near each other. E.g. figure \ref{similarwords} shows projection of questions about Czech language with highlighted a few similar words. This group consists of words witch are based on single word with added suffix.
 
 %% Regularities
 
@@ -260,6 +272,8 @@ To better understand how was this image created we have to understand how it is 
 %%% Performance matrix
 
 1. First step we have to do is converting raw logged information about user answers to performance matrix. This matrix consist of entries for each user-item pair. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In most cases we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. Another possible choice is to incorporate user solving time into this value. TODO possible choices are described in article [] Performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+
+I tried using both first users answer and last in performance matrix. However there is no visible difference in resulting projection (same clusters are formed). This is clear when we compare first and last answers of users. There is only 5% difference between them. So at least with large number of items in system it doesn't really matter which one is chosen.
 
 %%% Similarity matrix
 
@@ -287,18 +301,36 @@ This choice of work-flow is also relatively simple and easy to understand. It co
 % Level regularity
 %% Description of problem, 3 clusters based on 3 levels of questions difficulty
 
+When you look back at figure \ref{fig:commonprojection} you can see that there are three colors of items. Most TODOknowledge components in system Umíme česky are spitted into multiple levels of difficulty. For this particular knowledge component there are three difficulty levels. First level is shown with red, second with green and third blue. This shows visible pattern in our data - each color (level) forms a distinct cluster.  In following section we will try to explain factors that can affect resulting projections produced from real-world data.
+
+As we mentioned before, only data about user performance (correctness of answers) are used when composing projections. And there is not a direct reason for this clusters of same levels to form as no information about belonging to particular level is presented to the algorithm.
+
 %%% cause? how users tend to solve them
+
+Levels are not solved uniformly. It is not common for user to sole all three levels. Less experienced users tend to solve only first or first two levels. However typically older users solve only higher levels. Main cause for this is that system allows teachers to assign particular level of concepts as homework. Students then usually solve only this single level.
 
 %%% why is this unsuitable
 
 %%%% Example of similar words far away one from another
+
+This phenomenon is not suitable for analysis of item similarity as it can cause misleading results. One particular example is when similar word are displayed far away form one another just because they belong to different levels. This is visible for words "bič" and "bičík" in problem set "Vyjmenovaná slova B".
 
 ### Sparseness of performance matrix
 %% question? can missing data affect result of similarity calculation
 
 %%% Simulated data experiment
 
+For purpose of determining this, we designed an experiment.
+writing script that simulated answers provided by virtual students. Main problem we wanted to recreate was missing data in performance matrix. Each simulated user solved level and then with some probability continued to another. So most users answered only to one level, some users to 2 levels and only few to all 3 levels. Levels were chosen at random as users are not required to continue chronologically. Good enough as users do not solve levels in order from easy to hard. There are also users who solve only second or only highest difficulty level.
+
+Results indicate that that structure of data can affect results only in really special cases. But this is not our case. The only case where projection is divided into clusters is when there is absolutely no performance data between any question of groups.
+
 %%% filtered on users who solved 50 of each level
+
+Another approach how to validate this is filtering data leaving only users who solved all levels.
+Only if user solved at least 50 questions of each level
+
+So division of questions into 3 levels does not affects similarity of items directly. There is some other factor causing this.
 
 ## Different performance metrics
 % Different performance metrics
@@ -311,11 +343,25 @@ This choice of work-flow is also relatively simple and easy to understand. It co
 % Answer regularity
 %% Description of problem, items are divided into clusters based correct answer (i/y) when there is no information about this in data used for computing similarity
 
+%%% TODO Outsider detection using similarity data
+
+When exploring data, it may be useful to detect outsiders. It may be useful for multiple reasons [TODO cite]. In our aprticular case we declare item an outsider when it is not somilar to any other items in problem set.
+seems like a logical path to take.
+
+In particular this means item with low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data.
+
 %% Total similarity
+
+ Sum of similarities is sum of one column of simialrity matrix which we produced in our workflow for computing projection.
+
+![Histogram of similarities](i_y_histogram.png)
 
 %%% total similarity histograms by answer
 
 %%% quantification for different concepts
+
+This is not specific to only one problem set (which was used in previous images), almost all problem sets display similar pattern. However for some its more distinct than for others. (Sets consisting of items with many possible answers do not behave this way. But that is to be expected.)
+
 
 %% Users are choosing one answer by default when they do not know answer
 
@@ -325,7 +371,20 @@ This choice of work-flow is also relatively simple and easy to understand. It co
 
 %% Division of user answers 50-50, but not for correct answers
 
+%% Levels of similarity
 
+## Second level of similarity
+
+Applying one additional level of correlation to item similarity matrix was suggested [TODO].
+This means we are looking whether items are behaving similarly with respect to other items instead of similarity of user performance directly.
+
+We can study possible usage of this technique little further
+
+One approach is take a step back, do not use any similarity at all and compute projection directly from performance matrix.
+This is usually not useful as performance matrix has large amount of missing values and PCA works only with full matrices.
+However it is useful for exploring how adding computation of similarity affects projections.
+
+We used only users who solved all questions.
 
 ## Another context
 % Another context
