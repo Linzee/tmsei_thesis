@@ -325,17 +325,56 @@ writing script that simulated answers provided by virtual students. Main problem
 
 Results indicate that that structure of data can affect results only in really special cases. But this is not our case. The only case where projection is divided into clusters is when there is absolutely no performance data between any question of groups.
 
-%%% filtered on users who solved 50 of each level
+### Users similarity projection
 
-Another approach how to validate this is filtering data leaving only users who solved all levels.
-Only if user solved at least 50 questions of each level
+Insead we choose to analyse whether our data contains different groups of users. We are changing how we are looking at data.Up until now we used item-item similarity to calculate projection of items. Now we are going to to be using user-user similarity.
 
-So division of questions into 3 levels does not affects similarity of items directly. There is some other factor causing this.
+It is worth mentioning we will work with larger matrices as this forced us to do some optimalizations in code of our analysis. For example similariy matrix of items usualy has size between $100\times 100$ and $300\times 300$. As we are looking only on items from single knowledge component. Hovewer user similarity matrix is square matrix with size around $10 000\times 10 000$. This is also reason why current recommender systems use item similarity instead of user similarity. CITE
+
+First attempt on projecting users can be seen in figure ??.
+
+% TODO users similarity
+
+We say that user solved level when he anwered at least 30 questions (which is 1/3 of questions for observed item set). Based on this we can divide users into 8 groups. We added color to each group so we can distinguish them in folowing plots easily.
+
+\begin{center}
+ \begin{tabular}{|c|c c c c c c c|}
+    \hline
+    Group: none & only 1st level & only 2nd level & only 3rd level & both 1th and 2nd & both 2nd and 3rd & both 1nd and 3rd & all levels \\
+    \hline
+    Color: black & red & green & blue & yellow & cyan & magenta & light gray \\
+    \hline
+    Users count & 4984 & 4375 & 1285 & 1114 & 960 & 224 & 240 & 1025 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+We can see that all formed custers of users contains in most cases users from single user group when we divide them by levels they solved. This brought us to more interesting discoveries. In general each level and each item has some mean performace. This is shown in figure ??. Horizontal axis contains items sorted by level and mean performance. Vertical axis shows pwerformance of each item. Given item sets have mean performance 94%, 86%, 71% for each level respectively.
+
+After dividing users into 8 groups plot changes slightly. Some groups like "only 1st level" (its colored red and contains users who solved primarly first level and only few or none items from other levels) has much lower performance on other levels. We can conclude that users who tend to solve mostly first level arent as experienced as other users. On other hand users in group "both 2nd and 3rd" (cyan) are performing better than other users on all three levels.
+
+At this point we have to return to simulation. We want to show that grouos of users solving levelswith different performancecan cause forming of clusters of items from same level.
+
+Answers are simulated pretty mutch same as in previous simulated experiments. We have 300 items divided into 3 levels. There is 3000 simulated users. Most of them solve levels with same skill but some 1/5 of users have smaller chance to solve second and third level. This is visible on item performance polt similar to one from real data.
+
+ Only chnged variable was performance of some users for levels and this resulted in visible clusters in projection (figure ??).
+
+From otained information we can conclude that removing subnormal answers of users (few answers to other levels when they solved primarly one level) should remove clusters of levels.
+
+But does it?!?
 
 ## Different performance metrics
 % Different performance metrics
 
+We applied 4 different metrics for computing similarity matrix to verify that previous results aren't specific to single metric. Especially if it is true that similarity of items differ based on correct answer.
+
 %%% what different measures measure
+
+Pearson and yule produce almost identical results - this confirms previous research. This means plots produce same distinct clusters of answers and total similarities. However Jaccard measurement differs in this aspect. Similarity of items is not greater in one group of questions (based on correct answer).
+
+Different methods for computing similairty may measeure diferent aspects of items. This can be seen when using Jaccard an Sokal metrics. SImilarities provided by Jaccard metric differe greatly from other metrics. Resulting projection still shows same clusters of level and items are splited based on correct answer but information is kept in another way than in correlation based metrics like Pearson.
+
+On other hand Sokal is heavily depending on performance of items. Items with higher performance are much more similar than items with lower performance. This is causing packed cluster of first level (easy) and spread out cluster of items from third level (harder).
 
 %% Quantification of level clustering, split and compare with truth
 
@@ -354,7 +393,13 @@ In particular this means item with low sum of similarities to other items may be
 
  Sum of similarities is sum of one column of simialrity matrix which we produced in our workflow for computing projection.
 
-![Histogram of similarities](i_y_histogram.png)
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=10cm]{img/iy_histogram}
+  \end{center}
+  \caption{Histogram of similarities}
+  \label{ref:iyhistogram}
+\end{figure}
 
 %%% total similarity histograms by answer
 
@@ -362,18 +407,70 @@ In particular this means item with low sum of similarities to other items may be
 
 This is not specific to only one problem set (which was used in previous images), almost all problem sets display similar pattern. However for some its more distinct than for others. (Sets consisting of items with many possible answers do not behave this way. But that is to be expected.)
 
-
 %% Users are choosing one answer by default when they do not know answer
 
+Our next experiment was simulation of users preferring one answer in case they do not know what is the correct answer.
+
+Answers are simulated for each user and question. There are no missing values. Answer is correct whenever random value is higher than logistic function of (users skill) - (difficulty of question). Half of questions has one correct answer and other half another answer. We used this to shift chance of answering correctly higher or lower (+0.1 for first answer and -0.1 for second).
+
+%![Projection of simulated data](simulated_projection.png)
+%![Correlation of similarity and performance](simulated_correlation_similarity_performance.png)
+
+Colors represent answer of each item (chance shifted up or down). There are formed visible clusters of same answers in result similar to real-wold data. Using two uncorrelated skills cause clusters in projection. (When using only single skill for all questions results does not change and they are not required for this simulation.)
+
 %%% it is usually answer on left, but there are exceptions koncovky pridavnych mien je to Y (v pravo)
+
+This is not specific to only one category (which was used in previous images), many more categories display similar pattern. However for some its more distinct than for others. For some distribution of similarities is same for all answers (psani-nn-a-n, vyjmenovana-slova-po-p,..).
+
+I picked few witch have very distinct answers and looked whether it is answer on left or on right in user interface.
+
+% | category                               | answer with higher similarity | position in UI |
+% | -------------------------------------- | ----------------------------- | -------------- |
+% | koncovky-podstatnych-jmen-muzsky-rod   | i                             | left           |
+% | koncovky-podstatnych-jmen-zensky-rodce | i                             | left           |
+% | koncovky-podstatnych-jmen-stredni-rod  | i                             | left           |
+% | koncovky-pridavnych-jmen               | y                             | right          |
+% | psani-me-mne-ve-slove                  | (m)ne                         | left           |
+% | me-mne-samostatne-zajmeno-ja           | (m)ne                         | left           |
+% | psani-be-bje                           | (b)je                         | left           |
+% | vyjmenovana-slova-po-b                 | i                             | left           |
+% | ...                                    | ...                           | ...            |
 
 %%% how to detect this in performance data? / what can we detect in data?
 
 %% Division of user answers 50-50, but not for correct answers
 
+We observed before that whole data set uses both answers the same but for single user this may not be true. There are even users who use only one answer as seen in following performance matrix. There is a line with all questions answered incorrectly for one answer and correctly for another.
+
+%![User using only one answer](uneven_answers_perforamnce_perf_matrix.png)
+
+We can filter this users out. Next three images show different levels of filtering. First uses no filtering at all (uses all users). Second and third image filter users by difference between performance on each answer. (So if users has same performance on question with both answers this value is 0.0 and when user uses only one of the answers (biggest possible difference) value is 1.0). Second image shows value of 0.3 (performance on one answer is 30% higher than on the other one). And third image uses value 6% which is median.
+
+%![No filtering](uneven_answers_perforamnce_none.png)
+%![Filter users who have more than 30% difference between performance of answers](uneven_answers_perforamnce_0_3.png)
+%![Filter users who have more than median difference between performance of answers](uneven_answers_perforamnce_half.png)
+
+When we use only half of users which have uniform answers there are no clusters of question with same answers. (Half of users because median is used as filtering value.)
+
+We can look at histogram of difference between answers. For most of the users there is almost no difference but there are users with higher difference in performance between answers.
+
+%![Histogram of differences between user answers](uneven_answers_hist.png)
+
+I look at difference between performance (amount of correctly answered questions) instead of usage of each answer because it is performance that affects calculated similarity of questions. However they should correlate somewhat. Another reason is that it is closer to simulated experiment so we can compare results directly.
+
+When we simulated users we gave them all habit to use one answer more commonly. But not all users have this habit in real-wold data. However there is quite large amount of users who do.
+
+This resolves first problem we encountered but does not explain other regularities in data.
+
+We succseeded in simualting data with clusters of same answers and showing that this is case in our real data. Hovewer there is still one more thing to explain - clusters of uqesrions with same levels. Folloving same approach we can try to filter out users with large difference in how successfuk they are with solving different levels.
+
+Weused histogram of differences (variance of solved levels) to choose some value for filtering of users. As more than half of users solves only one level median of differences is 0.0. So we choose one value just by looking at histogram. We can see in following figure that this dosnt really matter as filtering users in this way does not help with eliminating clustrs of same levels.
+
 %% Levels of similarity
 
 ## Second level of similarity
+
+[Measuring Similarity of Educational Items Using Data on Learners’ Performance] suggests applying one additional level of correlation to item similarity matrix. This means we are looking if items are behaving similarly with respect to other items. First two images (top) show data using only computed similarity of items. Second set of images shows same questions after applying Pearson correlation to similarity matrix. Plots on left show different possible answers (i/y) and plots on right difficulty levels of questions.
 
 Applying one additional level of correlation to item similarity matrix was suggested [TODO].
 This means we are looking whether items are behaving similarly with respect to other items instead of similarity of user performance directly.
@@ -386,10 +483,19 @@ However it is useful for exploring how adding computation of similarity affects 
 
 We used only users who solved all questions.
 
-## Another context
-% Another context
+## User similarity
+% User similarity
 
-%% Replicated in another context of math
+For explaining patterns of aquestions from same level we have to dig deeper and understand different fpgroups of users. One particular way how to acjive this is using owrkflow similar to previous. Althought there will be one difference, we will be using similarity of users instead of items. (item-item similarity matrix, user-user similarity matrix). This also meqns that we have to transpose performance matrix - so each column represents one user. Calculating correlarion between all columns gives us user similarity matrix. There is no difference in projection step, only used matrix is interexchnaged.
+
+W pe ca.n try ploting this result direcly using PCA. Hovewer we would notice that resulting image doesnt give us much information about users. reason for this is that two principal components reflect some property of data that we know about and dont wqnt to display. In particular users solving only one group are somewhat special. Columns representing users like this cannot be compared when they solved different levels - there is missinf information about their correlarion. PCA chooses this information with highest magnitude In presented figure this coresponds to choosen components reflecting solving of first and third level. (third principal domponent is corelates with solving of second level)
+
+As users who solve only one level cause this behaviour. And they dont give us information about similarity of items in different levels we choose to exclude this users. After doing so we end up with projection similar to figure xx.
+
+There are two visible clusters of users. Futher analysis shows that difference beween groups of users is caused by ?
+
+## Another context
+% Replicated in another context of math
 
 %% (re)Usage in other concepts
 
@@ -399,7 +505,20 @@ We used only users who solved all questions.
 % Conclusion                  %
 % --------------------------- %
 
+We can conclude some recommendations. While trying to explain patterns in our particular used data we run into multiple situatutions hwich can repeat even when explaing some different data using similalr techniques.
 
+Technique we used for calculating projections is quite common in area of Adaptife learning and recommender systems. CITE.
+
+Following section will summarize recommendations useful for explaining results
+- it is useful to look at both item and user similarity
+- some patterns in data can be results of habbits of users.
+  - we are using unsupervsed learning like techniques - we obtain some results but it is hard to explain why they are like they are.. one possibility how to explain results is using simulations
+  - we explained one possible way of simulating performance matrix
+- data fome from users so identifing groups of users who behave same may be useful
+  - we rhink most common  groups which can be vosibke in data coming from online tutoring system are eager users and trolls
+    - Main grohp of users tend to answer to quesrions in some regullar patrern based on their knowledge while trolls follow different pattern (for exampla use same answer on all questions)
+    - looking at total similarity of items - typicaly correlates with first dimension of PCA
+      - variance of performance entries of items
 
 \end{markdown*}
 
