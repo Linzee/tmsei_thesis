@@ -40,11 +40,11 @@ Cílem práce je prozkoumat metody pro měření podobnosti výukových položek
       - performance
     - projections
   - someone else is taking care of different posisiblilities of computing similatity
-- Datasets
+- Dataset
   - Cestina
-  - Programming environments
-  - Matmat
--
+  - basic statistics
+  - simulated data
+
 ## Evaulation
 - Description of common projection output
   - why is projection useful

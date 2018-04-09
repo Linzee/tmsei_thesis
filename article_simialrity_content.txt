@@ -101,3 +101,21 @@ evaulation
     - Priradenie problemov do existujucich kategorii
     - Vygenerovanie rozdelenia
   - Structure of scripts
+
+
+
+
+<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3
+
+Jiri
+
+datasetss
+  real world
+  basic statistics
+  simulated
+domain modeling
+  similarity
+    measures overview
+    comparasion
+    enought data
+    using solving time

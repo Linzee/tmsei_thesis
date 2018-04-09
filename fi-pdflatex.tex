@@ -50,8 +50,8 @@
     author        = Dominik Gmiterko,
     gender        = m,
     advisor       = Radek Pelánek,
-    title         = {Similarity of programming problems},
-    TeXtitle      = {Similarity of programming problems},
+    title         = {Techniques for measuring similarity of educational items},
+    TeXtitle      = {Techniques for measuring similarity of educational items},
     keywords      = {similarity, metrics, programming, keyword2, ...},
     TeXkeywords   = {similarity, metrics, programming, keyword2, \ldots},
     abstract      = {This is the abstract of my thesis, which can
@@ -85,19 +85,22 @@
 \begin{document}
 
 %
-% Oficialne ZADANI v.1
+% Oficialne zadani
+%
+% Techniques for measuring similarity of educational items
 %
 % Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na
 % základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci
 % skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené
 % metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných
-% datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na
-% základě získaného vhledu budou navrženy upravené metody nebo doporučení pro
-% praktický postup.
+% datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě
+% získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický
+% postup.
 %
 %                                                                   KISS
 %
-
+% „Dokonalosti není dosaženo tehdy, když už není co přidat, ale tehdy, když už nemůžete nic odebrat“ (Antoine de Saint-Exupéry)
+%
 
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
@@ -124,14 +127,12 @@ useful and which are not.
 
 Besides Introduction and Conclusion chapters, this thesis is structured
 into three additional chapters. First chapter talks in general about
-problem of measuring similarity of programming problems. It explains
-difference between program and programming problem, which data we have
-available and techniques used for measuring similarity of problems.
-Second chapter advances level deeper and describe everything what is
-specific to data we used. First part of chapter describes programming
-environment of Robotanik and data from it. Second part focuses in detail
-on metrics we used in experiments. Last chapter gives overview of
-implementation and usage of metrics and their evaluation.
+problem of measuring similarity of educational items, advantages of using similarity.
+It describes previous work and different proposed metrics for computing similarity. We also explains what different types of data we have
+available.
+Second chapter advances level deeper and describe observed problems specific to data we are using.
+Last chapter gives overview of many experiments that were concluded and summarizes results.
+... lessons learned for other people.
 
 \section{Similarity}\label{similarity}
 
@@ -146,7 +147,7 @@ implementation and usage of metrics and their evaluation.
 In this chapter we will talk in general about questions in learning
 systems, and computing their similarity. Most of the chapter focuses on
 explaining what kinds of data are available when comparing questions in
-learning systems and techniques to do so. Last section describes goals
+tutoring systems and techniques to do so. Last section describes goals
 of the thesis.
 
 %% Using similarity in related fields
@@ -158,16 +159,12 @@ similarity), plagiarism detection and many more.
 
 %TODO este sme nepovedali ze pouzivame performance, presunut
 
-One closely related area is recommender systems which differs from
-problem similarity only slightly. Both areas are distinguishing users
-and items. Only difference is that we know how well user did while
-solving specific item and recommender systems use rating of the items.
+One closely related area are recommender systems which differs from tutoring systems only slightly. Both areas are distinguishing users
+and items. Only difference is that our main source of information is performance of users while solving specific item and recommender systems mostly use rating of the items. Which in fact are still only numbers so we can use same techniques. However different context bring different problems specific to each area.
 
 %%% Main difference from educational systems
 
-Main difference is that we can use more data about problem. We also have
-some problem statement and data about performance of students when
-solving problem.
+One difference is that we can use some more data about items. There are item statements and solutions of students which can in some contexts give us additional useful information about items.
 
 \subsection{Items}\label{items}
 
@@ -175,37 +172,35 @@ solving problem.
 
 %% Why this term
 
-In this work we use the term ``items'' (problems, questions,
-assignments) when we refer to single entry in educational system which
+In this work we use the term ``items'' which may refer to problems, questions,
+assignments in different systems. Item is single entry in educational system which
 users can answer to. Since many aspects of this work are generally
-applicable we decided to use this general term. In some learning systems
+applicable we decided to use this broad term. In some tutoring systems
 this can refer to simple choice from two options in another complex
-tasks which user solves in matter of minutes. On other side of the
-spectrum are systems for teaching introductional programming. Users tend
-to spend few minutes solving each task and there is fewer of them.
+tasks which user solves in matter of minutes.
 
 %% Data sources
 
 To further specify the context of our research, we will describe
-characteristics of items. For computing similarity of items it is most
-important knowing which data are available to us. Therefore we describe
-items by sources of data can be used for measuring similarity.
+characteristics of items. Computing similarity may be performed by different metrics, but they all have to use data which are available about each item. Therefore we first describe
+sources of data that can be utilized for measuring similarity of items.
 
 \begin{itemize}
 \item
-  \textbf{Item statement:} specification of the item that a learner
-  should solve, e.g., as a natural language description of the task.
+  \textbf{Item statement:} specification of the item for learner
+  to solve, e.g., a natural language description of the task. Grid is also common choice for logic and programming problems.
 \item
-  \textbf{Item solutions:} details about solutions obtained from
-  learners or sample solution to item.
+  \textbf{Item solutions:} representation of solutions obtained from
+  learners. Sample solution provided by author may be also available.
 \item
   \textbf{Learner's performance:} for example item solving times,
   correctness of answer, number of attempts needed.
 \end{itemize}
 
+Structure of both item statement and solutions differ greatly based tasks which tutoring system uses. However in general it is still possible to use some basic metrics despite of representation.
+
 This description of item is broad enough to cover most of learning
-systems. In next chapters we will discuss two systems in particular -
-umimecesky a umimematiku.
+systems. In next chapters we will discuss more closely system which we used for evaluation of our results.
 
 \subsection{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
 
@@ -233,20 +228,12 @@ simulated data. There is a reason why use both as only real-world data
 are useful for concluding any results. However evaluation of this data
 is often complicated as we do not know truth about many of their
 aspects. That's why we used simulated data for validating some of our
-conclusions. We will talk more in depth about how we generated simulated
-data in next chapter when describing their specific usage.
+conclusions.
 
-Most of used real-world data comes from system
-\href{https://umimecesky.cz/}{Umíme česky}. Later we have validated our
-results by also using data from its sibling system
-\href{https://umimematiku.cz/}{Umíme matiku}. We think it is useful as
-data come from another context but are provided in same format and
-therefore can be used directly in previously created tools.
+%% Umime cesky
+\subsubsection{Umíme česky}\label{umime-cesky}
 
-\subsubsection{Umíme česky}\label{umuxedme-ux10desky}
-
-% czech grammar, ``fill-in-the-blank'' with two choices, correctness
-and time, multiple grammar concepts, example of one exercise
+%%% czech grammar, ``fill-in-the-blank'' with two choices
 
 \href{https://umimecesky.cz/}{Umíme česky} is system for practice of
 Czech grammar. System contains multiple exercise types, but in our
@@ -264,7 +251,39 @@ We focused only on ``fill-in-the-blank'' exercises but they can still be
 used to train many concepts of Czech grammar. %TODO different concepts
 in grammar
 
-\subsubsection{Umíme matiku}\label{umuxedme-matiku}
+%%% correctness and time
+
+%%% multiple grammar concepts, example of one exercise
+
+%%% Why this system
+
+We needed system with large number of items
+stability of results
+usefulness - it is hard to manage system this large
+
+%% Basic statistics
+\subsubsection{Basic statistics}\label{basic-statistics}
+
+Whole used dataset
+
+6|037 items
+46|128 users
+7|264|763 unique item-user pair answers
+  (some users may have answered some item multiple times but we do not use them)
+
+One selected item-set used for prototyping of methods
+we later confirmed if observed behavior occurs in other item-sets.
+
+273 items
+  divided into three levels (110, 86, 77 items)
+14|207 users
+888|748 item-user answers
+
+% Simulated data
+\subsubsection{Simulated data}\label{simulated-data}
+
+
+We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically.
 
 \section{Evaulation}\label{evaulation}
 
@@ -276,7 +295,7 @@ in grammar
 
 %% why is projection useful
 
-it is hard to say anything about data when tehre is a lot of it we
+it is hard to say anything about data when there is a lot of it we
 especialy focused on systems which consist of TODO1000s of solvable
 items and even more users in cases like this it is not possible to look
 at data about each item individually possible with projection of
@@ -447,7 +466,7 @@ This phenomenon is not suitable for analysis of item similarity as it
 can cause misleading results. One particular example is when similar
 word are displayed far away form one another just because they belong to
 different levels. This is visible for words ``bič'' and ``bičík'' in
-problem set ``Vyjmenovaná slova B''.
+item set ``Vyjmenovaná slova B''.
 
 \subsubsection{Sparseness of performance
 matrix}\label{sparseness-of-performance-matrix}
@@ -556,6 +575,8 @@ is true that similarity of items differ based on correct answer.
 
 %%% what different measures measure
 
+With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite metrics]
+
 Pearson and yule produce almost identical results - this confirms
 previous research. This means plots produce same distinct clusters of
 answers and total similarities. However Jaccard measurement differs in
@@ -585,9 +606,9 @@ this in data used for computing similarity
 %%% TODO Outsider detection using similarity data
 
 When exploring data, it may be useful to detect outsiders. It may be
-useful for multiple reasons {[}TODO cite{]}. In our aprticular case we
-declare item an outsider when it is not somilar to any other items in
-problem set. seems like a logical path to take.
+useful for multiple reasons {[}TODO cite{]}. In our particular case we
+declare item an outsider when it is not similar to any other items in
+item set. seems like a logical path to take.
 
 In particular this means item with low sum of similarities to other
 items may be an outsider. This is where we encountered another
@@ -595,7 +616,7 @@ regularity in data.
 
 %% Total similarity
 
-Sum of similarities is sum of one column of simialrity matrix which we
+Sum of similarities is sum of one column of similarity matrix which we
 produced in our workflow for computing projection.
 
 \begin{figure}
@@ -809,8 +830,12 @@ repeat even when explaing some different data using similalr techniques.
 Technique we used for calculating projections is quite common in area of
 Adaptife learning and recommender systems. CITE.
 
+% Problems specific for dataset may arise
+
 Following section will summarize recommendations useful for explaining
-results - it is useful to look at both item and user similarity - some
+results
+
+it is useful to look at both item and user similarity - some
 patterns in data can be results of habbits of users. - we are using
 unsupervsed learning like techniques - we obtain some results but it is
 hard to explain why they are like they are.. one possibility how to
@@ -823,6 +848,11 @@ quesrions in some regullar patrern based on their knowledge while trolls
 follow different pattern (for exampla use same answer on all questions)
 - looking at total similarity of items - typicaly correlates with first
 dimension of PCA - variance of performance entries of items
+
+
+% Now we understand how structure of system may affect performance data
+
+% Reusable in other systems
 
 
   \makeatletter\thesis@blocks@clear\makeatother
