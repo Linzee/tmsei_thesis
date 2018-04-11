@@ -214,8 +214,10 @@ items}\label{computing-similarity-of-items}
 
 % Computing similarity of items
 
-The general approach to measuring and using similarity of educational
-items
+Following section is explaining general approach to measuring and using similarity of educational
+items.
+
+
 
 \subsection{Used datasets}\label{used-datasets}
 
@@ -248,7 +250,7 @@ student in multiple ways. %TODO all views of exercise
 \end{figure}
 
 We focused only on ``fill-in-the-blank'' exercises but they can still be
-used to train many concepts of Czech grammar. %TODO different concepts
+used to train many concepts of Czech grammar. different concepts
 in grammar
 
 %%% correctness and time
@@ -282,8 +284,13 @@ we later confirmed if observed behavior occurs in other item-sets.
 % Simulated data
 \subsubsection{Simulated data}\label{simulated-data}
 
+Result of simulation is performance matrix with $n$ items as columns and $u$ users as its rows. First we have to create items. For each item we choose its difficulty, skill required to solve this item. Difficulty is value drawn from normal distribution N(0, 1). 
 
-We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically.
+After that we continued with construction of users. We generate skills for all users - matrix of $u$ users and all used skills. Matrix also contains random values from normal distribution N(0,1). 
+
+Next we simulate each user answering to each item. Whenever is random value higher than logistic function of difference of item difficulty and user skill user answers correctly. When it is not given answer is incorrect. User skill is one of skills which corresponds to skill required for given item.  
+
+We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
 \section{Evaulation}\label{evaulation}
 
@@ -475,20 +482,9 @@ matrix}\label{sparseness-of-performance-matrix}
 
 %%% Simulated data experiment
 
-For purpose of determining this, we designed an experiment. writing
-script that simulated answers provided by virtual students. Main problem
-we wanted to recreate was missing data in performance matrix. Each
-simulated user solved level and then with some probability continued to
-another. So most users answered only to one level, some users to 2
-levels and only few to all 3 levels. Levels were chosen at random as
-users are not required to continue chronologically. Good enough as users
-do not solve levels in order from easy to hard. There are also users who
-solve only second or only highest difficulty level.
+In same way as we explained before in section ??. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level. 
 
-Results indicate that that structure of data can affect results only in
-really special cases. But this is not our case. The only case where
-projection is divided into clusters is when there is absolutely no
-performance data between any question of groups.
+Results indicate that that structure of data can affect results only in really special cases. The only case where projection is divided into clusters is when there is absolutely no information between question in different levels. But this is not our case in real data as there are users solving multiple levels. 
 
 \subsubsection{Users similarity
 projection}\label{users-similarity-projection}
@@ -573,7 +569,7 @@ We applied 4 different metrics for computing similarity matrix to verify
 that previous results aren't specific to single metric. Especially if it
 is true that similarity of items differ based on correct answer.
 
-%%% what different measures measure
+%%% what different measurements measure
 
 With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite metrics]
 
@@ -736,6 +732,18 @@ there is quite large amount of users who do.
 This resolves first problem we encountered but does not explain other
 regularities in data.
 
+%%% Simulation of default answer
+\subsubsection{Simulation of default answer}\label{simulation-of-default-answer}
+
+This next simulation is also using same core but is enhanced with further choosing correct answer for each item. This is used to offset logistic function higher or lower to simulate higher chance of succeeding in solving items with correct answer is the users preferred one. We think this is good enough solution to simulating users choosing one answer by default when they are unsure about answer.
+
+This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is same amount of each combination (1/4 of items). From previous work we know that uncorrelated skills will form distinct clusters. We included them in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
+
+Projection of data simulated in this way has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items divided by correct answer.
+
+%TODO better reasoning for this, explain why this happends
+	% why does data simulated in this way project to clusters of levels and answers
+
 We succseeded in simualting data with clusters of same answers and
 showing that this is case in our real data. Hovewer there is still one
 more thing to explain - clusters of uqesrions with same levels.
@@ -748,6 +756,10 @@ only one level median of differences is 0.0. So we choose one value just
 by looking at histogram. We can see in following figure that this dosnt
 really matter as filtering users in this way does not help with
 eliminating clustrs of same levels.
+
+%TODO this is enought to normalize resulting projection so it has good properties
+% % TODO check gradient of performance, is it good
+% % similar items from different levels are closer to each other
 
 %% Levels of similarity
 
