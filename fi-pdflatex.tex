@@ -202,6 +202,19 @@ Structure of both item statement and solutions differ greatly based tasks which 
 This description of item is broad enough to cover most of learning
 systems. In next chapters we will discuss more closely system which we used for evaluation of our results.
 
+%%% Similairty
+\subsubsection{Similarity}\label{similarity}
+
+% what is similarity, how can we compute it
+
+In general we can compute similarity of tho items in many ways. Items in our context are commonly represented as vectors of numeric values. For performance data this is vector of correctness or time from all users to given item. Question statement may also be represented as vector. One possible way is using bag of words.
+
+When we have vectors for each item we can compare them to get similarity using some standard similarity measures like Pearson correlation coefficient, cosine similarity, Sokal measure or Euclidean distance.
+
+% Edit distance
+
+Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. So this covers another common group of information we can encounter.
+
 \subsection{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
 
 % Why is similarity of items useful
@@ -217,7 +230,9 @@ items}\label{computing-similarity-of-items}
 Following section is explaining general approach to measuring and using similarity of educational
 items.
 
+% standard pipeline elements
 
+TODO What is Standard pipeline
 
 \subsection{Used datasets}\label{used-datasets}
 
@@ -250,45 +265,47 @@ student in multiple ways. %TODO all views of exercise
 \end{figure}
 
 We focused only on ``fill-in-the-blank'' exercises but they can still be
-used to train many concepts of Czech grammar. different concepts
-in grammar
+used to train many concepts of Czech grammar. All questions are divided into item-sets. Each item-set is contains items practicing different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. Items in item-sets are divided into levels. Where higher Levels are intended for solving by more experienced users as they contain more difficult questions. In general there are three difficulty levels but not all item-sets have all three of them. Some easy item-sets have only first level. On other hand there are item-sets which have all three levels or only higher levels.
 
-%%% correctness and time
+%%% information about items: question, correctness and time
+
+Used dataset contains multiple sources of information about items. In ``item statement'' group it is statement of question with one missing spot and two possible answers to fill in there. We know which answer is correct and answers from all users. Then in performance group of information it is correctness of user answers and response time.
+
+It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both length of questions and users reading speed. Also it is good idea to use logarithm of time instead of time itself. This is shown by [CIET]. Only then it would be useful to use data about response times. This is reason why we are using mostly correctness of user answers.
 
 %%% multiple grammar concepts, example of one exercise
 
 %%% Why this system
 
-We needed system with large number of items
-stability of results
-usefulness - it is hard to manage system this large
+We choose this tutoring system because, as we explained before, we are solving problems which are most important for systems with large number of items. Also provided dataset has a large amount of users and answers which is great for stability of results.
 
 %% Basic statistics
 \subsubsection{Basic statistics}\label{basic-statistics}
 
-Whole used dataset
+\begin{center}
+  \begin{tabular}{|l|r r r r|}
+    \hline
+     & Items & Users & Answers & Item-user answers \\
+    \hline\hline
+    ``Fill-in-blank'' & 6\,037 & 46\,128 & 10\,421\,521 & 7\,264\,763 \\
+    \hline
+    One item-set & 273 & 14\,207 & 1\,216\,403 & 888\,748 \\
+    \hline
+  \end{tabular}
+\end{center}
 
-6|037 items
-46|128 users
-7|264|763 unique item-user pair answers
-  (some users may have answered some item multiple times but we do not use them)
+Last column contains unique item-user pair answers. This number differs from all logged answers as some users may have answered some item multiple times. However we use only one of the answers.
 
-One selected item-set used for prototyping of methods
-we later confirmed if observed behavior occurs in other item-sets.
-
-273 items
-  divided into three levels (110, 86, 77 items)
-14|207 users
-888|748 item-user answers
+Last row contains statistics about one selected item-set which was most commonly used for analysis. This item-set has most answers therefore it is ideal for analysis as results are stable. We also confirmed behavior observed on this item-set on all other item-sets.
 
 % Simulated data
 \subsubsection{Simulated data}\label{simulated-data}
 
-Result of simulation is performance matrix with $n$ items as columns and $u$ users as its rows. First we have to create items. For each item we choose its difficulty, skill required to solve this item. Difficulty is value drawn from normal distribution N(0, 1). 
+Result of simulation is performance matrix with $n$ items as columns and $u$ users as its rows. First we have to create items. For each item we choose its difficulty, skill required to solve this item. Difficulty is value drawn from normal distribution N(0, 1).
 
-After that we continued with construction of users. We generate skills for all users - matrix of $u$ users and all used skills. Matrix also contains random values from normal distribution N(0,1). 
+After that we continued with construction of users. We generate skills for all users - matrix of $u$ users and all used skills. Matrix also contains random values from normal distribution N(0,1).
 
-Next we simulate each user answering to each item. Whenever is random value higher than logistic function of difference of item difficulty and user skill user answers correctly. When it is not given answer is incorrect. User skill is one of skills which corresponds to skill required for given item.  
+Next we simulate each user answering to each item. Whenever is random value higher than logistic function of difference of item difficulty and user skill user answers correctly. When it is not given answer is incorrect. User skill is one of skills which corresponds to skill required for given item.
 
 We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
@@ -451,6 +468,8 @@ visible pattern in our data - each color (level) forms a distinct
 cluster. In following section we will try to explain factors that can
 affect resulting projections produced from real-world data.
 
+Projected item-set is divided into three levels with 110, 86 and 77 items respectively.
+
 As we mentioned before, only data about user performance (correctness of
 answers) are used when composing projections. And there is not a direct
 reason for this clusters of same levels to form as no information about
@@ -473,7 +492,7 @@ This phenomenon is not suitable for analysis of item similarity as it
 can cause misleading results. One particular example is when similar
 word are displayed far away form one another just because they belong to
 different levels. This is visible for words ``bič'' and ``bičík'' in
-item set ``Vyjmenovaná slova B''.
+item set ``Vyjmenovaná slova po B''.
 
 \subsubsection{Sparseness of performance
 matrix}\label{sparseness-of-performance-matrix}
@@ -482,9 +501,9 @@ matrix}\label{sparseness-of-performance-matrix}
 
 %%% Simulated data experiment
 
-In same way as we explained before in section ??. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level. 
+In same way as we explained before in section ??. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level.
 
-Results indicate that that structure of data can affect results only in really special cases. The only case where projection is divided into clusters is when there is absolutely no information between question in different levels. But this is not our case in real data as there are users solving multiple levels. 
+Results indicate that that structure of data can affect results only in really special cases. The only case where projection is divided into clusters is when there is absolutely no information between question in different levels. But this is not our case in real data as there are users solving multiple levels.
 
 \subsubsection{Users similarity
 projection}\label{users-similarity-projection}
@@ -864,6 +883,13 @@ dimension of PCA - variance of performance entries of items
 % Now we understand how structure of system may affect performance data
 
 % Reusable in other systems
+
+% Limitations
+\section{Limitations}\label{limitations}
+
+-
+- only performane was used for computing similarity of items, other sources of data were ignored .. as we thought there results here are most unexpected .. hovewer there may arise other problems when using different sourcess of data
+- we used only correctness of answers and ignore response time. It make sense in studied tutoring system but may be important in other systems.
 
 
   \makeatletter\thesis@blocks@clear\makeatother
