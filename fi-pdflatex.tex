@@ -659,7 +659,7 @@ regularity in data.
 
 %% Quantification of answer clustering
 
-We can quantify whether this is present in all item-sets. We execute this by calculating quality of k-means clustering on items similarity compared to correct answers. Quality of clustering is evaluated using Rand index.
+We can quantify whether this is present in all item-sets. We execute this by calculating quality of k-means clustering on items similarity compared to correct clusters. Where correct clusters are formed as combination of level and correct answer. Quality of clustering is evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification. On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters.
 
 \begin{center}
   \begin{tabular}{ | l | l | l | l | }
@@ -695,7 +695,7 @@ We can quantify whether this is present in all item-sets. We execute this by cal
 \end{center}
 
 
-This statistic show that most of the item-sets have distinct clusters of answers and there is only few sets with obscure structure of answers.
+This statistic show that many item-sets have distinct clusters of different levels and answers. There is only few sets with obscure structure of answers and t.
 
 %% Total similarity
 
