@@ -159,8 +159,7 @@ similarity), plagiarism detection and many more.
 
 %TODO este sme nepovedali ze pouzivame performance, presunut
 
-One closely related area are recommender systems which differs from tutoring systems only slightly. Both areas are distinguishing users
-and items. Only difference is that our main source of information is performance of users while solving specific item and recommender systems mostly use rating of the items. Which in fact are still only numbers so we can use same techniques. However different context bring different problems specific to each area.
+One closely related area are recommender systems which differs from tutoring systems only slightly. Both areas are observing users and items. Main difference is that our main source of information is performance of users while solving specific item and recommender systems mostly use rating of the items. Which in fact are still only numbers so we can use same techniques. However different context bring different problems specific to each area.
 
 %%% Main difference from educational systems
 
@@ -203,7 +202,10 @@ This description of item is broad enough to cover most of learning
 systems. In next chapters we will discuss more closely system which we used for evaluation of our results.
 
 %%% Similairty
-\subsubsection{Similarity}\label{similarity}
+\subsubsection{Measuring similarity}\label{measuring-similarity}
+
+Following section is explaining general approach to measuring and using similarity of educational
+items.
 
 % what is similarity, how can we compute it
 
@@ -215,24 +217,54 @@ When we have vectors for each item we can compare them to get similarity using s
 
 Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. So this covers another common group of information we can encounter.
 
+% Elements of standard pipeline
+\subsubsection{Elements of standard pipeline}\label{elements-of-standard-pipeline}
+
+So we can wrap it up. There is a few data structures and few calculations involved in standard pipeline for computing similarity of educational items.
+
+\begin{enumerate}
+  \item \textbf{Feature matrix} is matrix (items$\times$features) containing source data. As we said previously this can represent any property of the items (e.g. item statement, users performance).
+
+  \item\textbf{Measuring similarity} may involve some similarity measure or edit distance. This step is used to compute similarity between all pairs of items. In other words, we transform feature matrix into similarity matrix.
+
+  \item\textbf{Similarity matrix} is matrix (item$\times$item) where each value represents similarity of pair of items.
+
+  \item\textbf{Dimensionality reduction} is used to transform similarity matrix into projection. Techniques like PCA or t-SNE may be used for this.
+
+  \item\textbf{Projection} is more compact representation (item$\times$2) of similarity matrix used for visualizations for end users.
+\end{enumerate}
+
 \subsection{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
 
 % Why is similarity of items useful
+% Managing problem pool, 
 
 As we mentioned previously key part of learning solving of educational
 items.
 
-\subsection{Computing similarity of
-items}\label{computing-similarity-of-items}
+After defining metrics for measuring similarity of programming problems we can use them for different purposes in programming environments. First, most direct, usage is recommendation of problems for
+student to solve. We do not want to recommend very similar problems
+to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
+Another possible usage is generating hints by selecting similar
+example from database of example source codes. Similarity of user
+solutions was used by [CITE Hosseini; Brusilovsky] for this purpose.
+Previous use cases were using problem similarity automatically
+inside tutoring system. Another approach is to bringing human beings
+into the decision-making loop [CITE]. This approach provides authors of
+tutoring system with visualizations which should inform them what
+changes may be useful.
+Authors of systems can use this metrics for gaining insight of problem pool. It is possible to detect redundant problems, even tell which
+problems are missing. One way of achieving this is plotting problems
+to plane and displaying it to author. Large amount of problems close to each other suggests there is lot of similar problems. When there is
+some problem standing alone it suggests that author of system may
+want to add more of similar problems.
 
-% Computing similarity of items
-
-Following section is explaining general approach to measuring and using similarity of educational
-items.
-
-% standard pipeline elements
-
-TODO What is Standard pipeline
+Last idea we are quite interested in is automatic construction of
+user interface. When we have large amount of problems without any
+present categorization we can use problem similarity to construct
+categories for student to select from. Even when system already has
+problems categorized author can use our metrics to verify that groups
+are formed correctly and refine them.
 
 \subsection{Used datasets}\label{used-datasets}
 
@@ -255,8 +287,7 @@ conclusions.
 \href{https://umimecesky.cz/}{Umíme česky} is system for practice of
 Czech grammar. System contains multiple exercise types, but in our
 analysis we use only one exercise - simple ``fill-in-the-blank'' with
-two possible answers. This type of exercise can be then viewed by
-student in multiple ways. %TODO all views of exercise
+two possible answers. 
 
 \begin{figure}
 \centering
@@ -392,27 +423,27 @@ otherwise all projections were produced using this work-flow.
 %%% Performance matrix
 
 First step we have to do is converting raw logged information about
-user answers to performance matrix. This matrix consist of entries for
+user answers to \textbf{performance matrix}. This matrix consist of entries for
 each user-item pair. Columns of the matrix are items in educational
 system and each row of the matrix contains data about single user's
 performance. In most cases we used correctness of first users answer
 to specific item as his performance. This means value 1.0 in case of
 correct answer and 0.0 for incorrect. Another possible choice is to
 incorporate user solving time into this value. TODO possible choices
-are described in article {[}{]} Performance matrix is relatively
+are described in article [CITE] Performance matrix is relatively
 sparse as it is not common for users to solve all the items in the
 system.
 
-I tried using both first users answer and last in performance matrix.
+We tried using both first users answer and last in performance matrix.
 However there is no visible difference in resulting projection (same
 clusters are formed). This is clear when we compare first and last
-answers of users. There is only 5% difference between them. So at least
-with large number of items in system it doesn't really matter which one
+answers of users. There is only 5\% difference between them. So at least
+with large number of items in system it does not really matter which one
 is chosen.
 
 %%% Similarity matrix
 
-Next step is computing similarity matrix. Matrix $S$ is square
+Next step is computing \textbf{similarity matrix}. Matrix $S$ is square
 matrix where each position $S_{ij}$ denotes similarity of items
 $i$ and $j$. In our case similarity is computed as correlation of
 two columns $i$ and $j$ in performance matrix. This means we look
@@ -421,19 +452,18 @@ Pearson correlation coefficient of their performance.
 
 %%% PCA, (TSNE)
 
-The last (optional) step is producing 2D projection. This can be
-achieved by using many techniques for computing low dimensional
-projections.
+The last step is producing 2D \textbf{projection}. Similarity matrix may be used by computed directly for decision making. However this matrix still contains way too many values for human to interpret. As some of our goals are explaining data to users. We continue with dimensional reduction to produce more compact representation of data. This can be
+achieved by using any dimensional reduction technique.
 
 %%%% PCA over TSNE
 
 We choose to use Principal component analysis (PCA) and there is several
 reasons for doing so. Result of PCA is deterministic. It produces same
-result for same input. This is not true for TSNA which is technique
+result for same input each time it is run. This is not true for TSNA which is technique
 using machine learning and gradient descent for finding some local
 extreme. Stable results are more suitable for understanding data as
-there is one less variation to results caused by algorithm. It is easier
-to compare results when altering metrics used fro computing item
+there is much less variation to results caused by algorithm. It is much easier
+to compare results when altering metrics used for computing item
 similarities.
 
 First two principal components of PCA are then used for 2D
@@ -456,8 +486,8 @@ interchanged.
 
 \subsection{Level regularity}\label{level-regularity}
 
-% Level regularity %% Description of problem, 3 clusters based on 3
-levels of questions difficulty
+% Level regularity
+%% Description of problem, 3 clusters based on 3levels of questions difficulty
 
 When you look back at figure \ref{fig:commonprojection} you can see that
 there are three colors of items. Most TODOknowledge components in system
@@ -505,7 +535,9 @@ In same way as we explained before in section ??. Only difference is that result
 
 Results indicate that that structure of data can affect results only in really special cases. The only case where projection is divided into clusters is when there is absolutely no information between question in different levels. But this is not our case in real data as there are users solving multiple levels.
 
-\subsubsection{Users similarity
+%% Users similarity
+
+\subsection{Users similarity
 projection}\label{users-similarity-projection}
 
 Insead we choose to analyse whether our data contains different groups
@@ -523,12 +555,12 @@ recommender systems use item similarity instead of user similarity. CITE
 
 First attempt on projecting users can be seen in figure ??.
 
-% TODO users similarity
+% TODO users similarity img
 
-We say that user solved level when he anwered at least 30 questions
+We say that user solved level when he answered at least 30 questions
 (which is 1/3 of questions for observed item set). Based on this we can
 divide users into 8 groups. We added color to each group so we can
-distinguish them in folowing plots easily.
+distinguish them in following plots easily.
 
 \begin{center}
   \begin{tabular}{|c|c c c c c c c c|}
@@ -544,19 +576,19 @@ distinguish them in folowing plots easily.
   \end{tabular}
 \end{center}
 
-We can see that all formed custers of users contains in most cases users
+We can see that all formed clusters of users contains in most cases users
 from single user group when we divide them by levels they solved. This
 brought us to more interesting discoveries. In general each level and
-each item has some mean performace. This is shown in figure ??.
+each item has some mean performance. This is shown in figure ??.
 Horizontal axis contains items sorted by level and mean performance.
-Vertical axis shows pwerformance of each item. Given item sets have mean
-performance 94%, 86%, 71% for each level respectively.
+Vertical axis shows performance of each item. Given item sets have mean
+performance 94\%, 86\%, 71\% for each level respectively.
 
 After dividing users into 8 groups plot changes slightly. Some groups
 like ``only 1st level'' (its colored red and contains users who solved
-primarly first level and only few or none items from other levels) has
+primarily first level and only few or none items from other levels) has
 much lower performance on other levels. We can conclude that users who
-tend to solve mostly first level arent as experienced as other users. On
+tend to solve mostly first level are not as experienced as other users. On
 other hand users in group ``both 2nd and 3rd'' (cyan) are performing
 better than other users on all three levels.
 
@@ -610,24 +642,29 @@ with higher performance are much more similar than items with lower
 performance. This is causing packed cluster of first level (easy) and
 spread out cluster of items from third level (harder).
 
-%% Quantification of level clustering, split and compare with truth
-
 \subsection{Answer regularity}\label{answer-regularity}
 
-% Answer regularity %% Description of problem, items are divided into
+% Answer regularity
+%% Description of problem, items are divided into
 clusters based correct answer (i/y) when there is no information about
 this in data used for computing similarity
 
 %%% TODO Outsider detection using similarity data
 
 When exploring data, it may be useful to detect outsiders. It may be
-useful for multiple reasons {[}TODO cite{]}. In our particular case we
+useful for multiple reasons [CITE]. In our particular case we
 declare item an outsider when it is not similar to any other items in
 item set. seems like a logical path to take.
 
 In particular this means item with low sum of similarities to other
 items may be an outsider. This is where we encountered another
 regularity in data.
+
+%% Quantification of answer clustering
+
+We can quantify whether this is present in all item-sets. We execute this by calculating quality of k-means clustering on items similarity compared to correct answers. Quality of clustering is evaluated using Rand index.
+
+This statistic show that most of the item-sets have distinct clusters of answers and there is only few sets with obscure structure of answers.
 
 %% Total similarity
 
@@ -652,8 +689,7 @@ some its more distinct than for others. (Sets consisting of items with
 many possible answers do not behave this way. But that is to be
 expected.)
 
-%% Users are choosing one answer by default when they do not know
-answer
+%% Users are choosing one answer by default when they do not know answer
 
 Our next experiment was simulation of users preferring one answer in
 case they do not know what is the correct answer.
@@ -780,34 +816,6 @@ eliminating clustrs of same levels.
 % % TODO check gradient of performance, is it good
 % % similar items from different levels are closer to each other
 
-%% Levels of similarity
-
-\subsection{Second level of
-similarity}\label{second-level-of-similarity}
-
-{[}Measuring Similarity of Educational Items Using Data on Learners'
-Performance{]} suggests applying one additional level of correlation to
-item similarity matrix. This means we are looking if items are behaving
-similarly with respect to other items. First two images (top) show data
-using only computed similarity of items. Second set of images shows same
-questions after applying Pearson correlation to similarity matrix. Plots
-on left show different possible answers (i/y) and plots on right
-difficulty levels of questions.
-
-Applying one additional level of correlation to item similarity matrix
-was suggested {[}TODO{]}. This means we are looking whether items are
-behaving similarly with respect to other items instead of similarity of
-user performance directly.
-
-We can study possible usage of this technique little further
-
-One approach is take a step back, do not use any similarity at all and
-compute projection directly from performance matrix. This is usually not
-useful as performance matrix has large amount of missing values and PCA
-works only with full matrices. However it is useful for exploring how
-adding computation of similarity affects projections.
-
-We used only users who solved all questions.
 
 \subsection{User similarity}\label{user-similarity}
 
@@ -887,7 +895,7 @@ dimension of PCA - variance of performance entries of items
 % Limitations
 \section{Limitations}\label{limitations}
 
--
+- only one exercise
 - only performane was used for computing similarity of items, other sources of data were ignored .. as we thought there results here are most unexpected .. hovewer there may arise other problems when using different sourcess of data
 - we used only correctness of answers and ignore response time. It make sense in studied tutoring system but may be important in other systems.
 
