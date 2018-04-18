@@ -144,24 +144,29 @@ Last chapter gives overview of many experiments that were concluded and summariz
 
 %% Structure
 
-In this chapter we will talk in general about questions in learning
-systems, and computing their similarity. Most of the chapter focuses on
+In this chapter we will talk in general about questions in tutoring
+systems and computing their similarity. Most of the chapter focuses on
 explaining what kinds of data are available when comparing questions in
 tutoring systems and techniques to do so. Last section describes goals
-of the thesis.
+of the thesis more in detail.
 
-%% Using similarity in related fields
+\section{Tutoring systems}\label{tutoring-systems}
 
-A lot of research has been dedicated to similarity in many different
-fields computer science like bioinformatics (sequence alignment,
-similarity matrix of proteins), information retrieval (document
-similarity), plagiarism detection and many more.
+% Tutoring systems
 
-One closely related area are recommender systems which differs from tutoring systems only slightly. Both areas are observing users and items. Main difference is that our main source of information is performance of users while solving specific item and recommender systems mostly use rating of the items. Which in fact are still only numbers so we can use same techniques. However different context bring different problems specific to each area.
+Tutoring systems are computer systems which purpose is to teach its users (students) some knowledge or skill. This systems do this autonomously to some degree. This degree may vary for each tutoring system.
+
+%%% Autonomous aspects of tutoring systems
+
+Many different aspects of learning may be implemented into the system or they may also be leaved out. Most common task which tutoring systems solve is choosing most beneficial item from pool of items for users to solve. This can be done in some straightforward way or we can adapt choices to each of the users. Choosing more challenging and interesting items to users who are skilled in specific area and more basic for users who are not is beneficial for maximizing learning aspect of the system. Another area is providing hints and feedback to students having problems while solving items or after failing to solve them correctly. When there are teachers interacting with the system we can also provide feedback about their students progress and so on.
+
+%% Recommender systems
+
+One closely related area are recommender systems which differs from tutoring systems only slightly. Both areas are observing users and items. Main difference is that our main source of information is performance of users while solving specific item and recommender systems mostly use rating of the items. Which in fact are still only numbers so we can use same techniques. However different goals bring different problems specific to each area.
 
 %%% Main difference from educational systems
 
-One difference is that we can use some more data about items. There are item statements and solutions of students which can in some contexts give us additional useful information about items.
+One difference is that we can use some additional data about items. There are item statements and solutions of students which can in some contexts give us really useful information about items.
 
 \section{Items}\label{items}
 
@@ -196,8 +201,15 @@ sources of data that can be utilized for measuring similarity of items.
 
 Structure of both item statement and solutions differ greatly based tasks which tutoring system uses. However in general it is still possible to use some basic metrics despite of representation.
 
-This description of item is broad enough to cover most of learning
-systems. In next chapters we will discuss more closely system which we used for evaluation of our results.
+This description of item is broad enough to cover most of tutoring systems. End of this chapter discuses more closely tutoring system which is used for our results.
+
+%%% Tutoring systems contains educational items, Large pool is required in some contexts
+
+On of the most important property of tutoring systems is that they contain educational items which are solved by users. Amount of items in this systems may vary. Some tutoring systems require large amount of items. This is especially true when they practice simple facts instead of skills. In personalized tutoring systems the need for large pool of items is even higher. For providing personalized questions we need wider set of items to choose from.
+
+%%% May be useful to determine similarity of items
+
+And dealing with large pool of items may not be easy. To maintain pool of items efficiently we need to be able to decide which items are useful and which are not. One possible tool which can help us here is similarity of items.
 
 %%% Similairty
 \subsection{Measuring similarity}\label{measuring-similarity}
@@ -222,7 +234,7 @@ So we can wrap it up. There is a few data structures and few calculations involv
 
 \begin{enumerate}
   \item
-    \textbf{Feature matrix} is matrix (items$\times$features) containing source data. As we said previously this can represent any property of the items (e.g. item statement, users performance).
+    \textbf{Feature matrix} is matrix (items$\times$features) containing source data. As we said previously this can represent any property of the items. This matrix consists of one vector for each item and it may represent item statement, solution or solutions of the item and naturally even users performance.
   \item
     \textbf{Measuring similarity} may involve some similarity measure or edit distance. This step is used to compute similarity between all pairs of items. In other words, we transform feature matrix into similarity matrix.
   \item
@@ -233,37 +245,26 @@ So we can wrap it up. There is a few data structures and few calculations involv
     \textbf{Projection} is more compact representation (item$\times$2) of similarity matrix used for visualizations for end users.
 \end{enumerate}
 
-\section{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
+\subsection{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
 
 % Why is similarity of items useful
 % Managing problem pool,
 
-As we mentioned previously key part of learning solving of educational
-items.
+As we mentioned previously key part of learning is solving of educational items. Defining some metrics for measuring similarity of items can then be used different purposes.
 
-After defining metrics for measuring similarity of programming problems we can use them for different purposes in programming environments. First, most direct, usage is recommendation of problems for
-student to solve. We do not want to recommend very similar problems
-to those that were solved without any problems. However when student struggled system should recommend more of similar problems.
-Another possible usage is generating hints by selecting similar
-example from database of example source codes. Similarity of user
-solutions was used by [CITE Hosseini; Brusilovsky] for this purpose.
-Previous use cases were using problem similarity automatically
-inside tutoring system. Another approach is to bringing human beings
-into the decision-making loop [CITE]. This approach provides authors of
-tutoring system with visualizations which should inform them what
-changes may be useful.
-Authors of systems can use this metrics for gaining insight of problem pool. It is possible to detect redundant problems, even tell which
-problems are missing. One way of achieving this is plotting problems
-to plane and displaying it to author. Large amount of problems close to each other suggests there is lot of similar problems. When there is
-some problem standing alone it suggests that author of system may
-want to add more of similar problems.
+First, most direct, usage is recommendation of items for student to solve. We do not want to recommend very similar items to those that were solved without any problems. However when user struggled system should consider recommending more of the similar problems to strengthen users knowledge.
 
-Last idea we are quite interested in is automatic construction of
-user interface. When we have large amount of problems without any
-present categorization we can use problem similarity to construct
-categories for student to select from. Even when system already has
-problems categorized author can use our metrics to verify that groups
-are formed correctly and refine them.
+Another possible usage is generating hints by selecting examples which are similar to item which is solved. Examples are selected from database of examples. Computation of similarity was used by [CITE Hosseini; Brusilovsky] for this purpose.
+
+Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bringing humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what
+changes may be useful. E.g. detecting possibly redundant problems or pointing out where there is not enough similar problems to choose from user struggle.
+
+One possible way of achieving this is plotting problems to plane and displaying it to author. This still ca not be used for very large amount of items. But we choose this approach for our specific data as they contain large amount of items but can be divided into item-sets which are solved independently in the system.
+
+One of the use cases of visualizations is detection of outsiders - items which behave differently than others. This behavior is directly shown in projection and such items lie far away from others.
+
+There is one ore usage of similarity which we wont be discussing. Similarity of items can be utilized for automatic construction of clustering and hierarchical categorization. When author already has items categorized he can compare it to computed categorization to verify that groups
+are formed correctly and refine them if needed.
 
 \section{Used datasets}\label{used-datasets}
 
@@ -273,7 +274,7 @@ are formed correctly and refine them.
 
 In our analysis we use both real data from educational system and
 simulated data. There is a reason why use both as only real-world data
-are useful for concluding any results. However evaluation of this data
+are useful for concluding any practical results. However evaluation of this data
 is often complicated as we do not know truth about many of their
 aspects. That's why we used simulated data for validating some of our
 conclusions.
@@ -329,6 +330,12 @@ We choose this tutoring system because, as we explained before, we are solving p
 Last column contains unique item-user pair answers. This number differs from all logged answers as some users may have answered some item multiple times. However we use only one of the answers.
 
 Last row contains statistics about one selected item-set which was most commonly used for analysis. This item-set has most answers therefore it is ideal for analysis as results are stable. We also confirmed behavior observed on this item-set on all other item-sets.
+
+%%% Users using system
+
+Primary group of users using Umíme česky are children children aged ? to ?. System also support teachers and usage in school. Each week about 200 classes visit the system.
+
+% TODO basic statistics of users
 
 % Simulated data
 \subsection{Simulated data}\label{simulated-data}
@@ -692,7 +699,7 @@ We can quantify whether this is present in all item-sets. We execute this by cal
 \end{center}
 
 
-This statistic show that many item-sets have distinct clusters of different levels and answers. There is only few sets with obscure structure of answers and t.
+This statistic show that many item-sets have distinct clusters of different levels and answers. There is only few sets with obscure structure of answers and this item-sets have large number of possible answers.
 
 %% Total similarity
 
@@ -746,25 +753,8 @@ images), many more categories display similar pattern. However for some
 its more distinct than for others. For some distribution of similarities
 is same for all answers (psani-nn-a-n, vyjmenovana-slova-po-p,..).
 
-I picked few witch have very distinct answers and looked whether it is
-answer on left or on right in user interface.
-
-%%% % \textbar{} category \textbar{} answer with higher similarity
-%%% \textbar{} position in UI \textbar{} % \textbar{}
-%%% -------------------------------------- \textbar{}
-%%% ----------------------------- \textbar{} -------------- \textbar{} %
-%%% \textbar{} koncovky-podstatnych-jmen-muzsky-rod \textbar{} i \textbar{}
-%%% left \textbar{} % \textbar{} koncovky-podstatnych-jmen-zensky-rodce
-%%% \textbar{} i \textbar{} left \textbar{} % \textbar{}
-%%% koncovky-podstatnych-jmen-stredni-rod \textbar{} i \textbar{} left
-%%% \textbar{} % \textbar{} koncovky-pridavnych-jmen \textbar{} y
-%%% \textbar{} right \textbar{} % \textbar{} psani-me-mne-ve-slove
-%%% \textbar{} (m)ne \textbar{} left \textbar{} % \textbar{}
-%%% me-mne-samostatne-zajmeno-ja \textbar{} (m)ne \textbar{} left \textbar{}
-%%% % \textbar{} psani-be-bje \textbar{} (b)je \textbar{} left \textbar{}
-%%% % \textbar{} vyjmenovana-slova-po-b \textbar{} i \textbar{} left
-%%% \textbar{} % \textbar{} \ldots{} \textbar{} \ldots{} \textbar{}
-%%% \ldots{} \textbar{}
+We picked few witch have very distinct clusters of answers and looked whether it is
+answer on left or on right in user interface. Our finding was that not all concept prefer answer which is  located
 
 %%% how to detect this in performance data? / what can we detect in
 data?
