@@ -210,7 +210,7 @@ When we have vectors for each item we can compare them pairwise to get similarit
 
 % Edit distance
 
-Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. So this covers another common group of information we can encounter.
+Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. Edit distance can be then converted into similarity using something like $1 / (1 + \text{edit distance})$. So this covers another common group of information we can encounter.
 
 % Elements of standard pipeline
 \subsection{Elements of standard pipeline}\label{elements-of-standard-pipeline}
@@ -256,11 +256,30 @@ There is one more usage of similarity which we won't be discussing further. The 
 % --------------------------- %
 
 %TODO intro text
+First section talks about used sources of data (dataset from actual system and simulated data).
+describes structure of exercices and items intutoring system Umíme česky
+basic statistics can be viewed there
+previous work on same dataset
+Description how common projection looks like. What properties does it have
+And in the end of chapter you can find detailed description of pipeline used in our experiemnts.
 
 % types of data (real, simulated), why, real, simulated
 
-In our analysis, we use both real data from the educational system and simulated data. There is a reason why use both as only real-world data are useful for concluding any practical results. However, evaluation of this data
-is often complicated as we do not know the truth about many of their aspects. That is why we use simulated data for validating some of our conclusions.
+In our analysis, we use both real data from the educational system and simulated data. There is a reason why use both as only real-world data are useful for concluding any practical results. However, evaluation of this data is often complicated as we do not know the truth about many of their aspects. That is why we also use simulated data for validating some of our conclusions.
+
+%% Simulated data
+
+\section{Simulated data}\label{simulated-data}
+
+So when simulating data we are trying to generate results which are similar to real tutoring system. Hovewer, we use slightly simpler model.
+
+The result of the simulation consists mainly of performance matrix with items as columns and users as its rows. First, we have to generate items. For each item we choose its difficulty and skill required to solve this item. The difficulty of item is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
+
+After that, we continued with the construction of users. We generate skills for all users - a matrix of $u$ users and all used skills. This matrix is also filled with random values from normal distribution $\mathcal{N}(0,\,1)$.
+
+Next, we simulate each user answering to each item. User answers correctly whenever is a random value higher than a logistic function of the difference of item difficulty and user skill. When it is not given answer is incorrect. User skill is one of the skills which corresponds to the skill required for given item.
+
+We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data, we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
 %% Umime cesky
 \section{Umíme česky}\label{umime-cesky}
@@ -277,7 +296,7 @@ is often complicated as we do not know the truth about many of their aspects. Th
   \label{fig:umimeceskydoplnovacka}
 \end{figure}
 
-We focused only on ``fill-in-the-blank'' exercises although they can still be used to train various concepts of Czech grammar. The exercise contains many questions but they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface.
+We focused only on ``fill-in-the-blank'' exercises although they can still be used to train various concepts of Czech grammar. The exercise contains many questions but they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets seaprately this categorization into diferent aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
 
 Items in item-sets are then divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
@@ -285,9 +304,7 @@ Items in item-sets are then divided into levels. Where higher levels are intende
 
 The used dataset contains multiple sources of information about items. In ``item statement'' group it is statement of the question with one missing spot and two possible answers to fill in there. We also know answers from all the users. Then in performance group of information, it is correctness of user answers and response time.
 
-It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both lengths of questions and users reading speed. Also, it is a good idea to use logarithm of time instead of time itself. This is shown by [CIET]. Only then it would be useful to use data about response times. This is a reason why we are using mostly correctness of user answers.
-
-%%% multiple grammar concepts, example of one exercise
+It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both lengths of questions and users reading speed. Also, it is a good idea to use logarithm of time instead of time itself. This is shown by [CITE]. Only then it would be useful to use data about response times. This is a reason why we are using mostly correctness of user answers.
 
 %%% Why this system
 
@@ -314,36 +331,34 @@ One selected item-set is the one most commonly used for analysis. This item-set 
 
 %%% Users using the system
 
-The primary group of users using Umíme česky are children aged ?? to ??. The system also supports teachers and usage in school. Each week about 200 classes visit the system.
+The primary group of users using Umíme česky are children stuing at primary and secondary school. The system supports accounts for inidviduals as well as accounts arranged into classes with teachers assigned. Each week about 200 classes visit the system.
+
+% TODO translate
+Učitelé mají možnost založit virtuální třídu, do které mohou při-
+dat své žáky a přiřadit jim domácí úkoly k vypracování. Učitel může
+vybrat několik cvičení k vypracování a nastavit datum, do kterého
+má být úkol vypracován. Po vypracování může splnění úkolu jedno-
+duše zkontrolovat, případně i zjistit, jaké výrazy žákům dělají největší
+potíže.
 
 % TODO basic statistics of users
-
-% Simulated data
-
-\section{Simulated data}\label{simulated-data}
-
-In addition to the real dataset, we also used simulated data. This section will describe how we simulated answers to items.
-
-The result of the simulation is performance matrix with $n$ items as columns and $u$ users as its rows. First, we have to create items. For each item we choose its difficulty, skill required to solve this item. The difficulty is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
-
-After that, we continued with the construction of users. We generate skills for all users - a matrix of $u$ users and all used skills. This matrix also contains random values from normal distribution $\mathcal{N}(0,\,1)$.
-
-Next, we simulate each user answering to each item. User answers correctly whenever is a random value higher than a logistic function of the difference of item difficulty and user skill. When it is not given answer is incorrect. User skill is one of the skills which corresponds to the skill required for given item.
-
-We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data, we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
 % Previous work
 \section{Previous work}\label{previous-work}
 
 Dataset from Umíme česky was used previously in few articles and thesis.
 
-- % TODO list of previous work
-- 
-
+% Similarity measure
+Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on
+Learners’ Performance [CITE]. 
 It was determined which similarity measures it is best to use for stability of results
 compare similarity measures to each other
 some metrics correlate more that other
 using Pearson is good default choice
+
+There was an article focused on comparing similarity measures. how well they preserve clusters on simulated data and whether they correalte on real datasets.
+Some of the measures correlate and some does not.
+
 
 % Description of common projection output
 
