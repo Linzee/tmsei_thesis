@@ -198,8 +198,7 @@ Dealing with a large pool of items may not be easy. To maintain a pool of items 
 %%% Similairty
 \subsection{Measuring similarity}\label{measuring-similarity}
 
-Following section is explaining general approach to measuring and using similarity of educational
-items.
+Following section is explaining general approach to measuring and using similarity of educational items.
 
 % what is a similarity, how can we compute it
 
@@ -220,15 +219,15 @@ So we can wrap it up. There are a few data structures and few calculations invol
 
 \begin{enumerate}
   \item
-    \textbf{Feature matrix} is matrix (items$\times$features) containing source data. As we said previously this can represent any property of the items. This matrix consists of one vector for each item and it may represent item statement, solution or solutions of the item and naturally even users performance.
+    \textbf{Feature matrix} is matrix (items $\times$ features) containing source data. As we said previously this can represent any property of the items. This matrix consists of one vector for each item and it may represent item statement, solution or solutions of the item and naturally even users performance.
   \item
     \textbf{Measuring similarity} may involve some similarity measure or edit distance. This step is used to compute the similarity between all pairs of items. In other words, we transform feature matrix into similarity matrix.
   \item
-    \textbf{Similarity matrix} is matrix (item$\times$item) where each value represents similarity of pair of items.
+    \textbf{Similarity matrix} is matrix (item $\times$ item) where each value represents similarity of pair of items.
   \item
     \textbf{Dimensionality reduction} is used to transform similarity matrix into a projection. Techniques like PCA or t-SNE may be used for this.
   \item
-    \textbf{Projection} is more compact representation (item$\times$2) of similarity matrix used for visualizations for end users.
+    \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users.
 \end{enumerate}
 
 \subsection{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
@@ -250,11 +249,13 @@ One of the use cases of visualizations is a detection of outsiders - items which
 
 There is one more usage of similarity which we won't be discussing further. The similarity of items can be utilized for automatic construction of clustering and hierarchical categorization. Even when author already has items categorized he can compare it to computed categorization to verify that groups are formed correctly and refine them if needed.
 
-\chapter{Used datasets}\label{used-datasets}
+\chapter{Used data and techniques}\label{used-data-and-techniques}
 
 % --------------------------- %
 % Used datasets               %
 % --------------------------- %
+
+%TODO intro text
 
 % types of data (real, simulated), why, real, simulated
 
@@ -337,21 +338,16 @@ We will talk more in depth about how we generated simulated data in next chapter
 Dataset from Umíme česky was used previously in few articles and thesis.
 
 - % TODO list of previous work
--
+- 
 
 It was determined which similarity measures it is best to use for stability of results
+compare similarity measures to each other
 some metrics correlate more that other
-using pearson is good default choice
-
-
-
-\chapter{Evaluation}
-
-% --------------------------- %
-% Evaluation                  %
-% --------------------------- %
+using Pearson is good default choice
 
 % Description of common projection output
+
+\section{Projection}\label{projection}
 
 %% why is projection useful
 
@@ -383,7 +379,7 @@ system. Each item is represented as one dot in the image and its
 proximity to others represents how similar they are.
 
 \section{Visible Properties of
-projection}\label{visible-properties-of-projection}
+projections}\label{visible-properties-of-projections}
 
 % Visible Properties of projection
 
@@ -402,8 +398,7 @@ single word with added suffix. However there is no information about item statem
 
 After looking at image you can notice some regularities.
 
-\subsection{Computation of item
-similarity}\label{computation-of-item-similarity}
+\subsection{Computation of item similarity}\label{computation-of-item-similarity}
 
 %% How is projection (similarity) computed
 
@@ -421,8 +416,7 @@ system and each row of the matrix contains data about single user's
 performance. In most cases we used correctness of first users answer
 to specific item as his performance. This means value 1.0 in case of
 correct answer and 0.0 for incorrect. Another possible choice is to
-incorporate user solving time into this value. TODO possible choices
-are described in article [CITE] Performance matrix is relatively
+incorporate user solving time into this value [CITE]. Performance matrix is relatively
 sparse as it is not common for users to solve all the items in the
 system.
 
@@ -435,17 +429,7 @@ is chosen.
 
 %%% Similarity matrix
 
-Next step is computing \textbf{similarity matrix}. Matrix $S$ is square
-matrix where each position $S_{ij}$ denotes similarity of items
-$i$ and $j$. In our case similarity is computed as correlation of
-two columns $i$ and $j$ in performance matrix. This means we look
-only at users who solved both items $i$ and $j$ and compute
-Pearson correlation coefficient of their performance.
-
-Pearson correlation was used for several reasons.
-previous work showed
-pearson correlatin is easy to use as many computational environements have fast impelmentation of this coeffiecient.
-it was shown that it has good enought results in producing distinct clusters. Articlw showed that using second level improves this property even further however we choose not to use it to simplify explaining our experiments. as that is important factor to our work
+Next step is computing \textbf{similarity matrix}. It is filled with pairwise correlation of all items from performance. We choose Pearson correlation coefficient for this and it was used for several reasons. Previous work showed that it has good enough results in producing distinct clusters on performance data [CITE]. Same article also showed that using second level improves this property even further. However, we choose not to use it to simplify explaining our experiments as that is important factor to our work. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
 
 %%% PCA, (TSNE)
 
@@ -480,6 +464,14 @@ physics, or chemistry.
 This choice of work-flow is also relatively simple and easy to
 understand. It consist of few steps which can be studied separately and
 interchanged.
+
+\chapter{Evaluation}
+
+% --------------------------- %
+% Evaluation                  %
+% --------------------------- %
+
+%TODO intro text
 
 \section{Level regularity}\label{level-regularity}
 
