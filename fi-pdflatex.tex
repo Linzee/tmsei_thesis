@@ -52,8 +52,8 @@
     advisor       = Radek Pelánek,
     title         = {Techniques for measuring similarity of educational items},
     TeXtitle      = {Techniques for measuring similarity of educational items},
-    keywords      = {similarity, metrics, programming, keyword2, ...},
-    TeXkeywords   = {similarity, metrics, programming, keyword2, \ldots},
+    keywords      = {similarity, measure, keyword2, ...},
+    TeXkeywords   = {similarity, measure, keyword2, \ldots},
     abstract      = {This is the abstract of my thesis, which can
 
                      span multiple paragraphs.},
@@ -125,7 +125,7 @@ useful and which are not.
 
 Besides Introduction and Conclusion chapters, this thesis is structured
 into three additional chapters. First chapter talks in general about the problem of measuring similarity of educational items, advantages of using similarity.
-This chapter also describes previous work and different proposed metrics for computing similarity. Later we explain different types of data available in tutoring systems.
+This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems.
 The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
 
@@ -139,7 +139,7 @@ The last chapter gives an overview of many experiments that were concluded and s
 
 %% Structure
 
-In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. In the beginning we of the chapter we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all throught the work. We also describe different kinds of data available about items and possible metrics for calculating similarity.
+In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. In the beginning we of the chapter we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all throught the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
 The last section of this chapter describes data used in our experiments. In particular, we describe used dataset and outline ways of simulating artificial data.
 
 \section{Tutoring systems}\label{tutoring-systems}
@@ -172,7 +172,7 @@ tasks which user solves in a matter of minutes.
 
 %% Data sources
 
-To further specify the context of our research, we will describe characteristics of items. Computing similarity may be performed by different metrics, but they all have to use data which are available for each item. Therefore we first describe sources of data that can be utilized for measuring the similarity of items.
+To further specify the context of our research, we will describe characteristics of items. Computing similarity may be performed by different measures, but they all have to use data which are available for each item. Therefore we first describe sources of data that can be utilized for measuring the similarity of items.
 
 \begin{itemize}
 \item
@@ -183,7 +183,7 @@ To further specify the context of our research, we will describe characteristics
   \textbf{User's performance} consists of information provided indirectly by users. Performance of items may represent user solving times, correctness of the answers, number of attempts required.
 \end{itemize}
 
-Structure of both item statement and solutions differ greatly based context of tutoring system. However, in general, it is still possible to convert data into some standard form and use few standard metrics despite original representation.
+Structure of both item statement and solutions differ greatly based context of tutoring system. However, in general, it is still possible to convert data into some standard form and use one of a few standard measures despite original representation.
 
 This description of an item is broad enough to cover most of the tutoring systems. End of this chapter discusses more closely tutoring system used for our results.
 
@@ -202,7 +202,7 @@ Following section is explaining general approach to measuring and using similari
 
 % what is a similarity, how can we compute it
 
-In general, we can compute similarity of items in many ways. We define metrics for computing similarity for two items. Then when we want to use similarity for some specific use-case we compute pairwise similarities for all pair of items.
+In general, we can compute similarity of items in many ways. We define measures for computing similarity for two items. Then when we want to use similarity for some specific use-case we compute pairwise similarities for all pair of items.
 
 Items in our context are commonly represented as vectors of numeric values. For performance data, this is vector of correctness or time from all users to given item. Other properties of items like question statement may also be represented as a vector, e.g., by using bag-of-words.
 
@@ -235,7 +235,7 @@ So we can wrap it up. There are a few data structures and few calculations invol
 % Why is similarity of items useful
 % Managing problem pool,
 
-As we mentioned previously key part of learning is solving educational items. Defining some metrics for measuring the similarity of items can then be used for different purposes.
+As we mentioned previously key part of learning is solving educational items. Defining some measures for computing similarity of items can then be used for different purposes.
 
 First, most direct, usage is a recommendation of items for a student to solve. We do not want to recommend very similar items to those that were solved without any problems. However when user struggled system should consider recommending more of the similar problems to strengthen users knowledge.
 
@@ -271,7 +271,7 @@ In our analysis, we use both real data from the educational system and simulated
 
 \section{Simulated data}\label{simulated-data}
 
-So when simulating data we are trying to generate results which are similar to real tutoring system. Hovewer, we use slightly simpler model.
+So when simulating data we are trying to generate results which are similar to real tutoring system. However, we use slightly simpler model.
 
 The result of the simulation consists mainly of performance matrix with items as columns and users as its rows. First, we have to generate items. For each item we choose its difficulty and skill required to solve this item. The difficulty of item is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
 
@@ -289,14 +289,12 @@ We will talk more in depth about how we generated simulated data in next chapter
 \href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. The system contains multiple exercise types, but in our analysis, we use only one exercise type - simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
 
 \begin{figure}
-  \begin{center}
-    \includegraphics[width=10cm]{img/umimecesky_doplnovacka}
-  \end{center}
+  \includegraphics[width=10cm]{img/umimecesky_doplnovacka}
   \caption{``fill-in-the-blank'' example question}
   \label{fig:umimeceskydoplnovacka}
 \end{figure}
 
-We focused only on ``fill-in-the-blank'' exercises although they can still be used to train various concepts of Czech grammar. The exercise contains many questions but they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets seaprately this categorization into diferent aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
+We focused only on ``fill-in-the-blank'' exercises although they can still be used to train various concepts of Czech grammar. The exercise contains many questions but they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets separately this categorization into different aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
 
 Items in item-sets are then divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
@@ -308,12 +306,12 @@ It is not possible to use response time directly. We need to normalize it in som
 
 %%% Why this system
 
-We choose this tutoring system because, as we explained before, we are solving problems which are most important for systems with a large number of items. Also provided dataset has a large number of users and answers which is great for the stability of results.
+We choose this tutoring system because, as we explained before, we are focusing on problems which are most important for systems with a large number of items. Also provided dataset has a large number of users and answers which is great for the stability of results.
 
 %% Basic statistics
-\subsection{Basic statistics}\label{basic-statistics}
+\subsection{Basic statistics}\label{basic-statistics} 
 
-\begin{center}
+\begin{table}
   \begin{tabular}{|l|r r r r|}
     \hline
      & Items & Users & Answers & Item-user answers \\
@@ -323,42 +321,27 @@ We choose this tutoring system because, as we explained before, we are solving p
     One item-set & 273 & 14\,207 & 1\,216\,403 & 888\,748 \\
     \hline
   \end{tabular}
-\end{center}
+  \caption{Basic statistics}
+  \label{tab:basic-statistics}
+\end{table}
 
-The last column contains unique item-user pair answers. This number differs from all logged answers as some users may have answered some item multiple times. However, we use only one of the answers.
-
-One selected item-set is the one most commonly used for analysis. This item-set has most answers from users, therefore, it is ideal for analysis as results are more stable. We used this item-set by default but we also confirmed observed behavior on other item-sets.
+This section provides some basic statistics about size of dataset and users of system. Table \ref{tab:basic-statistics} shows number of items, users and answers. Statistics are both global and for one selected item-set which is the one most commonly used for analysis. This item-set has most answers from users, therefore, it is ideal for analysis as results are more stable. We used this item-set by default but we also confirmed observed behavior on other item-sets. The last column (``Item-user answers'') contains count of unique item-user pair which are answered. This number differs from all logged answers because users can answer same item multiple times. In this case we use only one of the answers.
 
 %%% Users using the system
 
-The primary group of users using Umíme česky are children stuing at primary and secondary school. The system supports accounts for inidviduals as well as accounts arranged into classes with teachers assigned. Each week about 200 classes visit the system.
-
-% TODO translate
-Učitelé mají možnost založit virtuální třídu, do které mohou při-
-dat své žáky a přiřadit jim domácí úkoly k vypracování. Učitel může
-vybrat několik cvičení k vypracování a nastavit datum, do kterého
-má být úkol vypracován. Po vypracování může splnění úkolu jedno-
-duše zkontrolovat, případně i zjistit, jaké výrazy žákům dělají největší
-potíže.
-
-% TODO basic statistics of users
+A primary group of users using Umíme česky are children studying at primary and secondary school. Users can have individual accounts
+but system also allows teachers to create virtual class and assign students into it. Teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
 
 % Previous work
 \section{Previous work}\label{previous-work}
 
-Dataset from Umíme česky was used previously in few articles and thesis.
+Dataset from Umíme česky was used previously in few articles and thesis. Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
 
-% Similarity measure
-Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on
-Learners’ Performance [CITE]. 
-It was determined which similarity measures it is best to use for stability of results
-compare similarity measures to each other
-some metrics correlate more that other
-using Pearson is good default choice
+They compared few chosen similarity measures to each other. Result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for stability of results. Especially that using Pearson correlation coefficient is good default choice.
 
-There was an article focused on comparing similarity measures. how well they preserve clusters on simulated data and whether they correalte on real datasets.
-Some of the measures correlate and some does not.
+We are also using it for several reasons. Described article showed that it has good enough results in producing distinct clusters on performance data. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
 
+Article also showed that using ``second level of similarity'' improves stability of results further. However, we choose not to use it as our dataset is large enough to be sable even with simpler measure. Using straightforward measure is also beneficial when explaining results. And this factor is important to our work.
 
 % Description of common projection output
 
@@ -366,37 +349,51 @@ Some of the measures correlate and some does not.
 
 %% why is projection useful
 
-Projections come in handy when it is hard to understand data directly because there is too much of them. This is especially true for tutoring systems which consist of thousands of solvable
-items and even more users in cases like this it is not possible to look
-at data about each item individually possible with projection of
-many-dimensional data into 2 dimensions.
+Projections come in handy when it is hard to understand data directly because there is way too much of them. And this is our case as we focus on systems which consist of thousands of solvable items and even more users. Projections are results of dimensionality reduction techniques. We project many-dimensional data into 2 thoughtfully chosen dimensions to simplify them.
 
 %% similarity and projection
 
-In general we want our projection to put similar items together. This
-can be achieved in many different ways. It is important to choose
-correct source of data and method of processing them prior to applying
-dimensionality reduction.
+In general we want projection which puts similar items together. This can be achieved in many different ways. Following section explains choices we made when selecting source of data, method of processing them prior to applying dimensionality reduction, and dimensionality reduction technique itself.
 
-%% how does projection look like, possible answers and levels
+\subsection{Computation of item similarity}\label{computation-of-item-similarity}
 
-\begin{figure}
-  \begin{center}
-    \includegraphics[width=10cm]{img/common_projection}
-  \end{center}
-  \caption{Basic projection of one knowledge component in Umíme česky}
-  \label{fig:commonprojection}
-\end{figure}
+%% How is projection (similarity) computed
 
-Figure \ref{fig:commonprojection} shows how common projection looks
-like. This particular projection shows 273 items of single concept from
-system. Each item is represented as one dot in the image and its
-proximity to others represents how similar they are.
+To better understand how are projections created we have to understand steps of its computation. This is default pipeline we used in most cases. When some of the further analysis modify it slightly it is pointed out in corresponding section. Whenever we don't specify so all projections were produced using this default pipeline.
 
-\section{Visible Properties of
-projections}\label{visible-properties-of-projections}
+%%% Performance matrix
+
+First step we have to take is converting raw logged information about user answers into \textbf{performance matrix}. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In our case we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+
+%%% Similarity matrix
+
+Next step is computing \textbf{similarity matrix}. It is filled with pairwise correlation of all items from performance. For this was chosen Pearson correlation coefficient based on previous work. Values produced by correlation are between $-1$ and $+1$. Each value in this matrix represent similarity of two items. This gives matrix some properties - matrix is symmetric and all values at main diagonal are 1.0.
+
+%%% PCA, (TSNE)
+
+The last step is producing 2D \textbf{projection}. Similarity matrix is useful for computer to directly make decision based on it. However this matrix still contains way too many values for human to interpret. As some of our goals are explaining data to users. We continue with dimensional reduction to produce more compact representation of data. This can be achieved by using any dimensional reduction technique.
+
+%%%% PCA over TSNE
+
+We decided to use Principal component analysis (PCA) and first two principal components are then used for 2D visualizations. We choose PCA over other commonly used technique t-SNE (which can produce better looking results) for one important reason. Results of PCA are deterministic. It produces same result for same input each time it is run. This is not true for t-SNE which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is no variation to results caused by algorithm. And it is much easier to compare results when altering measure used for computing item similarities.
+
+%%% Why this pipeline, performance data (not item statement)
+
+We choose this specific pipeline as we think it is utilizing data about items which hold most information about their similarity. Other possible choices are using item statement and solutions provided by students. However, they do not hold as much information in our specific tutoring system. Item statements in our observed exercise consist only of few Czech words with one missing spot. And student solution is only choice from two provided options. Item statement and solutions can be used more effectively in other contexts like programming, mathematics, or physics where item statements are much more complex.
+
+This choice of pipeline is also relatively easy to understand. It consist only of few steps which can be studied separately and interchanged.
+
+\section{Visible properties of projections}\label{visible-properties-of-projections}
 
 % Visible Properties of projection
+
+\begin{figure}
+    \includegraphics[width=10cm]{img/common_projection}
+  \caption{Basic projection of one knowledge component in Umíme česky}
+  \label{fig:common_projection}
+\end{figure}
+
+Figure \ref{fig:common_projection} shows how can resulting projection look like. This particular projection shows 273 items (single item-set). Each item is represented as one dot in the image and its proximity to others represents how similar they are.
 
 %% Similar words near each other
 
@@ -405,80 +402,13 @@ managing item pool. That puts some constrains on how ideal results look
 like.
 
 We want similar items to end as close to each other as possible. When we use performance as data source this means items which require same skills are projected near each other. For example when we look at our item-set we can see that all words words starting with ``bio'' are close to each other. This group consists of words witch are indeed similar because they are based on
-single word with added suffix. However there is no information about item statement presented to similarity metric.
+single word with added suffix. However there is no information about item statement presented to similarity measure.
 
 %% Regularities
 
 %% This causes similar words to end-up far away one from another
 
 After looking at image you can notice some regularities.
-
-\subsection{Computation of item similarity}\label{computation-of-item-similarity}
-
-%% How is projection (similarity) computed
-
-To better understand how was this image created we have to understand
-how it is computed. We will describe it following section. This is
-default work-flow we used in most cases. Whenever we don't specify
-otherwise all projections were produced using this work-flow.
-
-%%% Performance matrix
-
-First step we have to do is converting raw logged information about
-user answers to \textbf{performance matrix}. This matrix consist of entries for
-each user-item pair. Columns of the matrix are items in educational
-system and each row of the matrix contains data about single user's
-performance. In most cases we used correctness of first users answer
-to specific item as his performance. This means value 1.0 in case of
-correct answer and 0.0 for incorrect. Another possible choice is to
-incorporate user solving time into this value [CITE]. Performance matrix is relatively
-sparse as it is not common for users to solve all the items in the
-system.
-
-We tried using both first users answer and last in performance matrix.
-However there is no visible difference in resulting projection (same
-clusters are formed). This is clear when we compare first and last
-answers of users. There is only 5\% difference between them. So at least
-with large number of items in system it does not really matter which one
-is chosen.
-
-%%% Similarity matrix
-
-Next step is computing \textbf{similarity matrix}. It is filled with pairwise correlation of all items from performance. We choose Pearson correlation coefficient for this and it was used for several reasons. Previous work showed that it has good enough results in producing distinct clusters on performance data [CITE]. Same article also showed that using second level improves this property even further. However, we choose not to use it to simplify explaining our experiments as that is important factor to our work. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
-
-%%% PCA, (TSNE)
-
-The last step is producing 2D \textbf{projection}. Similarity matrix may be used by computed directly for decision making. However this matrix still contains way too many values for human to interpret. As some of our goals are explaining data to users. We continue with dimensional reduction to produce more compact representation of data. This can be
-achieved by using any dimensional reduction technique.
-
-%%%% PCA over TSNE
-
-We choose to use Principal component analysis (PCA) and there is several
-reasons for doing so. Result of PCA is deterministic. It produces same
-result for same input each time it is run. This is not true for TSNA which is technique
-using machine learning and gradient descent for finding some local
-extreme. Stable results are more suitable for understanding data as
-there is much less variation to results caused by algorithm. It is much easier
-to compare results when altering metrics used for computing item
-similarities.
-
-First two principal components of PCA are then used for 2D
-visualizations.
-
-%%% Why this work-flow, performance data (not item statement)
-
-We choose this specific work-flow as we think it is utilizing data about
-items which hold most information about their similarity. As other
-possible choices are item statement and solutions provided by students
-they do not hold as much information. Item statements in our particular
-exercises consist only of few Czech words. Also student solution is only
-choice from two provided options. Item statement and solutions can be
-used more effectively in other contexts like programming, mathematics,
-physics, or chemistry.
-
-This choice of work-flow is also relatively simple and easy to
-understand. It consist of few steps which can be studied separately and
-interchanged.
 
 \chapter{Evaluation}
 
@@ -488,12 +418,19 @@ interchanged.
 
 %TODO intro text
 
+We tried using both first users answer and last in performance matrix.
+However there is no visible difference in resulting projection (same
+clusters are formed). This is clear when we compare first and last
+answers of users. There is only 5\% difference between them. So at least
+with large number of items in system it does not really matter which one
+is chosen.
+
 \section{Level regularity}\label{level-regularity}
 
 % Level regularity
 %% Description of problem, 3 clusters based on 3levels of questions difficulty
 
-When you look back at figure \ref{fig:commonprojection} you can see that
+When you look back at figure \ref{fig:common_projection} you can see that
 there are three colors of items. Most TODOknowledge components in system
 Umíme česky are spitted into multiple levels of difficulty. For this
 particular knowledge component there are three difficulty levels. First
@@ -550,7 +487,7 @@ used item-item similarity to calculate projection of items. Now we are
 going to to be using user-user similarity.
 
 It is worth mentioning we will work with larger matrices as this forced
-us to do some optimalizations in code of our analysis. For example
+us to do some optimizations in code of our analysis. For example
 similariy matrix of items usualy has size between $100\times 100$ and
 $300\times 300$. As we are looking only on items from single knowledge
 component. Hovewer user similarity matrix is square matrix with size
@@ -566,20 +503,22 @@ We say that user solved level when he answered at least 30 questions
 divide users into 8 groups. We added color to each group so we can
 distinguish them in following plots easily.
 
-\begin{center}
+\begin{table}
   \begin{tabular}{ | l | l | l | l | }
   \hline
-  	Group & Color & Users count & User percent \\ \hline
-  	none & black & 4984 & 35 \\ \hline
-  	only 1st level & red & 4375 & 31 \\ \hline
-  	only 2nd level & green & 1285 & 9 \\ \hline
-  	only 3rd level & blue & 1114 & 8 \\ \hline
-  	both 1th and 2nd & yellow & 960 & 7 \\ \hline
-  	both 2nd and 3rd & cyan & 224 & 2 \\ \hline
-  	both 1nd and 3rd & magenta & 240 & 2 \\ \hline
-  	all levels & light gray & 1025 & 7 \\ \hline
+  	Group & Color & Users \\ \hline
+  	none & black & 35\% \\ \hline
+  	only 1st level & red & 31\% \\ \hline
+  	only 2nd level & green & 9\% \\ \hline
+  	only 3rd level & blue  & 8\% \\ \hline
+  	both 1th and 2nd & yellow & 7\% \\ \hline
+  	both 2nd and 3rd & cyan & 2\% \\ \hline
+  	both 1nd and 3rd & magenta & 2\% \\ \hline
+  	all levels & light gray & 7\% \\ \hline
   \end{tabular}
-\end{center}
+  \caption{Groups of users}
+  \label{tab:groups}
+\end{table}
 
 
 We can see that all formed clusters of users contains in most cases users
@@ -617,18 +556,17 @@ level) should remove clusters of levels.
 
 But does it?!?
 
-\section{Different performance
-metrics}\label{different-performance-metrics}
+\section{Different performance measures}\label{different-performance-measures}
 
-% Different performance metrics
+% Different performance measures
 
-We applied 4 different metrics for computing similarity matrix to verify
-that previous results aren't specific to single metric. Especially if it
+We applied 4 different measures for computing similarity matrix to verify
+that previous results aren't specific to single measure. Especially if it
 is true that similarity of items differ based on correct answer.
 
 %%% what different measurements measure
 
-With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite metrics]
+With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite measures]
 
 Pearson and yule produce almost identical results - this confirms
 previous research. This means plots produce same distinct clusters of
@@ -637,11 +575,11 @@ this aspect. Similarity of items is not greater in one group of
 questions (based on correct answer).
 
 Different methods for computing similairty may measeure diferent aspects
-of items. This can be seen when using Jaccard an Sokal metrics.
-SImilarities provided by Jaccard metric differe greatly from other
-metrics. Resulting projection still shows same clusters of level and
+of items. This can be seen when using Jaccard an Sokal measures.
+Similarities provided by Jaccard measure differe greatly from other
+measures. Resulting projection still shows same clusters of level and
 items are splited based on correct answer but information is kept in
-another way than in correlation based metrics like Pearson.
+another way than in correlation based measures like Pearson.
 
 On other hand Sokal is heavily depending on performance of items. Items
 with higher performance are much more similar than items with lower
@@ -670,7 +608,7 @@ regularity in data.
 
 We can quantify whether this is present in all item-sets. We execute this by calculating quality of k-means clustering on items similarity compared to correct clusters. Where correct clusters are formed as combination of level and correct answer. Quality of clustering is evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification. On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters.
 
-\begin{center}
+\begin{table}
   \begin{tabular}{ | l | l | l | l | }
     \hline
   	 & min & median & max \\ \hline
@@ -701,7 +639,9 @@ We can quantify whether this is present in all item-sets. We execute this by cal
   	vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
   	vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
   \end{tabular}
-\end{center}
+  \caption{Quality of clusters in different item-sets}
+  \label{tab:quality-of-clusters}
+\end{table}
 
 
 This statistic show that many item-sets have distinct clusters of different levels and answers. There is only few sets with obscure structure of answers and this item-sets have large number of possible answers.
@@ -712,11 +652,9 @@ Sum of similarities is sum of one column of similarity matrix which we
 produced in our workflow for computing projection.
 
 \begin{figure}
-  \begin{center}
-    \includegraphics[width=10cm]{img/iy_histogram}
-  \end{center}
+  \includegraphics[width=10cm]{img/iy_histogram}
   \caption{Histogram of similarities}
-  \label{ref:iyhistogram}
+  \label{fig:histogram_i_y}
 \end{figure}
 
 %%% total similarity histograms by answer
@@ -924,9 +862,9 @@ dimension of PCA - variance of performance entries of items
 
 
   \makeatletter\thesis@blocks@clear\makeatother
-  \phantomsection %% Print the index and insert it into the
-  \addcontentsline{toc}{chapter}{\indexname} %% table of contents.
-  \printindex
+  %\phantomsection %% Print the index and insert it into the
+  %\addcontentsline{toc}{chapter}{\indexname} %% table of contents.
+  %\printindex
 
 \appendix %% Start the appendices.
 \chapter{An appendix}
