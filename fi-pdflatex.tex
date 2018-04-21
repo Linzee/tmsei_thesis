@@ -84,6 +84,8 @@
 \floatsetup[table]{capposition=top}
 \begin{document}
 
+\newcommand{\umimeCesky}{\textit{Umíme česky}}
+
 %
 % Oficialne zadani
 %
@@ -257,7 +259,7 @@ There is one more usage of similarity which we won't be discussing further. The 
 
 %TODO intro text
 First section talks about used sources of data (dataset from actual system and simulated data).
-describes structure of exercices and items intutoring system Umíme česky
+describes structure of exercices and items intutoring system \umimeCesky{}
 basic statistics can be viewed there
 previous work on same dataset
 Description how common projection looks like. What properties does it have
@@ -282,11 +284,11 @@ Next, we simulate each user answering to each item. User answers correctly whene
 We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data, we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
 %% Umime cesky
-\section{Umíme česky}\label{umime-cesky}
+\section{\umimeCesky{}}\label{umime-cesky}
 
 %%% Czech grammar, ``fill-in-the-blank'' with two choices
 
-\href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. The system contains multiple exercise types, but in our analysis, we use only one exercise type - simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
+\href{https://umimecesky.cz/}{\umimeCesky{}} is a system for practice of Czech grammar. The system contains multiple exercise types, but in our analysis, we use only one exercise type - simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/umimecesky_doplnovacka}
@@ -309,7 +311,7 @@ It is not possible to use response time directly. We need to normalize it in som
 We choose this tutoring system because, as we explained before, we are focusing on problems which are most important for systems with a large number of items. Also provided dataset has a large number of users and answers which is great for the stability of results.
 
 %% Basic statistics
-\subsection{Basic statistics}\label{basic-statistics} 
+\subsection{Basic statistics}\label{basic-statistics}
 
 \begin{table}
   \begin{tabular}{|l|r r r r|}
@@ -329,13 +331,13 @@ This section provides some basic statistics about size of dataset and users of s
 
 %%% Users using the system
 
-A primary group of users using Umíme česky are children studying at primary and secondary school. Users can have individual accounts
+A primary group of users using \umimeCesky{} are children studying at primary and secondary school. Users can have individual accounts
 but system also allows teachers to create virtual class and assign students into it. Teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
 
 % Previous work
 \section{Previous work}\label{previous-work}
 
-Dataset from Umíme česky was used previously in few articles and thesis. Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
+Dataset from \umimeCesky{} was used previously in few articles and thesis. Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
 
 They compared few chosen similarity measures to each other. Result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for stability of results. Especially that using Pearson correlation coefficient is good default choice.
 
@@ -389,7 +391,7 @@ This choice of pipeline is also relatively easy to understand. It consist only o
 
 \begin{figure}
     \includegraphics[width=10cm]{img/common_projection}
-  \caption{Basic projection of one knowledge component in Umíme česky}
+  \caption{Basic t-SNE projection of one item-set}
   \label{fig:common_projection}
 \end{figure}
 
@@ -397,12 +399,9 @@ Figure \ref{fig:common_projection} shows how can resulting projection look like.
 
 %% Similar words near each other
 
-we want to use results of calculated similarity and projections for
-managing item pool. That puts some constrains on how ideal results look
-like.
+As projections are meant to be used for managing item pool this puts some constrains on how ideal projection should look like.
 
-We want similar items to end as close to each other as possible. When we use performance as data source this means items which require same skills are projected near each other. For example when we look at our item-set we can see that all words words starting with ``bio'' are close to each other. This group consists of words witch are indeed similar because they are based on
-single word with added suffix. However there is no information about item statement presented to similarity measure.
+We want similar items to end as close to each other as possible. When we use performance as data source we can also interpret as items which require same skills are projected near each other - their answers from each user correlate. For example when we look at our selected item-set we can see that all words words starting with ``bio'' are close to each other. This group consists of words witch are indeed similar because they are based on single word with added suffix. But remember, there is no information about item statement presented to similarity measure.
 
 %% Regularities
 
@@ -410,47 +409,32 @@ single word with added suffix. However there is no information about item statem
 
 %% This causes similar words to end-up far away one from another
 
-After looking at image you can notice some regularities.
+After looking back at figure \ref{fig:common_projection} you can notice some regularities. Items depicted with same colors and items using same markers form clusters of same colors and markers. But so far you have no idea what this properties of items represent. This section is talking about it.
 
 \subsection{Level regularity}\label{regularities-level-regularity}
 
 % Level regularity
 %% Description of problem, 3 clusters based on 3levels of questions difficulty
 
-When you look back at figure \ref{fig:common_projection} you can see that
-there are three colors of items. Most TODOknowledge components in system
-Umíme česky are spitted into multiple levels of difficulty. For this
-particular knowledge component there are three difficulty levels. First
-level is shown with red, second with green and third blue. This shows
-visible pattern in our data - each color (level) forms a distinct
-cluster. In following section we will try to explain factors that can
-affect resulting projections produced from real-world data.
+Figure \ref{fig:common_projection} contains items of three different colors. As you alread know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set there are three difficulty levels. First level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see visible pattern in our data - each cluster consists mosly of items item from one level.
 
-Projected item-set is divided into three levels with 110, 86 and 77 items respectively.
-
-As we mentioned before, only data about user performance (correctness of
-answers) are used when composing projections. And there is not a direct
-reason for this clusters of same levels to form as no information about
-belonging to particular level is presented to the algorithm.
+As we mentioned before, only data about user performance (correctness of answers) are used when composing projections. And there is not a direct reason for this clusters of same levels to form as no information about belonging to particular level is presented to the algorithm.
 
 %%% cause? how users tend to solve them
 
-Levels are not solved uniformly. It is not common for user to sole all
-three levels. Less experienced users tend to solve only first or first
-two levels. However typically older users solve only higher levels. Main
-cause for this is that system allows teachers to assign particular level
-of concepts as homework. Students then usually solve only this single
-level.
+Levels are not solved uniformly. It is not common for user to sole all three levels. Less experienced users tend to solve only first or first two levels. However more experienced users solve only higher levels.
 
 %%% why is this unsuitable
 
 %%%% Example of similar words far away one from another
 
-This phenomenon is not suitable for analysis of item similarity as it
-can cause misleading results. One particular example is when similar
-word are displayed far away form one another just because they belong to
-different levels. This is visible for words ``bič'' and ``bičík'' in
-item set ``Vyjmenovaná slova po B''.
+This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar word are displayed far away form one another just because they belong to different levels. This is visible for words ``bič'' and ``bičík'' in item set ``Vyjmenovaná slova po B''.
+
+\subsection{Answers regularity}\label{answers-regularity}
+
+Another property of items in figure \ref{fig:common_projection} is marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct infomration about this presented to measure of similarity.
+
+%TODO add some more general text
 
 \chapter{Evaluation}
 
@@ -460,12 +444,172 @@ item set ``Vyjmenovaná slova po B''.
 
 %TODO intro text
 
+Chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause formation of clusters in projection. On low level it is apparent that items which correlate will be similar (close to each other) in projection but we focus on higher-level factors in tutoring sstems that can cause this correlation.
+
+\section{Basic}
+
+First section is focusing on experiments which determine range of behaviour - whether disticnt clusters of different answers and levels are present when altering some parameters of pipeline used to calculate projection.
+
+\subsection{First anwer vs last}
+
+%TODO rewrite or remove
 We tried using both first users answer and last in performance matrix.
 However there is no visible difference in resulting projection (same
 clusters are formed). This is clear when we compare first and last
 answers of users. There is only 5\% difference between them. So at least
 with large number of items in system it does not really matter which one
 is chosen.
+
+\subsection{Quality of clustering on different item-sets}
+
+When intorducing problem of unneded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still dont know wherether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+
+%% Quantification of level-answer clustering
+
+Quanitification of quality of clusters in the projections are executed by comparing its k-means clustering to correct level and asnwer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ corect answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification (clusters created as combination of item level and correct answer). On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters.
+
+\begin{table}
+  \begin{tabular}{ | l | l | l | l | }
+    \hline
+  	 & min & median & max \\ \hline
+  	delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
+  	delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
+  	koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
+  	koncovky-ovi-ovy & -0.022328 & 1 & 1 \\ \hline
+  	koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
+  	koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
+  	koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
+  	koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
+  	me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1 \\ \hline
+  	predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
+  	psani-be-bje & -0.009319 & 0.671716 & 1 \\ \hline
+  	psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
+  	psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
+  	psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
+  	psani-ve-vje & -0.013296 & 1 & 1 \\ \hline
+  	shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
+  	sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
+  	slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
+  	tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
+  	vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
+  	vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
+  	vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
+  	vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
+  	vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
+  	vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
+  	vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
+  \end{tabular}
+  \caption{Quality of clusters in different item-sets}
+  \label{tab:quality-of-clusters}
+\end{table}
+
+
+Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with obscure structure of projection. This mostly occurs when item-set have large number of possible answers.
+
+%%% Why we are looking at both item-asnwer clusters and not separated?
+
+There is a reason why we choose to look at both clusters of answers and levels simulaneously. Another possible choice would be to somehow quantify both qualit of levels and answers separately but this simple approach wouldnt work there. Simplest example showing why would cosists of two levels and two correct answers - where correct answers are divided evenly in each level. When we ask k-means to create two clusters for levels and two clusters for answers it will return same clustering in both cases because number of clusters is only used parameter. This will result in one metric returning high value but other one small even when clusters are really distinct.
+
+So we can conslude that this bahaviour is present in all item-sets.
+
+\subsection{Different similarity measures}
+
+% Different similarity measures
+
+In another experiment we applied 4 different measures for computing similarity matrix to verify that previous results aren't specific to single measure. Especially whether they all preserve smaller similarity of items with different levels or their correct answer.
+
+\begin{figure}
+  \includegraphics[width=10cm]{img/measures}
+  \caption{Comparison of four similarity measures}
+  \label{fig:measures}
+\end{figure}
+
+
+%%% How we choose meatrics
+
+we choose measures wich does not correlate - measure different properties
+
+
+%%% what different measurements measure
+
+With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite measures]
+
+Pearson and yule produce almost identical results - this confirms
+previous research. This means plots produce same distinct clusters of
+answers and total similarities. However Jaccard measurement differs in
+this aspect. Similarity of items is not greater in one group of
+questions (based on correct answer).
+
+Different methods for computing similairty may measeure diferent aspects
+of items. This can be seen when using Jaccard an Sokal measures.
+Similarities provided by Jaccard measure differe greatly from other
+measures. Resulting projection still shows same clusters of level and
+items are splited based on correct answer but information is kept in
+another way than in correlation based measures like Pearson.
+
+On other hand Sokal is heavily depending on performance of items. Items
+with higher performance are much more similar than items with lower
+performance. This is causing packed cluster of first level (easy) and
+spread out cluster of items from third level (harder).
+
+cluseters are preserved
+
+So we can conslude that this bahaviour is present despite of used similarity measure.
+
+\section{Answers regularity}
+
+\subsection{Total similarity histogram}
+
+
+
+
+
+\subsection{Performance matrix}
+
+what can one answer possibly affect in different matrices
+
+
+
+\subsection{Simulated default answer}
+
+
+
+
+
+\subsection{Filter out users}
+
+
+
+
+
+\section{Levels regularity}
+
+\subsection{Simulate missing data}
+
+
+
+
+
+\subsection{Item performance}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Level regularity}\label{level-regularity}
 
@@ -560,36 +704,6 @@ level) should remove clusters of levels.
 
 But does it?!?
 
-\section{Different performance measures}\label{different-performance-measures}
-
-% Different performance measures
-
-We applied 4 different measures for computing similarity matrix to verify
-that previous results aren't specific to single measure. Especially if it
-is true that similarity of items differ based on correct answer.
-
-%%% what different measurements measure
-
-With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite measures]
-
-Pearson and yule produce almost identical results - this confirms
-previous research. This means plots produce same distinct clusters of
-answers and total similarities. However Jaccard measurement differs in
-this aspect. Similarity of items is not greater in one group of
-questions (based on correct answer).
-
-Different methods for computing similairty may measeure diferent aspects
-of items. This can be seen when using Jaccard an Sokal measures.
-Similarities provided by Jaccard measure differe greatly from other
-measures. Resulting projection still shows same clusters of level and
-items are splited based on correct answer but information is kept in
-another way than in correlation based measures like Pearson.
-
-On other hand Sokal is heavily depending on performance of items. Items
-with higher performance are much more similar than items with lower
-performance. This is causing packed cluster of first level (easy) and
-spread out cluster of items from third level (harder).
-
 \section{Answer regularity}\label{answer-regularity}
 
 % Answer regularity
@@ -608,55 +722,13 @@ In particular this means item with low sum of similarities to other
 items may be an outsider. This is where we encountered another
 regularity in data.
 
-%% Quantification of answer clustering
-
-We can quantify whether this is present in all item-sets. We execute this by calculating quality of k-means clustering on items similarity compared to correct clusters. Where correct clusters are formed as combination of level and correct answer. Quality of clustering is evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification. On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters.
-
-\begin{table}
-  \begin{tabular}{ | l | l | l | l | }
-    \hline
-  	 & min & median & max \\ \hline
-  	delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
-  	delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
-  	koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
-  	koncovky-ovi-ovy & -0.022328 & 1 & 1 \\ \hline
-  	koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
-  	koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
-  	koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
-  	koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
-  	me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1 \\ \hline
-  	predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
-  	psani-be-bje & -0.009319 & 0.671716 & 1 \\ \hline
-  	psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
-  	psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
-  	psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
-  	psani-ve-vje & -0.013296 & 1 & 1 \\ \hline
-  	shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
-  	sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
-  	slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
-  	tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
-  	vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
-  	vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
-  	vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
-  	vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
-  	vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
-  	vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
-  	vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
-  \end{tabular}
-  \caption{Quality of clusters in different item-sets}
-  \label{tab:quality-of-clusters}
-\end{table}
-
-
-This statistic show that many item-sets have distinct clusters of different levels and answers. There is only few sets with obscure structure of answers and this item-sets have large number of possible answers.
-
 %% Total similarity
 
 Sum of similarities is sum of one column of similarity matrix which we
 produced in our workflow for computing projection.
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/iy_histogram}
+  \includegraphics[width=10cm]{img/histogram_i_y}
   \caption{Histogram of similarities}
   \label{fig:histogram_i_y}
 \end{figure}
@@ -830,6 +902,10 @@ difference beween groups of users is caused by ?
 We can conclude some recommendations. While trying to explain patterns
 in our particular used data we run into multiple situatutions hwich can
 repeat even when explaing some different data using similalr techniques.
+
+
+determining range of effect.. its stupidly simple, but can be forgotten whenfacig some problem and may help you greatly
+
 
 Technique we used for calculating projections is quite common in area of
 Adaptife learning and recommender systems. CITE.
