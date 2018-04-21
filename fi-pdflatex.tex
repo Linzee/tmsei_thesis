@@ -126,7 +126,7 @@ useful and which are not.
 % structure of this work
 
 Besides Introduction and Conclusion chapters, this thesis is structured
-into three additional chapters. First chapter talks in general about the problem of measuring similarity of educational items, advantages of using similarity.
+into three additional chapters. First chapter talks in general about the problem of measuring similarity of educational items and advantages of using similarity.
 This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems.
 The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
@@ -141,7 +141,7 @@ The last chapter gives an overview of many experiments that were concluded and s
 
 %% Structure
 
-In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. In the beginning we of the chapter we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all throught the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
+In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. In the beginning of the chapter we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all throught the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
 The last section of this chapter describes data used in our experiments. In particular, we describe used dataset and outline ways of simulating artificial data.
 
 \section{Tutoring systems}\label{tutoring-systems}
@@ -178,7 +178,7 @@ To further specify the context of our research, we will describe characteristics
 
 \begin{itemize}
 \item
-  \textbf{Item statement} is some specification of the item for a learner to solve, e.g., a natural language description of the task. Another commonly used format is a grid. Many systems focusing on with logic puzzles and programming problems use it.
+  \textbf{Item statement} is some specification of the item for a learner to solve, e.g., a natural language description of the task. Another commonly used format is a grid. Many systems focusing on logic puzzles and programming problems use it.
 \item
   \textbf{Item solutions} may provide us with additional information about an item. There will usually be some sample solution provided by the author and we can also utilize all the solutions from users.
 \item
@@ -217,7 +217,7 @@ Another possible way to measuring similarity is counting edits which would conve
 % Elements of standard pipeline
 \subsection{Elements of standard pipeline}\label{elements-of-standard-pipeline}
 
-So we can wrap it up. There are a few data structures and few calculations involved in the standard pipeline for computing similarity of educational items.
+To we can wrap it up. There are a few data structures and few calculations involved in the standard pipeline for computing similarity of educational items.
 
 \begin{enumerate}
   \item
@@ -243,7 +243,7 @@ First, most direct, usage is a recommendation of items for a student to solve. W
 
 Another possible usage is generating hints by selecting examples which are similar to the item which is currently solved. Examples are selected from a database of examples. This usage of similarity was used by [CITE Hosseini; Brusilovsky].
 
-Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting possibly redundant problems or pointing out where there are not enough similar problems to choose from user struggle.
+Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting redundant problems and pointing out where there is not enough similar problems.
 
 One possible way of achieving this is plotting problems to plane and displaying it to the author. This still can not be used for a very large amount of items. But we choose this approach for our specific data as they contain a large number of items but can be divided into item-sets which are solved independently in the system.
 
@@ -267,7 +267,7 @@ And in the end of chapter you can find detailed description of pipeline used in 
 
 % types of data (real, simulated), why, real, simulated
 
-In our analysis, we use both real data from the educational system and simulated data. There is a reason why use both as only real-world data are useful for concluding any practical results. However, evaluation of this data is often complicated as we do not know the truth about many of their aspects. That is why we also use simulated data for validating some of our conclusions.
+In our analysis, we use both real data from the educational system and simulated data. Reason for this is that real-world data are useful for concluding any practical results. However, evaluation of this data is often complicated as we do not know the truth about many of its aspects. That is why we also use simulated data for validating some of our conclusions.
 
 %% Simulated data
 
@@ -296,7 +296,7 @@ We will talk more in depth about how we generated simulated data in next chapter
   \label{fig:umimeceskydoplnovacka}
 \end{figure}
 
-We focused only on ``fill-in-the-blank'' exercises although they can still be used to train various concepts of Czech grammar. The exercise contains many questions but they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets separately this categorization into different aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
+Although we focused only on ``fill-in-the-blank'' exercise it can still be used to train various concepts of Czech grammar. The exercise contains many questions and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets separately this categorization into different aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
 
 Items in item-sets are then divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
