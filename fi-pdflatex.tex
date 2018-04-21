@@ -533,7 +533,7 @@ Figure \ref{fig:measures} shows four different similarity measures used on same 
 When we encounter performance matrix which contains only two (boolean) values, we can summarize performance of all users on items $i$ and $j$ by using just four values. See table \ref{tab:boolean-attributes}.
 
 \begin{table}
-  \begin{tabular}{ l | l | l | }
+  \begin{tabular}{ | l | l | l | }
   \hline
   	 & incorrect & correct \\ \hline
   	incorrect & $a$ & $b$ \\ \hline
@@ -565,35 +565,119 @@ When we encounter performance matrix which contains only two (boolean) values, w
   \textbf{Cosine} similarity produces projection similar to Jaccard.
 \end{itemize}
 
-cluseters are preserved
-
-So we can conslude that this bahaviour is present despite of used similarity measure.
+So we can conclude that clusters are present despite of used similarity measure.
 
 \section{Answers regularity}
 
 \subsection{Total similarity histogram}
 
+We define another property of items - total similarity. It is sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
 
+\begin{figure}
+  \includegraphics[width=10cm]{img/histogram_i_y}
+  \caption{Histogram of similarities}
+  \label{fig:histogram_i_y}
+\end{figure}
 
+% total similarity histograms divided by answer
 
+% other item-sets
+
+This is not specific to only one problem set (which was used in previous images), almost all problem sets display similar pattern. However for some its more distinct than for others. (Item-sets consisting of items with many possible answers does not behave this way. But that is to be expected.)
+
+This experiment tells us only that there is some underlying difference between items with different correct answers but does not tell us what.
 
 \subsection{Performance matrix}
 
-what can one answer possibly affect in different matrices
+After looking at performance matrix we can see that there are some rows which behavior differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (white is correct, black incorrect) or missing answer (red). Items are ordered in a way that all items with one answer are on left and other answer on right.
 
+\begin{figure}
+  \includegraphics[width=10cm]{img/performance_matrix}
+  \caption{Performance matrix ordered by correct answer}
+  \label{fig:performance_matrix}
+\end{figure}
 
+% What can one answer possibly affect in different matrices
+% One cell in performance matrix, row and column in similarity and all in projection or second level of similarity
+
+After exploring performance matrix some more we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with other answer (left) incorrectly.
+
+%%% Simulated default answer
 
 \subsection{Simulated default answer}
 
+Our guess was that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
+We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There is a few differences over basic simulation. For each item we also choose correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one.
 
+This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
 
+When we look at resulting projection of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by correct answer.
+
+%TODO better reasoning for this, explain why this happends
+	% why does data simulated in this way project to clusters of levels and answers
+
+So users proffering one answer over another can cause items to separate by correct answer in projection.
+
+%%% Filter out users
 
 \subsection{Filter out users}
 
+% how to detect this in real data
+
+Previous simulation showed that preferred answer can cause separation of items. Now we have to show that users like this exists in our real dataset.
+
+We observed before that whole data set uses both answers approximately the same but for single user this may not be true. In this experiment we want to quantify whether each user prefers some answer or not. For this we used difference of performance of items with each correct answer.
+
+For each possible answer and each user we calculate ratio of correct answers to all answers on items with given answer. Then we combine this set of values to one using variation. This gives us single value representing difference of performance on different answers.
+
+\begin{figure}
+  \includegraphics[width=10cm]{img/uneven_answers_hist}
+  \caption{Histogram of users differences of performance on different correct answers}
+  \label{fig:uneven_answers_hist}
+\end{figure}
+
+Figure \ref{fig:uneven_answers_hist} shows histogram of this values calculated for each user on one item-set. There are few visible groups of users. Largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of spectrum are users who use only one answer (values close to 1.0). And in the middle there are users who probably prefer one answer but use both answers. You can see that there is quite a large amount of users with small preference for one of the answers (does not matter which one).
+
+We can use this to filter out user who have big difference of performance. We thought that this will remove separation of items based on correct answer from projection. And it does. Figure \ref{fig:answers_normalization} shows projection before and after filtering users based on their difference in answers. In this particular case we consider that user should be filtered out when his difference on answers is greater than 0.06 which is median value.
+
+\begin{figure}
+  \includegraphics[width=10cm]{img/answers_normalization}
+  \caption{Effect filtering out subnormal users}
+  \label{fig:answers_normalization}
+\end{figure}
+
+When we use only half of users which performance is more uniform separation of items with same answers is gone. Its half of users because we compare their difference to median difference.
 
 
 
+%TODO ??? We look at performance of items instead of usage of each answer because it is performance that directly affects calculated similarity of items. However they should correlate somewhat. Another reason is that it is closer to simulated experiment so we can compare results directly.
+
+%TODO tu som skoncil
+When we simulated users we gave them all habit to use one answer more
+commonly. But not all users have this habit in real-wold data. However
+there is quite large amount of users who do.
+
+We used histogram of differences (variance of solved levels) to choose
+some value for filtering of users. As more than half of users solves
+only one level median of differences is 0.0. So we choose one value just
+by looking at histogram. We can see in following figure that this dosnt
+really matter as filtering users in this way does not help with
+eliminating clustrs of same levels.
+
+%TODO this is enought to normalize resulting projection so it has good properties
+% % TODO check gradient of performance, is it good
+% % similar items from different levels are closer to each other
+
+
+This resolves first problem we encountered but does not explain other
+regularities in data.
+
+We succeeded in simualting data with clusters of same answers and
+showing that this is case in our real data. Hovewer there is still one
+more thing to explain - clusters of uqesrions with same levels.
+Folloving same approach we can try to filter out users with large
+difference in how successfuk they are with solving different levels.
 
 \section{Levels regularity}
 
@@ -735,27 +819,6 @@ In particular this means item with low sum of similarities to other
 items may be an outsider. This is where we encountered another
 regularity in data.
 
-%% Total similarity
-
-Sum of similarities is sum of one column of similarity matrix which we
-produced in our workflow for computing projection.
-
-\begin{figure}
-  \includegraphics[width=10cm]{img/histogram_i_y}
-  \caption{Histogram of similarities}
-  \label{fig:histogram_i_y}
-\end{figure}
-
-%%% total similarity histograms by answer
-
-%%% quantification for different concepts
-
-This is not specific to only one problem set (which was used in previous
-images), almost all problem sets display similar pattern. However for
-some its more distinct than for others. (Sets consisting of items with
-many possible answers do not behave this way. But that is to be
-expected.)
-
 %% Users are choosing one answer by default when they do not know answer
 
 Our next experiment was simulation of users preferring one answer in
@@ -787,84 +850,6 @@ is same for all answers (psani-nn-a-n, vyjmenovana-slova-po-p,..).
 
 We picked few witch have very distinct clusters of answers and looked whether it is
 answer on left or on right in user interface. Our finding was that not all concept prefer answer which is  located
-
-%%% how to detect this in performance data? / what can we detect in
-data?
-
-%% Division of user answers 50-50, but not for correct answers
-
-We observed before that whole data set uses both answers the same but
-for single user this may not be true. There are even users who use only
-one answer as seen in following performance matrix. There is a line with
-all questions answered incorrectly for one answer and correctly for
-another.
-
-%\includegraphics{uneven_answers_perforamnce_perf_matrix.png}
-
-We can filter this users out. Next three images show different levels of
-filtering. First uses no filtering at all (uses all users). Second and
-third image filter users by difference between performance on each
-answer. (So if users has same performance on question with both answers
-this value is 0.0 and when user uses only one of the answers (biggest
-possible difference) value is 1.0). Second image shows value of 0.3
-(performance on one answer is 30% higher than on the other one). And
-third image uses value 6% which is median.
-
-%\includegraphics{uneven_answers_perforamnce_none.png}
-%\includegraphics{uneven_answers_perforamnce_0_3.png}
-%\includegraphics{uneven_answers_perforamnce_half.png}
-
-When we use only half of users which have uniform answers there are no
-clusters of question with same answers. (Half of users because median is
-used as filtering value.)
-
-We can look at histogram of difference between answers. For most of the
-users there is almost no difference but there are users with higher
-difference in performance between answers.
-
-%\includegraphics{uneven_answers_hist.png}
-
-I look at difference between performance (amount of correctly answered
-questions) instead of usage of each answer because it is performance
-that affects calculated similarity of questions. However they should
-correlate somewhat. Another reason is that it is closer to simulated
-experiment so we can compare results directly.
-
-When we simulated users we gave them all habit to use one answer more
-commonly. But not all users have this habit in real-wold data. However
-there is quite large amount of users who do.
-
-This resolves first problem we encountered but does not explain other
-regularities in data.
-
-%%% Simulation of default answer
-\subsection{Simulation of default answer}\label{simulation-of-default-answer}
-
-This next simulation is also using same core but is enhanced with further choosing correct answer for each item. This is used to offset logistic function higher or lower to simulate higher chance of succeeding in solving items with correct answer is the users preferred one. We think this is good enough solution to simulating users choosing one answer by default when they are unsure about answer.
-
-This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is same amount of each combination (1/4 of items). From previous work we know that uncorrelated skills will form distinct clusters. We included them in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
-
-Projection of data simulated in this way has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items divided by correct answer.
-
-%TODO better reasoning for this, explain why this happends
-	% why does data simulated in this way project to clusters of levels and answers
-
-We succseeded in simualting data with clusters of same answers and
-showing that this is case in our real data. Hovewer there is still one
-more thing to explain - clusters of uqesrions with same levels.
-Folloving same approach we can try to filter out users with large
-difference in how successfuk they are with solving different levels.
-
-Weused histogram of differences (variance of solved levels) to choose
-some value for filtering of users. As more than half of users solves
-only one level median of differences is 0.0. So we choose one value just
-by looking at histogram. We can see in following figure that this dosnt
-really matter as filtering users in this way does not help with
-eliminating clustrs of same levels.
-
-%TODO this is enought to normalize resulting projection so it has good properties
-% % TODO check gradient of performance, is it good
-% % similar items from different levels are closer to each other
 
 
 \section{User similarity}\label{user-similarity}
