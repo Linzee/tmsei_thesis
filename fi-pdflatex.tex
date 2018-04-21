@@ -442,15 +442,13 @@ Another property of items in figure \ref{fig:common_projection} is marker used. 
 % Evaluation                  %
 % --------------------------- %
 
-%TODO intro text
-
 Chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause formation of clusters in projection. On low level it is apparent that items which correlate will be similar (close to each other) in projection but we focus on higher-level factors in tutoring sstems that can cause this correlation.
 
 \section{Basic}
 
-First section is focusing on experiments which determine range of behaviour - whether disticnt clusters of different answers and levels are present when altering some parameters of pipeline used to calculate projection.
+First section is focusing on experiments which determine range of behavior - whether distinct clusters of different answers and levels are present when altering some parameters of pipeline used to calculate projection.
 
-\subsection{First anwer vs last}
+\subsection{First answer vs last}
 
 %TODO rewrite or remove
 We tried using both first users answer and last in performance matrix.
@@ -462,11 +460,11 @@ is chosen.
 
 \subsection{Quality of clustering on different item-sets}
 
-When intorducing problem of unneded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still dont know wherether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+When introducing problem of unneeded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still dont know wherether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
 
 %% Quantification of level-answer clustering
 
-Quanitification of quality of clusters in the projections are executed by comparing its k-means clustering to correct level and asnwer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ corect answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification (clusters created as combination of item level and correct answer). On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters.
+Quantification of quality of clusters in the projections are executed by comparing its k-means clustering to correct level and asnwer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ correct answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification (clusters created as combination of item level and correct answer). On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
 \begin{table}
   \begin{tabular}{ | l | l | l | l | }
@@ -503,20 +501,21 @@ Quanitification of quality of clusters in the projections are executed by compar
   \label{tab:quality-of-clusters}
 \end{table}
 
-
 Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with obscure structure of projection. This mostly occurs when item-set have large number of possible answers.
 
-%%% Why we are looking at both item-asnwer clusters and not separated?
+% Why we are looking at both item-answer clusters and not separated?
 
-There is a reason why we choose to look at both clusters of answers and levels simulaneously. Another possible choice would be to somehow quantify both qualit of levels and answers separately but this simple approach wouldnt work there. Simplest example showing why would cosists of two levels and two correct answers - where correct answers are divided evenly in each level. When we ask k-means to create two clusters for levels and two clusters for answers it will return same clustering in both cases because number of clusters is only used parameter. This will result in one metric returning high value but other one small even when clusters are really distinct.
+We were looking at both clusters of answers and levels simultaneously. Another possible choice would be to somehow quantify both quality of levels and answers separately but this straightforward approach would not work there. Simplest example showing why would consists of two levels and two correct answers - where correct answers are divided evenly in each level. When we ask k-means to create two clusters for levels and two clusters for answers it will return same clustering in both cases because number of clusters is only used parameter. This will result in one metric returning high value but other one small even when clusters are really distinct.
 
-So we can conslude that this bahaviour is present in all item-sets.
+% Conclusion
+
+So we can conclude that this behavior is present in all item-sets.
+
+%%% Different similarity measures
 
 \subsection{Different similarity measures}
 
-% Different similarity measures
-
-In another experiment we applied 4 different measures for computing similarity matrix to verify that previous results aren't specific to single measure. Especially whether they all preserve smaller similarity of items with different levels or their correct answer.
+In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/measures}
@@ -525,32 +524,46 @@ In another experiment we applied 4 different measures for computing similarity m
 \end{figure}
 
 
-%%% How we choose meatrics
+% preserving of clusters
 
-we choose measures wich does not correlate - measure different properties
+Figure \ref{fig:measures} shows four different similarity measures used on same data. Resulting projections are different. However, they all preserve information which is causing items from same level and answer to form clusters. Different colors represent different levels and markers different answers.
 
+% What different measurements measure
 
-%%% what different measurements measure
+When we encounter performance matrix which contains only two (boolean) values, we can summarize performance of all users on items $i$ and $j$ by using just four values. See table \ref{tab:boolean-attributes}.
 
-With boolean performance data, we can summarize performance of all users on items $i$ and $j$ just by using four values. Count of users who solved both questions $i$ and $j$... [TODO cite measures]
+\begin{table}
+  \begin{tabular}{ l | l | l | }
+  \hline
+  	 & incorrect & correct \\ \hline
+  	incorrect & $a$ & $b$ \\ \hline
+  	correct & $c$ & $d$ \\ \hline
+  \end{tabular}
+  \caption{Attributes of boolean similarity measures}
+  \label{tab:boolean-attributes}
+\end{table}
 
-Pearson and yule produce almost identical results - this confirms
-previous research. This means plots produce same distinct clusters of
-answers and total similarities. However Jaccard measurement differs in
-this aspect. Similarity of items is not greater in one group of
-questions (based on correct answer).
+\begin{itemize}
+\item
+  \textbf{Pearson} ($(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$) is commonly used. It correlates well with much simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
 
-Different methods for computing similairty may measeure diferent aspects
-of items. This can be seen when using Jaccard an Sokal measures.
-Similarities provided by Jaccard measure differe greatly from other
-measures. Resulting projection still shows same clusters of level and
-items are splited based on correct answer but information is kept in
-another way than in correlation based measures like Pearson.
+\item
+  \textbf{Jaccard} differs visibly from other measures.
 
-On other hand Sokal is heavily depending on performance of items. Items
-with higher performance are much more similar than items with lower
-performance. This is causing packed cluster of first level (easy) and
-spread out cluster of items from third level (harder).
+  %TODO !!!!!!!!!!!!!!!!!!!!!!!!
+  Similarity of items is not greater in one group of questions (based on correct answer).
+
+  Similarities provided by Jaccard measure differe greatly from other
+  measures. Resulting projection still shows same clusters of level and
+  items are splited based on correct answer but information is kept in
+  another way than in correlation based measures like Pearson.
+
+\item
+  \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. Similarity of items  heavily depends on performance of items when using Sokal. (Where performance of item is amount of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing packed cluster of items from first level (easy) and spread out cluster of items from third level (harder).
+
+\item
+  \textbf{Cosine} similarity produces projection similar to Jaccard.
+\end{itemize}
 
 cluseters are preserved
 
