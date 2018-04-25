@@ -131,6 +131,8 @@ This chapter also describes previous work and different proposed measures for co
 The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
 
+\today %TODO remove!
+
 \chapter{Similarity}
 
 % --------------------------- %
@@ -430,31 +432,31 @@ Another property of items in figure \ref{fig:common_projection} is marker used. 
 
 %TODO add some more general text
 
-\chapter{Evaluation}
-
 % --------------------------- %
 % Evaluation                  %
 % --------------------------- %
 
-Chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause formation of clusters in projection. On low level it is apparent that items which correlate will be similar (close to each other) in projection but we focus on higher-level factors in tutoring sstems that can cause this correlation.
+\chapter{Evaluation}\label{evaulation}
 
-\section{Basic}
+Chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause formation of clusters in projection. On low level it is apparent that items which correlate will be similar (close to each other) in projection but we focus on higher-level factors in tutoring systems that can cause this correlation.
+
+\section{Basic}\label{evaulation-basic}
 
 First section is focusing on experiments which determine range of behavior - whether distinct clusters of different answers and levels are present when altering some parameters of pipeline used to calculate projection.
 
-\subsection{First answer vs last}
+\subsection{First and last users answer}\label{first-and-last-users-answer}
 
-%TODO rewrite or remove
-We tried using both first users answer and last in performance matrix.
-However there is no visible difference in resulting projection (same
-clusters are formed). This is clear when we compare first and last
-answers of users. There is only 5\% difference between them. So at least
-with large number of items in system it does not really matter which one
-is chosen.
+% Why bother about this
 
-\subsection{Quality of clustering on different item-sets}
+Our performance matrix contains only one value for each item-user pair. But users can possibly answer to the item multiple times. This raises a question which of user answers to use. [CITE]
 
-When introducing problem of unneeded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still dont know wherether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+% What we used in performance matrix
+
+We tried using both first users answer and last in performance matrix. However there is no visible difference in results. This is clear when we compare first and last answers of users. There is only 5\% different answers between them. So at least with large number of items in system it does not really matter which one is chosen as only few items are answered multiple times.
+
+\subsection{Quality of clusters on different item-sets}\label{quality-of-clusters}
+
+When introducing problem of unneeded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still do not know whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
 
 %% Quantification of level-answer clustering
 
@@ -507,7 +509,7 @@ So we can conclude that this behavior is present in all item-sets.
 
 %%% Different similarity measures
 
-\subsection{Different similarity measures}
+\subsection{Different similarity measures}\label{different-similarity-measures}
 
 In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
 
@@ -544,6 +546,8 @@ When we encounter performance matrix which contains only two (boolean) values, w
 \item
   \textbf{Jaccard} differs visibly from other measures.
 
+	TODO:
+
   %TODO !!!!!!!!!!!!!!!!!!!!!!!!
   Similarity of items is not greater in one group of questions (based on correct answer).
 
@@ -561,9 +565,13 @@ When we encounter performance matrix which contains only two (boolean) values, w
 
 So we can conclude that clusters are present despite of used similarity measure.
 
-\section{Answers regularity}
+% > Answers regularity
 
-\subsection{Total similarity histogram}
+\section{Answers regularity}\label{evaulation-answers-regularity}
+
+% > > Total similarity of items
+
+\subsection{Total similarity of items}\label{total-similarity-of-items}
 
 We define another property of items - total similarity. It is sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
 
@@ -581,7 +589,9 @@ This is not specific to only one problem set (which was used in previous images)
 
 This experiment tells us only that there is some underlying difference between items with different correct answers but does not tell us what.
 
-\subsection{Performance matrix}
+% > > Performance matrix
+
+\subsection{Performance matrix}\label{performance-matrix}
 
 After looking at performance matrix we can see that there are some rows which behavior differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (white is correct, black incorrect) or missing answer (red). Items are ordered in a way that all items with one answer are on left and other answer on right.
 
@@ -593,9 +603,9 @@ After looking at performance matrix we can see that there are some rows which be
 
 After exploring performance matrix some more we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with other answer (left) incorrectly.
 
-%%% Simulated default answer
+% > > Default answer
 
-\subsection{Simulated default answer}
+\subsection{Default answer}\label{default-answer}
 
 Our guess was that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
@@ -610,9 +620,9 @@ When we look at resulting projection of simulated performance data we can see th
 
 So users proffering one answer over another can cause items to separate by correct answer in projection.
 
-%%% Filter out users
+% > > Filter out users
 
-\subsection{Filter out users}
+\subsection{Filter users}\label{filter-users}
 
 % how to detect this in real data
 
@@ -656,22 +666,22 @@ To sum it up. When we simulated users we gave them all habit to use one answer m
 commonly. This divided items by their corresponding correct answer. But not all users have this habit in real-wold data. However
 there is quite large amount of users who do. We can filter them out to stop them affecting projections.
 
-%% Levels regularity
+% > Levels regularity
 
-\section{Levels regularity}
+\section{Levels regularity}\label{evaulation-levels-regularity}
 
-%% Simulate missing data
+% Levels regularity intro
+% TODO
 
-\subsection{Simulate missing data}
+% > > Missing values
 
-% structure of performance matrix
-
+\subsection{Missing values}\label{missing-values}
 
 % can missing data affect result of similarity calculation?
 
 As we mentioned before, performance matrix is relatively sparse. However, missing values are not distributed uniformly. Our question is whether pattern of missing values can affect similarity of items and projections.
 
-% how users tend to solve them?
+% structure of performance matrix
 
 Items in each item-set of the system are divided into up to three levels. As difficulty of levels is different users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. However more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contains information only about specific levels and is missing all values of other levels.
 
@@ -705,37 +715,50 @@ One again, we used simulated data to gather more information about this. Simulat
 
 % What can one answer possibly affect in different matrices (value in performance matrix, row and column in similarity and all in projection or second level of similarity)
 
-We have to absolve a little detour before showing results of this simulation. We have to explain what can be affected on each level of processing by single answer of some user. Apparently in performance matrix this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this level it is still straightforward - answers to item affect similarities which include this item. Although, when we apply some additional level of processing like clustering, dimensionality reduction, or second level of similarity each value can affect all of the items.
-
-
-
-\subsection{Item performance}
-
-As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items.
+\begin{figure}
+  \includegraphics[width=10cm]{img/simulated_missing_D12}
+  \caption{First two components of PCA on simulated data}
+  \label{fig:simulated_missing_d12}
+\end{figure}
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/item_performance_levels}
-  \caption{Performance of items in three levels}
+  \includegraphics[width=10cm]{img/simulated_missing_D23}
+  \caption{Second and third components of PCA on simulated data}
+  \label{fig:simulated_missing_d23}
+\end{figure}
+
+Figure \ref{fig:simulated_missing_d12} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in first image depicts difficulty of items (dark are difficult, light simple items). Second image is colored by levels as usual.
+
+You can notice that first dimension corresponds pretty well with difficulty of items and next two dimensions (second image) distinguish belongingness to each level.
+
+%TODO
+
+So how have this happen? TODO find good explanation :D I do not have any with which I am 100\% happy with right now.
+
+% > > Item performance
+
+\subsection{Item performance}\label{item-performance}
+
+As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items. The answer is no when we use Pearson correlation to calculate similarity. However, some other measure like Jaccard can be affected.
+
+%TODO can they?
+
+Figure\ref{fig:item_performance_levels} shows mean performance of items. Horizontal axis contains items sorted by level and mean performance. Vertical axis shows performance of each item. Given item set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+
+\begin{figure}
+  \includegraphics[width=10cm]{img/items_performance_levels}
+  \caption{Mean performance of items in three levels}
   \label{fig:item_performance_levels}
 \end{figure}
 
-So levels do not contain items that are that different that their difficulty would cause clusters.
+\subsection{Different groups of users}\label{different-groups-of-users}
+
+We can look at previous figure \ref{fig:item_performance_levels} little differently. After dividing users into 8 groups based on levels they solved (according to table \ref{tab:user-groups}) plot changes slightly. Users in group who solved only first level (red) has much lower performance on other levels. We can conclude that users who solve primarily first level are not as experienced as other users. On other hand users in group who solved both 2nd and 3rd level (cyan) are performing better than other users on all three levels.
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+\if{false}
 
 % ----------------------
 % - evalTrash          -
@@ -743,10 +766,9 @@ So levels do not contain items that are that different that their difficulty wou
 
 %% Users similarity
 
-\section{Users similarity
-projection}\label{users-similarity-projection}
 
-Insead we choose to analyse whether our data contains different groups
+
+Instead we choose to analyse whether our data contains different groups
 of users. We are changing how we are looking at data.Up until now we
 used item-item similarity to calculate projection of items. Now we are
 going to to be using user-user similarity.
@@ -766,17 +788,9 @@ We can see that all formed clusters of users contains in most cases users
 from single user group when we divide them by levels they solved. This
 brought us to more interesting discoveries. In general each level and
 each item has some mean performance. This is shown in figure ??.
-Horizontal axis contains items sorted by level and mean performance.
-Vertical axis shows performance of each item. Given item sets have mean
-performance 94\%, 86\%, 71\% for each level respectively.
 
-After dividing users into 8 groups plot changes slightly. Some groups
-like ``only 1st level'' (its colored red and contains users who solved
-primarily first level and only few or none items from other levels) has
-much lower performance on other levels. We can conclude that users who
-tend to solve mostly first level are not as experienced as other users. On
-other hand users in group ``both 2nd and 3rd'' (cyan) are performing
-better than other users on all three levels.
+
+
 
 At this point we have to return to simulation. We want to show that
 grouos of users solving levelswith different performancecan cause
@@ -797,6 +811,10 @@ level) should remove clusters of levels.
 
 But does it?!?
 
+
+% Affected items on each stage of processing
+
+We have to absolve a little detour before explaining this. We have to understand what can be affected on each stage of processing by single answer of some user. Apparently in performance matrix this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this level it is still straightforward - answers to item affect similarities which include this item. Although, when we apply some additional level of processing like clustering, dimensionality reduction, or second level of similarity each value can affect all of the items.
 
 
 %%% TODO Outsider detection using similarity data
@@ -881,6 +899,18 @@ difference beween groups of users is caused by ?
 %% (re)Usage in other concepts
 
 %% Explain my idea of how can data affect projection -> possible affected items from one performance value
+
+\fi
+
+
+
+
+
+
+
+
+
+
 
 \chapter{Conclusion}
 
