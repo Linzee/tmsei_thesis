@@ -416,23 +416,17 @@ After looking back at figure \ref{fig:common_projection} you can notice some reg
 % Level regularity
 %% Description of problem, 3 clusters based on 3levels of questions difficulty
 
-Figure \ref{fig:common_projection} contains items of three different colors. As you alread know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set there are three difficulty levels. First level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see visible pattern in our data - each cluster consists mosly of items item from one level.
+Figure \ref{fig:common_projection} contains items of three different colors. As you already know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set there are three difficulty levels. First level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see visible pattern in our data - each cluster consists mostly of items item from one level.
 
 As we mentioned before, only data about user performance (correctness of answers) are used when composing projections. And there is not a direct reason for this clusters of same levels to form as no information about belonging to particular level is presented to the algorithm.
 
-%%% cause? how users tend to solve them
-
-Levels are not solved uniformly. It is not common for user to sole all three levels. Less experienced users tend to solve only first or first two levels. However more experienced users solve only higher levels.
-
-%%% why is this unsuitable
-
-%%%% Example of similar words far away one from another
+% why is this unsuitable, example of similar words far away one from another
 
 This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar word are displayed far away form one another just because they belong to different levels. This is visible for words ``bič'' and ``bičík'' in item set ``Vyjmenovaná slova po B''.
 
 \subsection{Answers regularity}\label{answers-regularity}
 
-Another property of items in figure \ref{fig:common_projection} is marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct infomration about this presented to measure of similarity.
+Another property of items in figure \ref{fig:common_projection} is marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity.
 
 %TODO add some more general text
 
@@ -597,9 +591,6 @@ After looking at performance matrix we can see that there are some rows which be
   \label{fig:performance_matrix}
 \end{figure}
 
-% What can one answer possibly affect in different matrices
-% One cell in performance matrix, row and column in similarity and all in projection or second level of similarity
-
 After exploring performance matrix some more we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with other answer (left) incorrectly.
 
 %%% Simulated default answer
@@ -649,7 +640,9 @@ We can use this to filter out user who have big difference of performance. We th
 
 % similar items from different levels are closer to each other
 
-Figure \ref{fig:answers_normalization} shows difference in original projection and modified projection after removing part of users. Colors in this particular image represent correct answers of items. % TODO more new text here
+Figure \ref{fig:answers_normalization} shows original projection and projection modified by removing part of the users. Colors in this particular image represent correct answers of items. % TODO more new text here
+
+In section \ref{regularities-level-regularity} of second chapter we also mentioned that there are words in different levels which should be more similar. This is also shown in figure \ref{fig:answers_normalization} with the black straight line connecting such two items. You can see that distance between them shrinked.
 
 % is this too much users removed?
 
@@ -663,13 +656,56 @@ To sum it up. When we simulated users we gave them all habit to use one answer m
 commonly. This divided items by their corresponding correct answer. But not all users have this habit in real-wold data. However
 there is quite large amount of users who do. We can filter them out to stop them affecting projections.
 
+%% Levels regularity
+
 \section{Levels regularity}
+
+%% Simulate missing data
 
 \subsection{Simulate missing data}
 
+% structure of performance matrix
 
 
+% can missing data affect result of similarity calculation?
 
+As we mentioned before, performance matrix is relatively sparse. However, missing values are not distributed uniformly. Our question is whether pattern of missing values can affect similarity of items and projections.
+
+% how users tend to solve them?
+
+Items in each item-set of the system are divided into up to three levels. As difficulty of levels is different users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. However more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contains information only about specific levels and is missing all values of other levels.
+
+%TODO /\ abstract image to explain pattern?
+
+Based on this we can divide users into 8 groups. All groups are listen in table \ref{tab:user-groups}. First three columns say whether this group contains users who solved particular levels. We say that user solved level when he answered at least 30 items (which is 1/3 of questions for observed item set). We added color to each group so we can distinguish them in following plots easily. Groups are not represented in data uniformly. Most of the users falls into two groups, this users eighter solve only first or only second level.
+
+\begin{table}
+  \begin{tabular}{ | l | l | l | l | l | }
+    \hline
+  	1   & 2   & 3   & Color      & Users \\ \hline
+  	no  & no  & no  & black      & 35\%  \\ \hline
+  	yes & no  & no  & red        & 31\%  \\ \hline
+  	no  & yes & no  & green      & 9\%   \\ \hline
+  	no  & no  & yes & blue       & 8\%   \\ \hline
+  	yes & yes & no  & yellow     & 7\%   \\ \hline
+  	no  & yes & yes & cyan       & 2\%   \\ \hline
+  	yes & no  & yes & magenta    & 2\%   \\ \hline
+  	yes & yes & yes & light gray & 7\%   \\ \hline
+    \hline
+  \end{tabular}
+  \caption{Groups of users}
+  \label{tab:user-groups}
+\end{table}
+
+% simulation of missing values
+
+One again, we used simulated data to gather more information about this. Simulation was concluded in the same way as we explained before in section \ref{simulated-data}. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level.
+
+%TODO WHOO Waaait!
+
+% What can one answer possibly affect in different matrices (value in performance matrix, row and column in similarity and all in projection or second level of similarity)
+
+We have to absolve a little detour before showing results of this simulation. We have to explain what can be affected on each level of processing by single answer of some user. Apparently in performance matrix this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this level it is still straightforward - answers to item affect similarities which include this item. 
 
 \subsection{Item performance}
 
@@ -691,20 +727,9 @@ there is quite large amount of users who do. We can filter them out to stop them
 
 
 
-
-
-\section{Level regularity}\label{level-regularity}
-
-\subsection{Sparseness of performance
-matrix}\label{sparseness-of-performance-matrix}
-
-%% question? can missing data affect result of similarity calculation
-
-%%% Simulated data experiment
-
-In same way as we explained before in section ??. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level.
-
-Results indicate that that structure of data can affect results only in really special cases. The only case where projection is divided into clusters is when there is absolutely no information between question in different levels. But this is not our case in real data as there are users solving multiple levels.
+% ----------------------
+% - evalTrash          -
+% ----------------------
 
 %% Users similarity
 
@@ -725,30 +750,6 @@ around $10 000\times 10 000$. This is also reason why current
 recommender systems use item similarity instead of user similarity. CITE
 
 First attempt on projecting users can be seen in figure ??.
-
-% TODO users similarity img
-
-We say that user solved level when he answered at least 30 questions
-(which is 1/3 of questions for observed item set). Based on this we can
-divide users into 8 groups. We added color to each group so we can
-distinguish them in following plots easily.
-
-\begin{table}
-  \begin{tabular}{ | l | l | l | l | }
-  \hline
-  	Group & Color & Users \\ \hline
-  	none & black & 35\% \\ \hline
-  	only 1st level & red & 31\% \\ \hline
-  	only 2nd level & green & 9\% \\ \hline
-  	only 3rd level & blue  & 8\% \\ \hline
-  	both 1th and 2nd & yellow & 7\% \\ \hline
-  	both 2nd and 3rd & cyan & 2\% \\ \hline
-  	both 1nd and 3rd & magenta & 2\% \\ \hline
-  	all levels & light gray & 7\% \\ \hline
-  \end{tabular}
-  \caption{Groups of users}
-  \label{tab:groups}
-\end{table}
 
 
 We can see that all formed clusters of users contains in most cases users
@@ -786,20 +787,6 @@ level) should remove clusters of levels.
 
 But does it?!?
 
-\section{Answer regularity}\label{answer-regularity}
-
-% Answer regularity
-%% Description of problem, items are divided into
-clusters based correct answer (i/y) when there is no information about
-this in data used for computing similarity
-
-
-We used histogram of differences (variance of solved levels) to choose
-some value for filtering of users. As more than half of users solves
-only one level median of differences is 0.0. So we choose one value just
-by looking at histogram. We can see in following figure that this dosnt
-really matter as filtering users in this way does not help with
-eliminating clustrs of same levels.
 
 
 %%% TODO Outsider detection using similarity data
