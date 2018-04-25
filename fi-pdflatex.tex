@@ -84,7 +84,7 @@
 \floatsetup[table]{capposition=top}
 \begin{document}
 
-\newcommand{\umimeCesky}{\textit{Umíme česky}}
+\newcommand{\umimeCesky}{\textcolor[rgb]{0.02,0.2,0.12}{Umíme česky}}
 
 %
 % Oficialne zadani
@@ -113,21 +113,23 @@
 % --------------------------- %
 
 % interactive educational systems
+% focus on systems with a large number of items
 
 Tutoring systems are computer-based systems designed to introduce users into various domains. They usually hold a large number of items which enables them to provide a personalized experience. To maintain this large pool of items efficiently we need to be able to decide which items are useful and which are not.
 
-% focus on systems with a large number of items
-
 % one possible method, using similarity of items
+
+One possible way how to achieve this is to use similarity of items. Similarity is basic metric which can be then used in various use-cases, e.g., projections, clustering, outsider detection. Work discusses different possible similarity measures and differences between them.
+
+% our similarity
 
 % goal of this work
 
+Main part of this work consists exploitative analysis of one such tutoring system. We were trying to find different aspects in tutoring system which can affect similarity measure and explain them. This work focuses on tutoring systems with thousands of items as such similarity measure is most useful for them. In particular we used data from tutoring system \umimeCesky{}.
+
 % structure of this work
 
-Besides Introduction and Conclusion chapters, this thesis is structured
-into three additional chapters. First chapter talks in general about the problem of measuring the similarity of educational items and advantages of using similarity.
-This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems.
-The second chapter then advances level deeper and describes observed problems specific to data we are using.
+Besides Introduction and Conclusion chapters, this thesis is structured into three additional chapters. First chapter talks in general about the problem of measuring the similarity of educational items and advantages of using similarity. This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems. The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
 
 \today %TODO remove!
@@ -410,10 +412,11 @@ We want similar items to end as close to each other as possible. When we use per
 
 After looking back at figure \ref{fig:common_projection} you can notice some regularities. Items depicted with same colors and items using same markers form clusters of same colors and markers. But so far you have no idea what this properties of items represent. This section is talking about it.
 
+% > > Level regularity
+
 \subsection{Level regularity}\label{regularities-level-regularity}
 
-% Level regularity
-%% Description of problem, 3 clusters based on 3levels of questions difficulty
+% Description of problem, 3 clusters based on 3 levels of questions difficulty
 
 Figure \ref{fig:common_projection} contains items of three different colors. As you already know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set, there are three difficulty levels. The first level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see a visible pattern in our data - each cluster consists mostly of items item from one level.
 
@@ -423,11 +426,17 @@ As we mentioned before, only data about user performance (correctness of answers
 
 This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set ``Vyjmenovaná slova po B''.
 
+% > > Answers regularity
+
 \subsection{Answers regularity}\label{answers-regularity}
 
-Another property of items in figure \ref{fig:common_projection} is a marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity.
+Another property of items in figure \ref{fig:common_projection} is depicted by a marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity but such clusters form despite it.
 
-%TODO add some more general text
+In our particular context of Czech language items should be similar only when they have same correct answer. So this regularity should not cause any problems with projection directly but it is still useful to explore why is this behavior present at all.
+
+% general to be continued text
+
+General question we are trying to address is why does calculation of similarity in this way project to clusters of levels and correct answers. Whole following chapter is focusing on this question.
 
 % --------------------------- %
 % Evaluation                  %
@@ -567,6 +576,8 @@ So we can conclude that clusters are present despite used similarity measure.
 
 %TODO answers reg micro-intro
 
+This section describes in detail some of our experiments we concluded which relates to separation of items into clusters of same correct answers. We describe four experiments in total which brought us from finding more properties of this regularity to determining cause in real dataset.
+
 % > > Total similarity of items
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
@@ -674,7 +685,7 @@ To sum it up. When we simulated users we gave them all habit to use one answer m
 
 \section{Levels regularity}\label{evaulation-levels-regularity}
 
-% TODO levels reg micro-intro
+This section describes in detail some of our experiments we concluded which relates to formation of items into clusters of same level. The section contains two experiments sowing some factors which can affect similarity in such manner that clusters forms.
 
 % > > Missing values
 
@@ -805,13 +816,17 @@ in our particular used data we run into multiple situatutions hwich can
 repeat even when explaing some different data using similalr techniques.
 
 
+mostly exploitative analysis (``try different things ans see what happends :D'')
+
+We found some factors present in real-data that can affect resulting projections.
+
 determining range of effect.. its stupidly simple, but can be forgotten whenfacig some problem and may help you greatly
 
 
 Technique we used for calculating projections is quite common in area of
 Adaptife learning and recommender systems. CITE.
 
-% Problems specific for dataset may arise
+As we saw, when using similarity with some specific dataset problems specific for it may arise. But we found some factors that can affect calculated similarity of items.
 
 Following section will summarize recommendations useful for explaining
 results
@@ -833,6 +848,8 @@ dimension of PCA - variance of performance entries of items
 % Now we understand how structure of system may affect performance data
 
 % Reusable in other systems
+
+Findings o this dataset may not be dirrectly transferable to other system. But used analysis can help understand any tutoring system. Or maybe even systems which are not used for learning but contains items with similar properties.
 
 % Limitations
 \section{Limitations}\label{limitations}
