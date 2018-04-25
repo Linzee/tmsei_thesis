@@ -587,6 +587,8 @@ We define another property of items - total similarity. It is sum of one items v
 
 This is not specific to only one problem set (which was used in previous images), almost all problem sets display similar pattern. However for some its more distinct than for others. (Item-sets consisting of items with many possible answers does not behave this way. But that is to be expected.)
 
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on left or on right in user interface. Our finding was that there are item-set with preferred answer on both left and right button. In particular in concept ``Vyjmenovaná slova'' which have possible answers ``i'' (left) and ``y'' (right) is preferred left answer. But for concept ``Koncovky přídavných jmen'' which has same possible answers is preferred one ``y'' on the right.
+
 This experiment tells us only that there is some underlying difference between items with different correct answers but does not tell us what.
 
 % > > Performance matrix
@@ -609,11 +611,17 @@ After exploring performance matrix some more we can see that there are users who
 
 Our guess was that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
-We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There is a few differences over basic simulation. For each item we also choose correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one.
+We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There is a few differences over basic simulation. For each item we also choose correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also there are no missing values in performance matrix - simulated users answer to all items.
 
 This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
 
-When we look at resulting projection of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by correct answer.
+\begin{figure}
+  \includegraphics[width=10cm]{img/simulated_default}
+  \caption{Simulation of default answer}
+  \label{fig:simulated_default}
+\end{figure}
+
+When we look at resulting projection \ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by correct answer (represented by different colors).
 
 %TODO better reasoning for this, explain why this happends
 	% why does data simulated in this way project to clusters of levels and answers
@@ -739,11 +747,7 @@ So how have this happen? TODO find good explanation :D I do not have any with wh
 
 \subsection{Item performance}\label{item-performance}
 
-As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items. The answer is no when we use Pearson correlation to calculate similarity. However, some other measure like Jaccard can be affected.
-
-%TODO can they?
-
-Figure\ref{fig:item_performance_levels} shows mean performance of items. Horizontal axis contains items sorted by level and mean performance. Vertical axis shows performance of each item. Given item set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/items_performance_levels}
@@ -751,9 +755,12 @@ Figure\ref{fig:item_performance_levels} shows mean performance of items. Horizon
   \label{fig:item_performance_levels}
 \end{figure}
 
-\subsection{Different groups of users}\label{different-groups-of-users}
+Figure\ref{fig:item_performance_levels} shows mean performance of items form one item-set. Horizontal axis contains items sorted by level and mean their performance. Vertical axis shows performance of each item. Given item set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
 
-We can look at previous figure \ref{fig:item_performance_levels} little differently. After dividing users into 8 groups based on levels they solved (according to table \ref{tab:user-groups}) plot changes slightly. Users in group who solved only first level (red) has much lower performance on other levels. We can conclude that users who solve primarily first level are not as experienced as other users. On other hand users in group who solved both 2nd and 3rd level (cyan) are performing better than other users on all three levels.
+
+
+
+
 
 
 
@@ -764,52 +771,6 @@ We can look at previous figure \ref{fig:item_performance_levels} little differen
 % - evalTrash          -
 % ----------------------
 
-%% Users similarity
-
-
-
-Instead we choose to analyse whether our data contains different groups
-of users. We are changing how we are looking at data.Up until now we
-used item-item similarity to calculate projection of items. Now we are
-going to to be using user-user similarity.
-
-It is worth mentioning we will work with larger matrices as this forced
-us to do some optimizations in code of our analysis. For example
-similariy matrix of items usualy has size between $100\times 100$ and
-$300\times 300$. As we are looking only on items from single knowledge
-component. Hovewer user similarity matrix is square matrix with size
-around $10 000\times 10 000$. This is also reason why current
-recommender systems use item similarity instead of user similarity. CITE
-
-First attempt on projecting users can be seen in figure ??.
-
-
-We can see that all formed clusters of users contains in most cases users
-from single user group when we divide them by levels they solved. This
-brought us to more interesting discoveries. In general each level and
-each item has some mean performance. This is shown in figure ??.
-
-
-
-
-At this point we have to return to simulation. We want to show that
-grouos of users solving levelswith different performancecan cause
-forming of clusters of items from same level.
-
-Answers are simulated pretty mutch same as in previous simulated
-experiments. We have 300 items divided into 3 levels. There is 3000
-simulated users. Most of them solve levels with same skill but some 1/5
-of users have smaller chance to solve second and third level. This is
-visible on item performance polt similar to one from real data.
-
-Only chnged variable was performance of some users for levels and this
-resulted in visible clusters in projection (figure ??).
-
-From otained information we can conclude that removing subnormal answers
-of users (few answers to other levels when they solved primarly one
-level) should remove clusters of levels.
-
-But does it?!?
 
 
 % Affected items on each stage of processing
@@ -827,78 +788,6 @@ item set. seems like a logical path to take.
 In particular this means item with low sum of similarities to other
 items may be an outsider. This is where we encountered another
 regularity in data.
-
-%% Users are choosing one answer by default when they do not know answer
-
-Our next experiment was simulation of users preferring one answer in
-case they do not know what is the correct answer.
-
-Answers are simulated for each user and question. There are no missing
-values. Answer is correct whenever random value is higher than logistic
-function of (users skill) - (difficulty of question). Half of questions
-has one correct answer and other half another answer. We used this to
-shift chance of answering correctly higher or lower (+0.1 for first
-answer and -0.1 for second).
-
-%\includegraphics{simulated_projection.png}
-%\includegraphics{simulated_correlation_similarity_performance.png}
-
-Colors represent answer of each item (chance shifted up or down). There
-are formed visible clusters of same answers in result similar to
-real-wold data. Using two uncorrelated skills cause clusters in
-projection. (When using only single skill for all questions results does
-not change and they are not required for this simulation.)
-
-%%% it is usually answer on left, but there are exceptions koncovky
-pridavnych mien je to Y (v pravo)
-
-This is not specific to only one category (which was used in previous
-images), many more categories display similar pattern. However for some
-its more distinct than for others. For some distribution of similarities
-is same for all answers (psani-nn-a-n, vyjmenovana-slova-po-p,..).
-
-We picked few witch have very distinct clusters of answers and looked whether it is
-answer on left or on right in user interface. Our finding was that not all concept prefer answer which is  located
-
-
-\section{User similarity}\label{user-similarity}
-
-% User similarity
-
-For explaining patterns of aquestions from same level we have to dig
-deeper and understand different fpgroups of users. One particular way
-how to acjive this is using owrkflow similar to previous. Althought
-there will be one difference, we will be using similarity of users
-instead of items. (item-item similarity matrix, user-user similarity
-matrix). This also meqns that we have to transpose performance matrix -
-so each column represents one user. Calculating correlarion between all
-columns gives us user similarity matrix. There is no difference in
-projection step, only used matrix is interexchnaged.
-
-W pe ca.n try ploting this result direcly using PCA. Hovewer we would
-notice that resulting image doesnt give us much information about users.
-reason for this is that two principal components reflect some property
-of data that we know about and dont wqnt to display. In particular users
-solving only one group are somewhat special. Columns representing users
-like this cannot be compared when they solved different levels - there
-is missinf information about their correlarion. PCA chooses this
-information with highest magnitude In presented figure this coresponds
-to choosen components reflecting solving of first and third level.
-(third principal domponent is corelates with solving of second level)
-
-As users who solve only one level cause this behaviour. And they dont
-give us information about similarity of items in different levels we
-choose to exclude this users. After doing so we end up with projection
-similar to figure xx.
-
-There are two visible clusters of users. Futher analysis shows that
-difference beween groups of users is caused by ?
-
-\section{Another contexts}\label{another-contexts}
-
-%% (re)Usage in other concepts
-
-%% Explain my idea of how can data affect projection -> possible affected items from one performance value
 
 \fi
 
