@@ -107,15 +107,14 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
+
 % --------------------------- %
 % Introduction                %
 % --------------------------- %
 
 % interactive educational systems
 
-Tutoring systems are computer-based systems designed to introduce users into various domains. They usually hold a large number of items which enables them to provide a personalized experience. To maintain this large
-pool of items efficiently we need to be able to decide which items are
-useful and which are not.
+Tutoring systems are computer-based systems designed to introduce users into various domains. They usually hold a large number of items which enables them to provide a personalized experience. To maintain this large pool of items efficiently we need to be able to decide which items are useful and which are not.
 
 % focus on systems with a large number of items
 
@@ -126,7 +125,7 @@ useful and which are not.
 % structure of this work
 
 Besides Introduction and Conclusion chapters, this thesis is structured
-into three additional chapters. First chapter talks in general about the problem of measuring similarity of educational items and advantages of using similarity.
+into three additional chapters. First chapter talks in general about the problem of measuring the similarity of educational items and advantages of using similarity.
 This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems.
 The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
@@ -143,7 +142,7 @@ The last chapter gives an overview of many experiments that were concluded and s
 
 %% Structure
 
-In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. In the beginning of the chapter we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all throught the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
+In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. At the beginning of the chapter, we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all through the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
 The last section of this chapter describes data used in our experiments. In particular, we describe used dataset and outline ways of simulating artificial data.
 
 \section{Tutoring systems}\label{tutoring-systems}
@@ -202,13 +201,13 @@ Dealing with a large pool of items may not be easy. To maintain a pool of items 
 %%% Similairty
 \subsection{Measuring similarity}\label{measuring-similarity}
 
-Following section is explaining general approach to measuring and using similarity of educational items.
+The following section is explaining general approach to measuring and using similarity of educational items.
 
 % what is a similarity, how can we compute it
 
-In general, we can compute similarity of items in many ways. We define measures for computing similarity for two items. Then when we want to use similarity for some specific use-case we compute pairwise similarities for all pair of items.
+In general, we can compute the similarity of items in many ways. We define measures for computing similarity for two items. Then when we want to use similarity for some specific use-case we compute pairwise similarities for all pair of items.
 
-Items in our context are commonly represented as vectors of numeric values. For performance data, this is vector of correctness or time from all users to given item. Other properties of items like question statement may also be represented as a vector, e.g., by using bag-of-words.
+Items in our context are commonly represented as vectors of numeric values. For performance data, this is a vector of correctness or time from all users to given item. Other properties of items like question statement may also be represented as a vector, e.g., by using bag-of-words.
 
 When we have vectors for each item we can compare them pairwise to get similarity using some standard similarity measures like Pearson correlation coefficient, cosine similarity, Sokal measure or Euclidean distance.
 
@@ -245,7 +244,7 @@ First, most direct, usage is a recommendation of items for a student to solve. W
 
 Another possible usage is generating hints by selecting examples which are similar to the item which is currently solved. Examples are selected from a database of examples. This usage of similarity was used by [CITE Hosseini; Brusilovsky].
 
-Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting redundant problems and pointing out where there is not enough similar problems.
+Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting redundant problems and pointing out where there are not enough similar problems.
 
 One possible way of achieving this is plotting problems to plane and displaying it to the author. This still can not be used for a very large amount of items. But we choose this approach for our specific data as they contain a large number of items but can be divided into item-sets which are solved independently in the system.
 
@@ -259,13 +258,10 @@ There is one more usage of similarity which we won't be discussing further. The 
 % Used datasets               %
 % --------------------------- %
 
-%TODO intro text
-First section talks about used sources of data (dataset from actual system and simulated data).
-describes structure of exercices and items intutoring system \umimeCesky{}
-basic statistics can be viewed there
-previous work on same dataset
-Description how common projection looks like. What properties does it have
-And in the end of chapter you can find detailed description of pipeline used in our experiemnts.
+The first half of this chapter focuses on used sources of data. It describes both simulated data and dataset from the actual system.
+We outline structure of tutoring system and focus on exercises and its objects that are useful for our work. Another section includes basic statistics about data from \umimeCesky{}. We also summarise previous work using the same dataset.
+
+After that second half of the chapter gives a detailed description of pipeline used in our experiments when calculating similarity and projections. At the end of the chapter, you can find an example of the simple projection and description of what properties should it have to be useful.
 
 % types of data (real, simulated), why, real, simulated
 
@@ -275,9 +271,9 @@ In our analysis, we use both real data from the educational system and simulated
 
 \section{Simulated data}\label{simulated-data}
 
-So when simulating data we are trying to generate results which are similar to real tutoring system. However, we use slightly simpler model.
+So when simulating data we are trying to generate results which are similar to real tutoring system. However, we use much simpler model.
 
-The result of the simulation consists mainly of performance matrix with items as columns and users as its rows. First, we have to generate items. For each item we choose its difficulty and skill required to solve this item. The difficulty of item is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
+The result of the simulation consists mainly of performance matrix with items as columns and users as its rows. First, we have to generate items. For each item, we choose its difficulty and skill required to solve this item. The difficulty of item is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
 
 After that, we continued with the construction of users. We generate skills for all users - a matrix of $u$ users and all used skills. This matrix is also filled with random values from normal distribution $\mathcal{N}(0,\,1)$.
 
@@ -298,13 +294,14 @@ We will talk more in depth about how we generated simulated data in next chapter
   \label{fig:umimeceskydoplnovacka}
 \end{figure}
 
-Although we focused only on ``fill-in-the-blank'' exercise it can still be used to train various concepts of Czech grammar. The exercise contains many questions and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis work only with item-sets separately this categorization into different aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
+Although we focused only on ``fill-in-the-blank'' exercise it can still be used to train various concepts of Czech grammar. The exercise contains many questions and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., ``Vyjmenovaná slova po B'' or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. As our analysis works only with item-sets separately this categorization into different aspects is important to our work. We consider results from each item-set as it has uniform items, but we do not compare them against each other.
 
 Items in item-sets are then divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
+
 %%% information about items: question, correctness and time
 
-The used dataset contains multiple sources of information about items. In ``item statement'' group it is statement of the question with one missing spot and two possible answers to fill in there. We also know answers from all the users. Then in performance group of information, it is correctness of user answers and response time.
+The used dataset contains multiple sources of information about items. In ``item statement'' group it is a statement of the question with one missing spot and two possible answers to fill in there. We also know answers from all the users. Then in performance group of information, it is correctness of user answers and response time.
 
 It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both lengths of questions and users reading speed. Also, it is a good idea to use logarithm of time instead of time itself. This is shown by [CITE]. Only then it would be useful to use data about response times. This is a reason why we are using mostly correctness of user answers.
 
@@ -329,23 +326,23 @@ We choose this tutoring system because, as we explained before, we are focusing 
   \label{tab:basic-statistics}
 \end{table}
 
-This section provides some basic statistics about size of dataset and users of system. Table \ref{tab:basic-statistics} shows number of items, users and answers. Statistics are both global and for one selected item-set which is the one most commonly used for analysis. This item-set has most answers from users, therefore, it is ideal for analysis as results are more stable. We used this item-set by default but we also confirmed observed behavior on other item-sets. The last column (``Item-user answers'') contains count of unique item-user pair which are answered. This number differs from all logged answers because users can answer same item multiple times. In this case we use only one of the answers.
+This section provides some basic statistics about the size of dataset and users of the system. Table \ref{tab:basic-statistics} shows number of items, users and answers. Statistics are both global and for one selected item-set which is the one most commonly used for analysis. This item-set has most answers from users, therefore, it is ideal for analysis as results are more stable. We used this item-set by default but we also confirmed observed behavior on other item-sets. The last column (``Item-user answers'') contains a count of unique item-user pair which were answered. This number differs from all logged answers because users can answer the same item multiple times. In this case, we use only one of the answers for further analysis.
 
 %%% Users using the system
 
 A primary group of users using \umimeCesky{} are children studying at primary and secondary school. Users can have individual accounts
-but system also allows teachers to create virtual class and assign students into it. Teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
+but the system also allows teachers to create a virtual class and assign students to it. A teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
 
 % Previous work
 \section{Previous work}\label{previous-work}
 
 Dataset from \umimeCesky{} was used previously in few articles and thesis. Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
 
-They compared few chosen similarity measures to each other. Result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for stability of results. Especially that using Pearson correlation coefficient is good default choice.
+They compared few chosen similarity measures to each other. The result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for the stability of results. Especially that using Pearson correlation coefficient is a good default choice.
 
-We are also using it for several reasons. Described article showed that it has good enough results in producing distinct clusters on performance data. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
+We are also using it for several reasons. The described article showed that it has good enough results in producing distinct clusters on performance data. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
 
-Article also showed that using ``second level of similarity'' improves stability of results further. However, we choose not to use it as our dataset is large enough to be sable even with simpler measure. Using straightforward measure is also beneficial when explaining results. And this factor is important to our work.
+The article also showed that using ``second level of similarity'' improves the stability of results further. However, we choose not to use it as our dataset is large enough to be sable even with a simpler measure. Using straightforward measure is also beneficial when explaining results and this factor is important to our work.
 
 % Description of common projection output
 
@@ -357,35 +354,35 @@ Projections come in handy when it is hard to understand data directly because th
 
 %% similarity and projection
 
-In general we want projection which puts similar items together. This can be achieved in many different ways. Following section explains choices we made when selecting source of data, method of processing them prior to applying dimensionality reduction, and dimensionality reduction technique itself.
+In general, we want projection which puts similar items together. This can be achieved in many different ways. The following section explains choices we made when selecting a source of data, a method of processing them prior to applying dimensionality reduction, and dimensionality reduction technique itself.
 
 \subsection{Computation of item similarity}\label{computation-of-item-similarity}
 
-%% How is projection (similarity) computed
+%% How is a projection (similarity) computed
 
-To better understand how are projections created we have to understand steps of its computation. This is default pipeline we used in most cases. When some of the further analysis modify it slightly it is pointed out in corresponding section. Whenever we don't specify so all projections were produced using this default pipeline.
+To better understand how were projections created we have to understand steps of their computation. We call this process a default pipeline and it is used in most cases. When some of the further analysis modify it slightly it is pointed out in the corresponding section. Whenever we don't specify so all projections were produced using this default pipeline.
 
 %%% Performance matrix
 
-First step we have to take is converting raw logged information about user answers into \textbf{performance matrix}. Columns of the matrix are items in educational system and each row of the matrix contains data about single user's performance. In our case we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of correct answer and 0.0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+The first step we have to take is converting raw logged information about user answers into \textbf{performance matrix}. Columns of the matrix are items in the educational system and each row of the matrix contains data about single user's performance. In our case, we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of the correct answer and 0.0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
 
 %%% Similarity matrix
 
-Next step is computing \textbf{similarity matrix}. It is filled with pairwise correlation of all items from performance. For this was chosen Pearson correlation coefficient based on previous work. Values produced by correlation are between $-1$ and $+1$. Each value in this matrix represent similarity of two items. This gives matrix some properties - matrix is symmetric and all values at main diagonal are 1.0.
+Next step is computing \textbf{similarity matrix}. It is filled with a pairwise correlation of all items from the performance matrix. For this was chosen Pearson correlation coefficient based on previous work. Values produced by correlation are between $-1$ and $+1$. Each value in this matrix represents similarity of two items. This gives matrix some properties - matrix is symmetric and all values at main diagonal are 1.0.
 
 %%% PCA, (TSNE)
 
-The last step is producing 2D \textbf{projection}. Similarity matrix is useful for computer to directly make decision based on it. However this matrix still contains way too many values for human to interpret. As some of our goals are explaining data to users. We continue with dimensional reduction to produce more compact representation of data. This can be achieved by using any dimensional reduction technique.
+The last step is producing 2D \textbf{projection}. The similarity matrix is useful for a computer to directly make a decision based on it. However, this matrix still contains way too many values for a human to interpret. As some of our goals are explaining data to authors of the system. We continue with a dimensional reduction to produce a more compact representation of data. This can be achieved by using any dimensional reduction technique.
 
 %%%% PCA over TSNE
 
-We decided to use Principal component analysis (PCA) and first two principal components are then used for 2D visualizations. We choose PCA over other commonly used technique t-SNE (which can produce better looking results) for one important reason. Results of PCA are deterministic. It produces same result for same input each time it is run. This is not true for t-SNE which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is no variation to results caused by algorithm. And it is much easier to compare results when altering measure used for computing item similarities.
+We decided to use Principal component analysis (PCA) and first two principal components are then used for 2D visualizations. We choose PCA over other commonly used technique t-SNE (which can produce better-looking results) for one important reason. Results of PCA are deterministic. It produces the same result for same input each time it is run. This is not true for t-SNE which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is no variation to results caused by the algorithm. And it is much easier to compare results when altering measure used for computing item similarities.
 
 %%% Why this pipeline, performance data (not item statement)
 
-We choose this specific pipeline as we think it is utilizing data about items which hold most information about their similarity. Other possible choices are using item statement and solutions provided by students. However, they do not hold as much information in our specific tutoring system. Item statements in our observed exercise consist only of few Czech words with one missing spot. And student solution is only choice from two provided options. Item statement and solutions can be used more effectively in other contexts like programming, mathematics, or physics where item statements are much more complex.
+We choose this specific pipeline as we think it is utilizing data about items which hold most information about their similarity. Other possible choices are using item statement and solutions provided by students. However, they do not hold as much information in our specific tutoring system. Item statements in our observed exercise consist only of few Czech words with one missing spot. And student solution is basicly only selection from two provided options. Item statement and solutions can be used more effectively in other contexts like programming, mathematics, or physics where item statements are much more complex.
 
-This choice of pipeline is also relatively easy to understand. It consist only of few steps which can be studied separately and interchanged.
+This choice of a pipeline is also relatively easy to understand. As it consists only of few steps which can be studied separately and interchanged.
 
 \section{Visible properties of projections}\label{visible-properties-of-projections}
 
@@ -401,9 +398,9 @@ Figure \ref{fig:common_projection} shows how can resulting projection look like.
 
 %% Similar words near each other
 
-As projections are meant to be used for managing item pool this puts some constrains on how ideal projection should look like.
+As projections are meant to be used for managing item pool this puts some constraints on how ideal projection should look like.
 
-We want similar items to end as close to each other as possible. When we use performance as data source we can also interpret as items which require same skills are projected near each other - their answers from each user correlate. For example when we look at our selected item-set we can see that all words words starting with ``bio'' are close to each other. This group consists of words witch are indeed similar because they are based on single word with added suffix. But remember, there is no information about item statement presented to similarity measure.
+We want similar items to end as close to each other as possible. When we use performance as data source we can also interpret as items which require same skills are projected near each other - their answers from each user correlate. For example, when we look at our selected item-set we can see that all words starting with ``bio'' are close to each other. This group consists of words which are indeed similar because they are based on a single word with added suffix. But remember, there is no information about item statement presented to the similarity measure.
 
 %% Regularities
 
@@ -418,17 +415,17 @@ After looking back at figure \ref{fig:common_projection} you can notice some reg
 % Level regularity
 %% Description of problem, 3 clusters based on 3levels of questions difficulty
 
-Figure \ref{fig:common_projection} contains items of three different colors. As you already know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set there are three difficulty levels. First level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see visible pattern in our data - each cluster consists mostly of items item from one level.
+Figure \ref{fig:common_projection} contains items of three different colors. As you already know item-sets in system \umimeCesky{} are divided into multiple levels of difficulty. For this particular item-set, there are three difficulty levels. The first level is depicted using red (with 110 items), second green (with 86 items), and third blue (with 77 items). You can see a visible pattern in our data - each cluster consists mostly of items item from one level.
 
-As we mentioned before, only data about user performance (correctness of answers) are used when composing projections. And there is not a direct reason for this clusters of same levels to form as no information about belonging to particular level is presented to the algorithm.
+As we mentioned before, only data about user performance (correctness of answers) are used when composing projections. And there is not a direct reason for this clusters of same levels to form as no information about belonging to a particular level is presented to the algorithm.
 
 % why is this unsuitable, example of similar words far away one from another
 
-This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar word are displayed far away form one another just because they belong to different levels. This is visible for words ``bič'' and ``bičík'' in item set ``Vyjmenovaná slova po B''.
+This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set ``Vyjmenovaná slova po B''.
 
 \subsection{Answers regularity}\label{answers-regularity}
 
-Another property of items in figure \ref{fig:common_projection} is marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity.
+Another property of items in figure \ref{fig:common_projection} is a marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity.
 
 %TODO add some more general text
 
@@ -438,70 +435,70 @@ Another property of items in figure \ref{fig:common_projection} is marker used. 
 
 \chapter{Evaluation}\label{evaulation}
 
-Chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause formation of clusters in projection. On low level it is apparent that items which correlate will be similar (close to each other) in projection but we focus on higher-level factors in tutoring systems that can cause this correlation.
+The chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which performance correlates will be similar (close to each other) in projection. But we focus on higher-level factors in tutoring systems that can cause this correlation.
 
 \section{Basic}\label{evaulation-basic}
 
-First section is focusing on experiments which determine range of behavior - whether distinct clusters of different answers and levels are present when altering some parameters of pipeline used to calculate projection.
+The first section is focusing on experiments which determine a range of this behavior - whether distinct clusters of different answers and levels are still present when altering parameters of pipeline used to calculate projection.
 
 \subsection{First and last users answer}\label{first-and-last-users-answer}
 
 % Why bother about this
 
-Our performance matrix contains only one value for each item-user pair. But users can possibly answer to the item multiple times. This raises a question which of user answers to use. [CITE]
+Our performance matrix contains only one value for each item-user pair. But users can possibly answer to the item multiple times. This raises a question about which of user answers to use. [CITE]
 
 % What we used in performance matrix
 
-We tried using both first users answer and last in performance matrix. However there is no visible difference in results. This is clear when we compare first and last answers of users. There is only 5\% different answers between them. So at least with large number of items in system it does not really matter which one is chosen as only few items are answered multiple times.
+We tried using both first users answer and last in performance matrix. However, there is no visible difference in results. This is clear when we compare first and last answers of users. There is only 5\% different answers between them. So at least with a large number of items in the system it does not really matter which one is chosen as only a few items are answered multiple times.
 
 \subsection{Quality of clusters on different item-sets}\label{quality-of-clusters}
 
-When introducing problem of unneeded clusters in section \ref{regularities} we showed that one particular item-set shows this behaviuor. However, we still do not know whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+When introducing the problem of unneeded clusters in section \ref{regularities} we showed that one particular item-set shows this behavior. However, we still do not know whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
 
 %% Quantification of level-answer clustering
 
-Quantification of quality of clusters in the projections are executed by comparing its k-means clustering to correct level and asnwer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ correct answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divides all items into same clusters as correct classification (clusters created as combination of item level and correct answer). On other hand lover values represent it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
+Quantification of quality of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ correct answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divide all items into same clusters as correct classification (clusters created as a combination of item level and correct answer). On other hand, lover values represent it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
 \begin{table}
   \begin{tabular}{ | l | l | l | l | }
     \hline
-  	 & min & median & max \\ \hline
-  	delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
-  	delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
-  	koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
-  	koncovky-ovi-ovy & -0.022328 & 1 & 1 \\ \hline
-  	koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
-  	koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
-  	koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
-  	koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
-  	me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1 \\ \hline
-  	predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
-  	psani-be-bje & -0.009319 & 0.671716 & 1 \\ \hline
-  	psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
-  	psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
-  	psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
-  	psani-ve-vje & -0.013296 & 1 & 1 \\ \hline
-  	shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
-  	sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
-  	slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
-  	tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
-  	vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
-  	vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
-  	vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
-  	vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
-  	vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
-  	vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
-  	vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
+       & min & median & max \\ \hline
+      delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
+      delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
+      koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
+      koncovky-ovi-ovy & -0.022328 & 1 & 1 \\ \hline
+      koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
+      koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
+      koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
+      koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
+      me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1 \\ \hline
+      predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
+      psani-be-bje & -0.009319 & 0.671716 & 1 \\ \hline
+      psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
+      psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
+      psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
+      psani-ve-vje & -0.013296 & 1 & 1 \\ \hline
+      shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
+      sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
+      slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
+      tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
+      vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
+      vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
+      vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
+      vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
+      vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
+      vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
+      vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
   \end{tabular}
   \caption{Quality of clusters in different item-sets}
   \label{tab:quality-of-clusters}
 \end{table}
 
-Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with obscure structure of projection. This mostly occurs when item-set have large number of possible answers.
+Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with an obscure structure of projection. This mostly occurs when item-set have a large number of possible answers.
 
 % Why we are looking at both item-answer clusters and not separated?
 
-We were looking at both clusters of answers and levels simultaneously. Another possible choice would be to somehow quantify both quality of levels and answers separately but this straightforward approach would not work there. Simplest example showing why would consists of two levels and two correct answers - where correct answers are divided evenly in each level. When we ask k-means to create two clusters for levels and two clusters for answers it will return same clustering in both cases because number of clusters is only used parameter. This will result in one metric returning high value but other one small even when clusters are really distinct.
+We were looking at both clusters of answers and levels simultaneously. Another possible choice would be to somehow quantify both qualities of levels and answers separately but this straightforward approach would not work there. Simplest example showing why would consists of two levels and two correct answers - where correct answers are divided evenly into each level. When we ask k-means to create two clusters for levels and two clusters for answers it will return the same clustering in both cases because a number of clusters is the only used parameter. This will result in one metric returning high value but other one small even when clusters are really distinct.
 
 % Conclusion
 
@@ -511,7 +508,7 @@ So we can conclude that this behavior is present in all item-sets.
 
 \subsection{Different similarity measures}\label{different-similarity-measures}
 
-In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
+In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to a single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/measures}
@@ -522,18 +519,18 @@ In another experiment we inter exchanged four different measures for computing s
 
 % preserving of clusters
 
-Figure \ref{fig:measures} shows four different similarity measures used on same data. Resulting projections are different. However, they all preserve information which is causing items from same level and answer to form clusters. Different colors represent different levels and markers different answers.
+Figure \ref{fig:measures} shows four different similarity measures used on same data. Resulting projections are different. However, they all preserve information which is causing items from the same level and answer to form clusters. Different colors represent different levels and markers different answers.
 
 % What different measurements measure
 
-When we encounter performance matrix which contains only two (boolean) values, we can summarize performance of all users on items $i$ and $j$ by using just four values. See table \ref{tab:boolean-attributes}.
+When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on items $i$ and $j$ by using just four values. See table \ref{tab:boolean-attributes}.
 
 \begin{table}
   \begin{tabular}{ | l | l | l | }
   \hline
-  	 & incorrect & correct \\ \hline
-  	incorrect & $a$ & $b$ \\ \hline
-  	correct & $c$ & $d$ \\ \hline
+       & incorrect & correct \\ \hline
+      incorrect & $a$ & $b$ \\ \hline
+      correct & $c$ & $d$ \\ \hline
   \end{tabular}
   \caption{Attributes of boolean similarity measures}
   \label{tab:boolean-attributes}
@@ -546,34 +543,35 @@ When we encounter performance matrix which contains only two (boolean) values, w
 \item
   \textbf{Jaccard} differs visibly from other measures.
 
-	TODO:
+    TODO:
 
   %TODO !!!!!!!!!!!!!!!!!!!!!!!!
-  Similarity of items is not greater in one group of questions (based on correct answer).
+  The similarity of items is not greater in one group of questions (based on correct answer).
 
-  Similarities provided by Jaccard measure differe greatly from other
-  measures. Resulting projection still shows same clusters of level and
-  items are splited based on correct answer but information is kept in
-  another way than in correlation based measures like Pearson.
+Similarities provided by Jaccard measure differ greatly from other measures. Resulting projection still shows same clusters of level and
+  items are split based on a correct answer but information is kept in
+  another way than in correlation-based measures like Pearson.
 
 \item
-  \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. Similarity of items  heavily depends on performance of items when using Sokal. (Where performance of item is amount of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing packed cluster of items from first level (easy) and spread out cluster of items from third level (harder).
+  \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
 
 \item
   \textbf{Cosine} similarity produces projection similar to Jaccard.
 \end{itemize}
 
-So we can conclude that clusters are present despite of used similarity measure.
+So we can conclude that clusters are present despite used similarity measure.
 
 % > Answers regularity
 
 \section{Answers regularity}\label{evaulation-answers-regularity}
 
+%TODO answers reg micro-intro
+
 % > > Total similarity of items
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-We define another property of items - total similarity. It is sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
+We define another property of items - total similarity. It is a sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/histogram_i_y}
@@ -585,9 +583,9 @@ We define another property of items - total similarity. It is sum of one items v
 
 % other item-sets
 
-This is not specific to only one problem set (which was used in previous images), almost all problem sets display similar pattern. However for some its more distinct than for others. (Item-sets consisting of items with many possible answers does not behave this way. But that is to be expected.)
+This is not specific to only one item-set (which was used in previous images), almost all item-sets display similar pattern. Although for some item-sets, it's more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
 
-We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on left or on right in user interface. Our finding was that there are item-set with preferred answer on both left and right button. In particular in concept ``Vyjmenovaná slova'' which have possible answers ``i'' (left) and ``y'' (right) is preferred left answer. But for concept ``Koncovky přídavných jmen'' which has same possible answers is preferred one ``y'' on the right.
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on left or on right in the user interface. Our finding was that there are item-set with a preferred answer on both left and right button. In particular in concept ``Vyjmenovaná slova'' which have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' which has the same possible answers is preferred one ``y'' on the right.
 
 This experiment tells us only that there is some underlying difference between items with different correct answers but does not tell us what.
 
@@ -595,7 +593,7 @@ This experiment tells us only that there is some underlying difference between i
 
 \subsection{Performance matrix}\label{performance-matrix}
 
-After looking at performance matrix we can see that there are some rows which behavior differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (white is correct, black incorrect) or missing answer (red). Items are ordered in a way that all items with one answer are on left and other answer on right.
+After looking at performance matrix we can see that there are some rows which behavior differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (white is correct, black incorrect) or missing answer (red). Items are ordered in a way that all items having first of the answers as correct are on the left and items with another correct answer on the right.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/performance_matrix}
@@ -603,7 +601,7 @@ After looking at performance matrix we can see that there are some rows which be
   \label{fig:performance_matrix}
 \end{figure}
 
-After exploring performance matrix some more we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with other answer (left) incorrectly.
+After exploring performance matrix some more we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly.
 
 % > > Default answer
 
@@ -611,9 +609,9 @@ After exploring performance matrix some more we can see that there are users who
 
 Our guess was that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
-We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There is a few differences over basic simulation. For each item we also choose correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also there are no missing values in performance matrix - simulated users answer to all items.
+We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix - simulated users answer to all items.
 
-This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
+This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/simulated_default}
@@ -621,10 +619,10 @@ This specific simulation is using two uncorrelated skills and two answers. They 
   \label{fig:simulated_default}
 \end{figure}
 
-When we look at resulting projection \ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by correct answer (represented by different colors).
+When we look at resulting projection \ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by the correct answer (represented by different colors).
 
-%TODO better reasoning for this, explain why this happends
-	% why does data simulated in this way project to clusters of levels and answers
+%TODO better reasoning for this, explain why this happens
+    % why does data simulated in this way project to clusters of levels and answers
 
 So users proffering one answer over another can cause items to separate by correct answer in projection.
 
@@ -634,11 +632,11 @@ So users proffering one answer over another can cause items to separate by corre
 
 % how to detect this in real data
 
-Previous simulation showed that preferred answer can cause separation of items. Now we have to show that users like this exists in our real dataset.
+The previous simulation showed that preferred answer can cause separation of items. Now we have to show that users like this exist in our real dataset.
 
-We observed before that whole data set uses both answers approximately the same but for single user this may not be true. In this experiment we want to quantify whether each user prefers some answer or not. For this we used difference of performance of items with each correct answer.
+We observed before that whole dataset uses both answers approximately the same, but for a single user this may not be true. In this experiment, we want to quantify whether each user prefers some answer or not. For this, we used a difference of performance of items with each correct answer. TODO toto povedata nejak rozumenjsie, aka vymysliet term
 
-For each possible answer and each user we calculate ratio of correct answers to all answers on items with given answer. Then we combine this set of values to one using variation. This gives us single value representing difference of performance on different answers.
+For each possible answer and each user, we calculate a ratio of correct answers to all answers on items with given answer. Then we combine this set of values to one using their variation. This gives us single value representing a difference of performance on different answers.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/uneven_answers_hist}
@@ -646,9 +644,9 @@ For each possible answer and each user we calculate ratio of correct answers to 
   \label{fig:uneven_answers_hist}
 \end{figure}
 
-Figure \ref{fig:uneven_answers_hist} shows histogram of this values calculated for each user on one item-set. There are few visible groups of users. Largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of spectrum are users who use only one answer (values close to 1.0). And in the middle there are users who probably prefer one answer but use both answers. You can see that there is quite a large amount of users with small preference for one of the answers (does not matter which one).
+Figure \ref{fig:uneven_answers_hist} shows histogram of this values calculated for each user on one item-set. There are few visible groups of users. The largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of the spectrum are users who use only one answer (values close to 1.0). And in the middle, there are users who probably prefer one answer but use both answers. You can see that there is quite a large amount of users with a small preference for one of the answers. (It does not matter which one.)
 
-We can use this to filter out user who have big difference of performance. We thought that this will remove separation of items based on correct answer from projection. And it does. Figure \ref{fig:answers_normalization} shows projection before and after filtering users based on their difference in answers. In this particular case we consider that user should be filtered out when his difference on answers is greater than 0.06 which is median value.
+We can use this to filter out users which difference in performance is too large. We thought that this will remove the separation of items based on a correct answer from a projection. And it does. Figure \ref{fig:answers_normalization} shows projection before and after filtering users based on their difference in answers. In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.06 which is median value.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/answers_normalization}
@@ -656,59 +654,56 @@ We can use this to filter out user who have big difference of performance. We th
   \label{fig:answers_normalization}
 \end{figure}
 
-% similar items from different levels are closer to each other
+% similar items from different levels are little closer to each other
 
 Figure \ref{fig:answers_normalization} shows original projection and projection modified by removing part of the users. Colors in this particular image represent correct answers of items. % TODO more new text here
 
-In section \ref{regularities-level-regularity} of second chapter we also mentioned that there are words in different levels which should be more similar. This is also shown in figure \ref{fig:answers_normalization} with the black straight line connecting such two items. You can see that distance between them shrinked.
+In section \ref{regularities-level-regularity} of the second chapter we also mentioned that there are words in different levels which should be more similar. This is also shown in figure \ref{fig:answers_normalization} with the black straight line connecting such two items. You can see that distance between them shrank.
 
-% is this too much users removed?
+% is these too many users removed?
 
-When we use only half of users which performance is more uniform separation of items with same answers is gone. Its half of users because we compare their difference to median difference. Apparent question is whether smaller amount is of removed user may not be enough. % TODO more new text here
+When we use only half of users which performance is more uniform separation of items with same answers is gone. Its half of users because we compare their difference to median difference. Apparent question is whether a smaller amount of users removed may not be enough. % TODO more new text here
 
-%TODO ??? We look at performance of items instead of usage of each answer because it is performance that directly affects calculated similarity of items. However they should correlate somewhat. Another reason is that it is closer to simulated experiment so we can compare results directly.
+We look at the performance of items instead of usage of each answer because it is a performance that directly affects calculated similarity of items. However, they should correlate somewhat. Another reason is that it is closer to simulated experiment so we can compare results directly.
 
 % answer regularity short summary
 
-To sum it up. When we simulated users we gave them all habit to use one answer more
-commonly. This divided items by their corresponding correct answer. But not all users have this habit in real-wold data. However
-there is quite large amount of users who do. We can filter them out to stop them affecting projections.
+To sum it up. When we simulated users we gave them all habit to use one answer more commonly. This divided items by their corresponding correct answer. But not all users have a habit of using one answer by default in real-world data. Yet there is quite a large amount of users who do. We can filter them out to stop them affecting projections.
 
 % > Levels regularity
 
 \section{Levels regularity}\label{evaulation-levels-regularity}
 
-% Levels regularity intro
-% TODO
+% TODO levels reg micro-intro
 
 % > > Missing values
 
 \subsection{Missing values}\label{missing-values}
 
-% can missing data affect result of similarity calculation?
+% Can missing data affect result of similarity calculation?
 
-As we mentioned before, performance matrix is relatively sparse. However, missing values are not distributed uniformly. Our question is whether pattern of missing values can affect similarity of items and projections.
+As we mentioned before, performance matrix is relatively sparse. Though missing values are not distributed randomly - they form a distinct pattern. Our question is whether this pattern of missing values can affect similarity of items and projections.
 
 % structure of performance matrix
 
-Items in each item-set of the system are divided into up to three levels. As difficulty of levels is different users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. However more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contains information only about specific levels and is missing all values of other levels.
+Items in each item-set of the system are divided into up to three levels. As the difficulty of levels is differs users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
 %TODO /\ abstract image to explain pattern?
 
-Based on this we can divide users into 8 groups. All groups are listen in table \ref{tab:user-groups}. First three columns say whether this group contains users who solved particular levels. We say that user solved level when he answered at least 30 items (which is 1/3 of questions for observed item set). We added color to each group so we can distinguish them in following plots easily. Groups are not represented in data uniformly. Most of the users falls into two groups, this users either solve only first or only second level.
+Based on this we can divide users into 8 groups. All groups are listen in table \ref{tab:user-groups}. First three columns say whether this group contains users who solved particular levels. We say that user solved level when he answered at least 30 items (which is 1/3 of questions for observed item-set). We added color to each group so we can distinguish them in following plots easily. Groups are not represented in data uniformly. Most of the users fall into two groups. These two groups are users who either solve only first or only second level.
 
 \begin{table}
   \begin{tabular}{ | l | l | l | l | l | }
     \hline
-  	1   & 2   & 3   & Color      & Users \\ \hline
-  	no  & no  & no  & black      & 35\%  \\ \hline
-  	yes & no  & no  & red        & 31\%  \\ \hline
-  	no  & yes & no  & green      & 9\%   \\ \hline
-  	no  & no  & yes & blue       & 8\%   \\ \hline
-  	yes & yes & no  & yellow     & 7\%   \\ \hline
-  	no  & yes & yes & cyan       & 2\%   \\ \hline
-  	yes & no  & yes & magenta    & 2\%   \\ \hline
-  	yes & yes & yes & light gray & 7\%   \\ \hline
+      1   & 2   & 3   & Color      & Users \\ \hline
+      no  & no  & no  & black      & 35\%  \\ \hline
+      yes & no  & no  & red        & 31\%  \\ \hline
+      no  & yes & no  & green      & 9\%   \\ \hline
+      no  & no  & yes & blue       & 8\%   \\ \hline
+      yes & yes & no  & yellow     & 7\%   \\ \hline
+      no  & yes & yes & cyan       & 2\%   \\ \hline
+      yes & no  & yes & magenta    & 2\%   \\ \hline
+      yes & yes & yes & light gray & 7\%   \\ \hline
     \hline
   \end{tabular}
   \caption{Groups of users}
@@ -717,7 +712,7 @@ Based on this we can divide users into 8 groups. All groups are listen in table 
 
 % simulation of missing values
 
-One again, we used simulated data to gather more information about this. Simulation was concluded in the same way as we explained before in section \ref{simulated-data}. Only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level.
+Once again, we used simulated data to gather more information about this. A simulation was concluded in the same way as we explained before in section \ref{simulated-data}. The only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data in a similar way that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve 2 levels and only a few users solve all 3 levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data - there are users who solve only second or only highest difficulty level.
 
 %TODO WHOO Waaait!
 
@@ -735,13 +730,13 @@ One again, we used simulated data to gather more information about this. Simulat
   \label{fig:simulated_missing_d23}
 \end{figure}
 
-Figure \ref{fig:simulated_missing_d12} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in first image depicts difficulty of items (dark are difficult, light simple items). Second image is colored by levels as usual.
+Figure \ref{fig:simulated_missing_d12} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in the first image depict difficulty of items (dark are difficult, light simple items). The second image is colored by levels as usual.
 
 You can notice that first dimension corresponds pretty well with difficulty of items and next two dimensions (second image) distinguish belongingness to each level.
 
 %TODO
 
-So how have this happen? TODO find good explanation :D I do not have any with which I am 100\% happy with right now.
+So how does this happen? TODO find good explanation :D I do not have any with which I am 100\% happy with right now.
 
 % > > Item performance
 
@@ -749,13 +744,15 @@ So how have this happen? TODO find good explanation :D I do not have any with wh
 
 As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items.
 
+%TODO definition of item performance - ratio of correct answers to all answers
+
 \begin{figure}
   \includegraphics[width=10cm]{img/items_performance_levels}
   \caption{Mean performance of items in three levels}
   \label{fig:item_performance_levels}
 \end{figure}
 
-Figure\ref{fig:item_performance_levels} shows mean performance of items form one item-set. Horizontal axis contains items sorted by level and mean their performance. Vertical axis shows performance of each item. Given item set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+Figure\ref{fig:item_performance_levels} shows mean performance of items from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
 
 
 
@@ -775,21 +772,17 @@ Figure\ref{fig:item_performance_levels} shows mean performance of items form one
 
 % Affected items on each stage of processing
 
-We have to absolve a little detour before explaining this. We have to understand what can be affected on each stage of processing by single answer of some user. Apparently in performance matrix this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this level it is still straightforward - answers to item affect similarities which include this item. Although, when we apply some additional level of processing like clustering, dimensionality reduction, or second level of similarity each value can affect all of the items.
+We have to absolve a little detour before explaining this. We have to understand what can be affected on each stage of processing by a single answer of some user. Apparently, in performance matrix, this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this level it is still straightforward - answers to item affect similarities which include this item. Although, when we apply some additional level of processing like clustering, dimensionality reduction, or second level of similarity each value can affect all of the items.
 
 
 %%% TODO Outsider detection using similarity data
 
-When exploring data, it may be useful to detect outsiders. It may be
-useful for multiple reasons [CITE]. In our particular case we
-declare item an outsider when it is not similar to any other items in
-item set. seems like a logical path to take.
+When exploring data, it may be useful to detect outsiders. It may be useful for multiple reasons [CITE]. In our particular case, we declare item an outsider when it is not similar to any other items in item-set. seems like a logical path to take.
 
-In particular this means item with low sum of similarities to other
-items may be an outsider. This is where we encountered another
-regularity in data.
+In particular, this means an item with a low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data.
 
 \fi
+
 
 
 
