@@ -673,7 +673,7 @@ In section \ref{regularities-level-regularity} of the second chapter we also men
 
 When we use only half of users which performance is more uniform separation of items with same answers is gone. Its half of users because we compare their difference to median difference. Apparent question is whether a smaller amount of users removed may not be enough. Transition between both extremes is continuous - on one end is total separation of items with different answers and on the another they are totally mixed. There is no visible jump between this states.
 
-We look at the performance of items instead of usage of each answer because it is a performance that directly affects calculated similarity of items. However, they should correlate somewhat. Another reason is that it is closer to simulated experiment so we can compare results directly.
+We look at the performance of items instead of how much user uses each answer because we do not have to normalize it in any way. If we choose to use usage of answers we have to compare this to correct ratio as it is not guaranteed that item-set contains same amount of items for all correct answers. Using variation of performance resolves this for us automatically.
 
 % answer regularity short summary
 
