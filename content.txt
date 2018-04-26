@@ -1,89 +1,44 @@
-Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický postup.
-
-## Introduction
-- interactive educational systems
-- focus on systems with large amount of items
-- one possible method, using similarity of items
-- goal of this work
-- structure of this work
-
-## Similarity
-- Intro to chapter
-  - Structure
-  - Using similarity in related fields
-    - Difference
-- Items
-  - why this term
-  - data sources
-    - statement
-    - solution
-    - performance
-- Why is similarity of items useful
-  - "navigate" problem pool
-  - "empowering humans"
-  - Tools (using item similarity)
-    - Sprava item pool
-    - Sprava taxonomy
-- Computing similarity of items
-  - item
-    - item statement
-    - item solution
-    - performance
-  - workflow
-    (studied in ML)
-    - simplified diagram
-    - feature matrix
-      - data transforamtions, normalization
-    - item simialrity matrix
-    - directly compute simialrity
-      - (string/tree) edit distance
-      - performance
-    - projections
-  - someone else is taking care of different posisiblilities of computing similatity
-- Dataset
-  - Cestina
-  - basic statistics
-  - simulated data
-
-## Evaulation
-- Description of common projection output
-  - why is projection useful
-  - similarity and projection
-  - example of similar words together, usage (as mentioned before)
-- Visible Properties of projection
-  - similar word together
-  - level regularities
-    - nice, but not useful
-    - causes that similar word end up far away
-    - How is projection (similarity) computed
-      - Performance matrix
-      - Similarity matrix
-      - PCA, (T-SNE)
-- Level regualrity
-  - phenomenon description, 3 clusters based on 3 levels of questions diffiulty
-    - cause? how users tend to solve them
-    - why is this unsuitable
-  - question? can missing data affect result of similarity calculation
-    - simulated data experiment, structure
-    - filtered on users who solved 50 of each level
-- using different metrics
-  - what different measures measure
-- Answer regularity
-  - phenomenon description, in many context items are divided into clusters based correct answer i/y when there is no information about this in data used for computing similarity
-  - Why bother? understand why it is there
-  - similairty matrix - total similarity of answers
-    - histograms
-  - users are choosing one answer by default when they dont know answer
-    - it is usualy answer on left, but there are exceptions koncovky pridavnych mien je to Y (v pravo)
-    - how to detect this in performance data?
-  - Division of user answers 50-50, but not for correct answers
-
-  - Umime matiku
-
-    - (re)Usage in other concepts
-      - Systemy v akych sa to da vyuzit
-
-## Conclusion
-- Problems specific for dataset may arise
-- Now we understand how structure of system may affect performance data
-- Reusable in other systems
+- Introduction
+  - interactive educational systems
+  - focus on systems with large amount of items
+  - one possible method, using similarity of items
+  - goal of this work
+  - structure of this work
+- Similarity
+  - Tutoring systems
+  - Items
+    - Why this term
+    - Data sources
+      - Statement
+      - Solution
+      - Performance
+  - Measuring similarity
+    - Pipeline
+      - Performance
+      - Similarity
+      - Projection
+  - Why is similarity of items useful
+    - "navigate" problem pool, "empowering humans", ..
+- Used data and techniques
+  - Simulated data
+  - Umime cesky
+    - Basic statistics
+  - Detailed description of data preprocessing, used measures, dimensionality reduction
+  - Properties of projection, description of common projection
+  - Visible regularities, phenomenon description
+    - answers regularity
+    - levels regularity
+- Evaluation
+  - Basic experiments
+    - First and last answers
+    - Quality of clusters on different item-sets
+    - Similarity measures
+  - Answers regularity
+    - Total similarity of items
+    - Performance matrix
+    - Default answer
+    - Filter users
+  - Level regularity
+    - Missing values
+    - Item difficulty
+- Conclusion
