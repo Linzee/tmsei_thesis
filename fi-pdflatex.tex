@@ -580,12 +580,7 @@ This section describes in detail some of our experiments we concluded which rela
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-%%% TODO Outsider detection using similarity data
-
-When exploring data, it may be useful to detect outsiders. There are multiple reasons for doing so ... [CITE]. In our particular case, we declare item an outsider when it is not similar to any other items in item-set. seems like a logical path to take.
-
-In particular, this means an item with a low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data.
-
+When exploring data, it may be useful to detect outsiders. One possible way of how to detect an outsider is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done by [CITE]. In particular, this means that an item with a low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outsider detection as items having some correct answers have higher probability to be selected as outsider and its apparently not true.
 
 For this purpose we define another property of items - total similarity. It is a sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
 
@@ -650,9 +645,9 @@ So users proffering one answer over another can cause items to separate by corre
 
 The previous simulation showed that preferred answer can cause separation of items. Now we have to show that users like this exist in our real dataset.
 
-We observed before that whole dataset uses both answers approximately the same, but for a single user this may not be true. In this experiment, we want to quantify whether each user prefers some answer or not. For this, we used a difference of performance of items with each correct answer. TODO toto povedata nejak rozumenjsie, aka vymysliet term
+We observed before that whole dataset uses both answers approximately the same, but for a single user this may not be true. In this experiment, we want to quantify whether each user prefers some answer or not. For this, we used a difference of user answer performances.
 
-For each possible answer and each user, we calculate a ratio of correct answers to all answers on items with given answer. Then we combine this set of values to one using their variation. This gives us single value representing a difference of performance on different answers.
+User answer performance is calculated as ratio of items which user answered correctly to all items when looking only at items with particular correct answer. We calculate this value for each possible answer and each user. Then we combine this set of values for each user to one using their variation. This gives us single value representing whether user uses some answer by default. %TODO range 0.0 - 0.5 HERE
 
 \begin{figure}
   \includegraphics[width=10cm]{img/uneven_answers_hist}
