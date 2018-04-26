@@ -550,22 +550,13 @@ When we encounter performance matrix which contains only two (boolean) values, w
   \textbf{Pearson} ($(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$) is commonly used. It correlates well with much simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
 
 \item
-  \textbf{Jaccard} differs visibly from other measures.
-
-    TODO:
-
-  %TODO !!!!!!!!!!!!!!!!!!!!!!!!
-  The similarity of items is not greater in one group of questions (based on correct answer).
-
-Similarities provided by Jaccard measure differ greatly from other measures. Resulting projection still shows same clusters of level and
-  items are split based on a correct answer but information is kept in
-  another way than in correlation-based measures like Pearson.
+  \textbf{Jaccard} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer but similarity of the items does not correlate measures like Pearson. This will be also mentioned later in evaluation chapter.
 
 \item
   \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
 
 \item
-  \textbf{Cosine} similarity produces projection similar to Jaccard.
+  \textbf{Cosine} similarity produces projection very similar to Jaccard.
 \end{itemize}
 
 So we can conclude that clusters are present despite used similarity measure.
@@ -581,6 +572,8 @@ This section describes in detail some of our experiments we concluded which rela
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
 When exploring data, it may be useful to detect outsiders. One possible way of how to detect an outsider is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done by [CITE]. In particular, this means that an item with a low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outsider detection as items having some correct answers have higher probability to be selected as outsider and its apparently not true.
+
+Still, it is worth mentioning that this is not true for all similarity measures. It is apparent that Pearson and Cosine have this property but measures like Jaccard does not. It has different similarity for different levels instead. This is another difference between used similarity measures.
 
 For this purpose we define another property of items - total similarity. It is a sum of one items vector of similarities to other items. (One column of similarity matrix). This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
 
@@ -780,6 +773,8 @@ Another part of this work are scripts written in python and Jupyter Notebook con
 % Conclusion                  %
 % --------------------------- %
 
+\if{false}
+
 We can conclude some recommendations. While trying to explain patterns
 in our particular used data we run into multiple situatutions hwich can
 repeat even when explaing some different data using similalr techniques.
@@ -827,6 +822,7 @@ Findings o this dataset may not be dirrectly transferable to other system. But u
 - only performane was used for computing similarity of items, other sources of data were ignored .. as we thought there results here are most unexpected .. hovewer there may arise other problems when using different sourcess of data
 - we used only correctness of answers and ignore response time. It make sense in studied tutoring system but may be important in other systems.
 
+\fi
 
   \makeatletter\thesis@blocks@clear\makeatother
   %\phantomsection %% Print the index and insert it into the
