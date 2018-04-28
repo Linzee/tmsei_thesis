@@ -41,4 +41,7 @@
   - Level regularity
     - Missing values
     - Item difficulty
+- Recommendations
+  - General recommendations (simple facts, but I think they are useful in any context)
+  - Practical recommendations (specific to this dataset)
 - Conclusion

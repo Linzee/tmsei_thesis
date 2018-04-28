@@ -73,7 +73,7 @@
 \usepackage{hyperref} %% Hyperlinks
 \usepackage{markdown} %% Lightweight markup
 \usepackage{listings} %% Source code highlighting
-\hypersetup{colorlinks, urlcolor=[rgb]{0.6,0.2,1.0}}
+\hypersetup{colorlinks, urlcolor=[rgb]{0.6,0.2,1.0}, linkcolor=[rgb]{0.0,0.0,0.0}}
 \lstset{
   basicstyle      = \ttfamily,%
   identifierstyle = \color{black},%
@@ -92,27 +92,10 @@
 \hyphenpenalty=9999
 \exhyphenpenalty=10000
 
-%
-% Oficialne zadani
-%
-% Techniques for measuring similarity of educational items
-%
-% Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na
-% základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci
-% skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené
-% metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných
-% datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě
-% získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický
-% postup.
-%
-%                                                                   KISS
-%
-% „Dokonalosti není dosaženo tehdy, když už není co přidat, ale tehdy, když už nemůžete nic odebrat“ (Antoine de Saint-Exupéry)
-%
+\hypersetup{linkcolor=[rgb]{0.6,0.2,1.0}}
 
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
-
 
 % --------------------------- %
 % Introduction                %
@@ -138,7 +121,7 @@ Main part of this work consists exploitative analysis of one such tutoring syste
 Besides Introduction and Conclusion chapters, this thesis is structured into three additional chapters. First chapter talks in general about the problem of measuring the similarity of educational items and advantages of using similarity. This chapter also describes previous work and different proposed measures for computing similarity. Later we explain different types of data available in tutoring systems. The second chapter then advances level deeper and describes observed problems specific to data we are using.
 The last chapter gives an overview of many experiments that were concluded and summarizes results.
 
-\today %TODO remove!
+This is draft from \today %TODO remove!
 
 \chapter{Similarity}
 
@@ -455,11 +438,11 @@ General question we are trying to address is why does calculation of similarity 
 % Evaluation                  %
 % --------------------------- %
 
-\chapter{Evaluation}\label{evaulation}
+\chapter{Evaluation}\label{evaluation}
 
 The chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which performance correlates will be similar (close to each other) in projection. But we focus on higher-level factors in tutoring systems that can cause this correlation.
 
-\section{Basic}\label{evaulation-basic}
+\section{Basic}\label{evaluation-basic}
 
 The first section is focusing on experiments which determine a range of this behavior - whether distinct clusters of different answers and levels are still present when altering parameters of pipeline used to calculate projection.
 
@@ -638,8 +621,7 @@ This specific simulation is using two uncorrelated skills and two answers. They 
 
 When we look at resulting projection \ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by the correct answer (represented by different colors).
 
-%TODO better reasoning for this, explain why this happens
-    % why does data simulated in this way project to clusters of levels and answers
+TODO better reasoning for this, explain why this happens
 
 So users proffering one answer over another can cause items to separate by correct answer in projection.
 
@@ -703,8 +685,6 @@ As we mentioned before, performance matrix is relatively sparse. Though missing 
 
 Items in each item-set of the system are divided into up to three levels. As the difficulty of levels is differs users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
-%TODO /\ abstract image to explain pattern?
-
 Based on this we can divide users into 8 groups. All groups are listen in table \ref{tab:user-groups}. First three columns say whether this group contains users who solved particular levels. We say that user solved level when he answered at least 30 items (which is 1/3 of questions for observed item-set). We added color to each group so we can distinguish them in following plots easily. Groups are not represented in data uniformly. Most of the users fall into two groups. These two groups are users who either solve only first or only second level.
 
 \begin{table}
@@ -747,9 +727,9 @@ Figure \ref{fig:simulated_missing_d12} shows projection of our simulated data wi
 
 In this case first dimension corresponds pretty well with difficulty of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data it is much harder to say anything about its axis.
 
-%TODO
+After looking at similarity matrix we saw that there is difference between similarities in same level and similarities of items in different levels. For given amount of items, mean levels solved by single user and number of users there is visible difference in stability of similarity results. Computed similarities for items in same level are much more stable than in between levels. This may cause specific used use-case (in this case projection) to consider items in same level as more similar.
 
-So how does this happen? TODO find good explanation :D I do not have any with which I am 100\% happy with right now.
+Yet this is not true true in general only if amount of users who solved items in more than one level is small. If we increase number of simulated users by 10 times we will get stable similarity and no clusters.
 
 % > > Item performance
 
@@ -763,25 +743,25 @@ As we know items are divided into in such manner that difficulty of levels raise
   \label{fig:item_performance_levels}
 \end{figure}
 
-Figure\ref{fig:item_performance_levels} shows mean items performance (ratio of correct answers to all answers) from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+Figure \ref{fig:item_performance_levels} shows mean items performance (ratio of correct answers to all answers) from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+
+TODO more text about this
 
 % > Notebook
 
 \section{Notebook}\label{notebook}
 
-Concluded experiments are collected in Jupyter Notebooks which also use scripts written in python to simplify our work and make it more %TODO. There are also some additional experiment not described in this text. Providing all the experiments in this way gives everyone possibility to alter and re-execute them. More information about launching this environment is present in enclosed files.
+Concluded experiments are collected in Jupyter Notebooks which also use scripts written in python to simplify our work and make notebooks cleaner. There are also some additional experiment not described in this text. Providing all the experiments in this way gives everyone possibility to alter and re-execute them. More information about launching this environment is present in enclosed files.
 
-
-
-\chapter{Conclusion}
+\chapter{Recommendations}\label{recommendations}
 
 % --------------------------- %
-% Conclusion                  %
+% Recommendations             %
 % --------------------------- %
 
 % superintro
 
-%TODO
+This short chapter summarizes recommendations gathered after looking at results of our experiments.
 
 % intro, affected portion of data on different stages of pipeline
 
@@ -795,13 +775,7 @@ As we have learned there are a few stages used in our pipeline for computing sim
 
 Yet, as we know, single changed value does not change much. It is underlying truth about items and users that affect similarity measures. This also shows that chosen pipeline is robust and complex as it allows us to uncover hidden information in performance data.
 
-% post-summary of this work
-
-This work consists mostly of exploitative analysis of similarity measures. At the beginning we knew about existence of some regularities in data that caused clusters of items that were same in some way that should not be present in the data. On a way for explaining them we found multiple high-level factors that can possibly affect results of calculated similarity and projections of items in tutoring systems. We also encountered some problems and therefore can give some recommendations for future work in this or comparable area.
-
-% Reusable in other systems %TODO move
-
-Most of the findings discovered on this dataset may not be directly transferable to other tutoring system. But used analysis can also help understand other tutoring systems. Or maybe even systems which are not used for learning but contains items with similar properties.
+This work consists mostly of exploitative analysis of similarity measures and their use cases on dataset from \umimeCesky{}. Especialy we focused on using data about user performance from single exercise. At the beginning we knew about existence of some regularities in data that caused clusters of items that were same in some way that should not be present in the used data. On a way for explaining them we found multiple high-level factors that can possibly affect results of calculated similarity and projections of items in tutoring systems. We also encountered some problems and therefore can give some recommendations for future work in this or comparable area.
 
 % > General recommendations
 
@@ -811,45 +785,69 @@ As we saw, when using similarity with some specific dataset problems specific fo
 
 % determine range
 
-I think it is always good idea to first determining range of effect. E. g., whether this problem also appears when we use some different measure or data. I know it is basic. But it can be easily forgotten when facing some specific problem. And it was in great help to us. Such experiments were explained in first section \ref{evaluation-basics} of previous chapter.
+I think it is always good idea to first determining range of effect. E. g., whether this problem also appears when we use some different measure or data. I know it is basic. But it can be easily forgotten when facing some specific problem. And it was in great help to us. Such experiments were explained in first section \ref{evaluation-basic} of previous chapter.
 
 % simulations
 
-%TODO
-- we are using unsupervsed learning like techniques - we obtain some results but it is
-hard to explain why they are like they are.. one possibility how to
-explain results is using simulations
+I found it useful to use simulations when we are dealing with techniques from which we obtain some results but it is hard to explain why (projection). Altering inputs and observing output is a way for explaining what is happening inside.
 
 % more dimensions of PCA
 
-%TODO
-when using PCA.. look at more than first two dimensions may be useful
-- looking at total similarity of items - typicaly correlates with first
-dimension of
+Usually when using PCA only first two principal components are used but I found it useful to look at more some other dimensions as well. This approach was used in section \ref{missing-values} when first dimension correlated with difficulty of items and did not give us any useful information.
 
-% > ???
+\section{Practical recommendations}\label{practical-recommendations}
 
-\section{To co ma realne obsahovat zaver}\label{to}
+TODO this text
 
-Now we understand how structure of system may affect performance data and therefore similarity of items itself.
+% in visualizations
 
+This work did not focus on differnet possible visualisations of items, but as byproduct of concluded experiments we still made some.
+
+projection
+simples one
+for each item-set seaprately
+
+
+% in outsider detection
+
+For outsider detection we can recommend
+
+using method that does not depend on global dsitribution of values, only on local neighborhood
+or
+use same normalization, for example proposed removal of users with great preference for one answer causing this separation of items. But other less drastic normalization method can also be found we only used this one to show that this is a cause for this clusters.
+
+% in ...
 
 % Limitations
 \section{Limitations}\label{limitations}
 
 There were some limitations forced by source of data we used, and some decisions were made for simplicity or other explained reasons. For our analysis we used only one exercise type - simple ``fill-in-the-blank'' with choice from two answers. Also only information about performance was used for computing similarity of items, other sources of data were ignored as we thought that this source of data may bring most unexpected results. But there may arise other problems when using different sources of data. And performance was used only as correctness of answer - we did not include time it took users to solve item into consideration. This is probably correct path to take in studied tutoring system but it may be important to also incorporate solving time into performance in some other systems.
 
-% Autor se ohlíží za tím, co udělal: „V práci je. Hlavní úspěchy jsou. Důležitými výsledky jsou. Podařilo se.“
+\chapter{Conclusion}
 
-In the work we analyzed in detail similarity measures and their use cases on dataset from \umimeCesky{}. Especialy we focused on using data about user performance from single exercise.
+% --------------------------- %
+% Conclusion                  %
+% --------------------------- %
 
+% What we did, what important discoveries we found,..
 
+We explored differences in using different methods for measuring similarity of educational items based on data about correctness of users answers. Prior to starting this work we knew there were some unclear circumstances considering formation of clusters in projection and therefore distribution of similarities of items. All the experiments we concluded were focused on this behavior. Now we understand how structure of system may affect performance data and similarity of items itself.
 
+We determined whether is this unclear behavior present in all data and as part of this we also compared different similarity measures. Multiple experiments using simulated data were concluded. And as the result we are pretty sure about cause of one of the regularities and proposed some high-level factors that can cause other observed regularity. As in real data there may be multiple factors causing any information in the data it is not straightforward to explain clusters of items from same level.
 
-% Autor uvede nápady, které nestihl realizovat v podobě možností pokračování: „Ještě by šlo zkusit. Kdybych byl na začátku věděl, co vím teď, dělal bych.“
+Most of the findings discovered on this dataset may not be directly transferable to other tutoring system. But used analysis can also help understand other tutoring systems. Or maybe even systems which are not used for learning but contains items with similar properties.
 
-% Autor (ve vlastním zájmu) rekapituluje, jak bylo naplněno zadání práce.
+% Ideas for future work,..
 
+This work was concluded as exploration analysis and hence its results consists mostly of gathered information and recommendations for future work. In particular implementing proposed recommendations when using similarity of items in mentioned tutoring system. Similarity of items is currently not used in the system \umimeCesky{} but increasing number of items will soon call for some automated management of problem pool. For this reason it will be useful to further analyze methods for detecting problems with item pool.
+
+In particular compare usefulness of different methods of item visualizations for human judgment. Also implementation of automatic detection of duplicate and outsider items may be useful. In some special cases it may be even possible to recommend kinds of items that are missing from the system using similarity of items.
+
+% Recapitulation of how well we finished our task,..
+
+After concluding all this I think given task was fulfilled. TODO
+
+% See ya
 
 \makeatletter\thesis@blocks@clear\makeatother
 %\phantomsection %% Print the index and insert it into the
