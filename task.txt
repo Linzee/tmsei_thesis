@@ -1,0 +1,14 @@
+# Oficialne zadani
+
+## Techniques for measuring similarity of educational items
+
+Cílem práce je prozkoumat metody pro měření podobnosti výukových položek na
+základě dat o odpovědích studentů. Práce navazuje na předchozí výzkum v rámci
+skupiny Adaptive Learning. Cílem práce je kriticky prozkoumat dříve navržené
+metody, zejména s ohledem na nevyjasněné aspekty jejich chování na reálných
+datech (neočekávané pravidelnosti v distribucích hodnot podobnosti). Na základě
+získaného vhledu budou navrženy upravené metody nebo doporučení pro praktický
+postup.
+
+> „Dokonalosti není dosaženo tehdy, když už není co přidat, ale tehdy, když už nemůžete nic odebrat“ (Antoine de Saint-Exupéry)
+> KISS
