@@ -86,8 +86,9 @@
 \floatsetup[table]{capposition=top}
 \begin{document}
 
-% \newcommand{\umimeCesky}{\textcolor[rgb]{0.6,0.2,1.0}{Umíme česky}}
-\newcommand{\umimeCesky}{Umíme česky}
+\newcommand{\ppl}[1]{\textcolor[rgb]{0.6,0.2,1.0}{#1}}
+\newcommand{\umimeCesky}{\ppl{Umíme česky}}
+% \newcommand{\umimeCesky}{Umíme česky}
 
 \hyphenpenalty=9999
 \exhyphenpenalty=10000
@@ -282,8 +283,8 @@ We will talk more in depth about how we generated simulated data in next chapter
 \href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. The system contains multiple exercise types, but in our analysis, we use only one exercise type - simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/umimecesky_doplnovacka}
-  \caption{``fill-in-the-blank'' example question; TODO Better descriptions quality and size of all figures}
+  \includegraphics[width=7cm]{img/umimecesky_doplnovacka}
+  \caption{Sample question from ``fill-in-the-blank'' exercise in \umimeCesky{}}
   \label{fig:umimeceskydoplnovacka}
 \end{figure}
 
@@ -310,12 +311,12 @@ We choose this tutoring system because, as we explained before, we are focusing 
     \hline
      & Items & Users & Answers & Item-user answers \\
     \hline\hline
-    ``Fill-in-blank'' & 6\,037 & 46\,128 & 10\,421\,521 & 7\,264\,763 \\
+    Whole exercise & 6\,037 & 46\,128 & 10\,421\,521 & 7\,264\,763 \\
     \hline
     One item-set & 273 & 14\,207 & 1\,216\,403 & 888\,748 \\
     \hline
   \end{tabular}
-  \caption{Basic statistics}
+  \caption{Basic statistics of dataset}
   \label{tab:basic-statistics}
 \end{table}
 
@@ -387,8 +388,8 @@ This choice of a pipeline is also relatively easy to understand. As it consists 
 % Visible Properties of projection
 
 \begin{figure}
-    \includegraphics[width=10cm]{img/common_projection}
-  \caption{Basic t-SNE projection of one item-set; TODO Better descriptions quality and size of all figures}
+    \includegraphics[height=8cm]{img/common_projection}
+  \caption{Basic t-SNE projection of one item-set (``Vyjmenovaná slova po B'')}
   \label{fig:common_projection}
 \end{figure}
 
@@ -464,41 +465,6 @@ When introducing the problem of unneeded clusters in section \ref{regularities} 
 
 Quantification of quality of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ correct answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divide all items into same clusters as correct classification (clusters created as a combination of item level and correct answer). On other hand, lover values represent it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
-\begin{table}
-  \begin{tabular}{ | l | l | l | l | }
-    \hline
-       & min & median & max \\ \hline
-      delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
-      delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
-      koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
-      koncovky-ovi-ovy & -0.022328 & 1 & 1 \\ \hline
-      koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
-      koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
-      koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
-      koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
-      me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1 \\ \hline
-      predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
-      psani-be-bje & -0.009319 & 0.671716 & 1 \\ \hline
-      psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
-      psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
-      psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
-      psani-ve-vje & -0.013296 & 1 & 1 \\ \hline
-      shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
-      sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
-      slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
-      tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
-      vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
-      vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
-      vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
-      vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
-      vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
-      vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
-      vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
-  \end{tabular}
-  \caption{Quality of clusters in different item-sets}
-  \label{tab:quality-of-clusters}
-\end{table}
-
 Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with an obscure structure of projection. This mostly occurs when item-set have a large number of possible answers.
 
 % Why we are looking at both item-answer clusters and not separated?
@@ -516,8 +482,8 @@ So we can conclude that this behavior is present in all item-sets.
 In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to a single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/measures}
-  \caption{Comparison of four similarity measures}
+  \includegraphics[height=8cm]{img/measures}
+  \caption{Comparison of four similarity measures on same item-set}
   \label{fig:measures}
 \end{figure}
 
@@ -528,31 +494,31 @@ Figure \ref{fig:measures} shows four different similarity measures used on same 
 
 % What different measurements measure
 
-When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on items $i$ and $j$ by using just four values. See table \ref{tab:boolean-attributes}.
+When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
 
 \begin{table}
   \begin{tabular}{ | l | l | l | }
-  \hline
+      \hline
        & incorrect & correct \\ \hline
-      incorrect & $a$ & $b$ \\ \hline
-      correct & $c$ & $d$ \\ \hline
+      incorrect & \ppl{$a$} & \ppl{$b$} \\ \hline
+      correct & \ppl{$c$} & \ppl{$d$} \\ \hline
   \end{tabular}
-  \caption{Attributes of boolean similarity measures}
+  \caption{Four parameters of used boolean similarity measures}
   \label{tab:boolean-attributes}
 \end{table}
 
 \begin{itemize}
 \item
-  \textbf{Pearson} ($(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$) is commonly used. It correlates well with much simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
+  \textbf{Pearson} \ppl{$(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$} \\ is commonly used. It correlates well with visibly simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
 
 \item
-  \textbf{Jaccard} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer but similarity of the items does not correlate measures like Pearson. This will be also mentioned later in evaluation chapter.
+  \textbf{Jaccard} \ppl{$a / (a+b+c)$} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer but similarity of the items does not correlate measures like Pearson. This is also mentioned later in evaluation chapter.
 
 \item
-  \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
+  \textbf{Sokal} \ppl{$(a+d)/(a+b+c+d)$} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
 
 \item
-  \textbf{Cosine} similarity produces projection very similar to Jaccard.
+  \textbf{Cosine} \ppl{$a / \sqrt{ (a+b)(a+c) }$} similarity produces projection very similar to Jaccard.
 \end{itemize}
 
 So we can conclude that clusters are present despite used similarity measure.
@@ -575,7 +541,7 @@ For this purpose we define another property of items - total similarity. It is a
 
 \begin{figure}
   \includegraphics[width=10cm]{img/histogram_i_y}
-  \caption{Histogram of similarities}
+  \caption{Histograms of total similarities of items divided by correct answer on one item-set}
   \label{fig:histogram_i_y}
 \end{figure}
 
@@ -597,7 +563,7 @@ After looking at performance matrix we can see that there are some rows which be
 
 \begin{figure}
   \includegraphics[width=10cm]{img/performance_matrix}
-  \caption{Performance matrix ordered by correct answer}
+  \caption{Part of performance matrix with highlighted row contains uneven answers from single user}
   \label{fig:performance_matrix}
 \end{figure}
 
@@ -614,8 +580,8 @@ We used simulation for this. Simulation is extended over basic simulation descri
 This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data - as such clusters of levels exist there.
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/simulated_default}
-  \caption{Simulation of default answer}
+  \includegraphics[height=8cm]{img/simulated_default}
+  \caption{Projection of simulated data using default answers when user does not know how to answer}
   \label{fig:simulated_default}
 \end{figure}
 
@@ -639,21 +605,21 @@ User answer performance is calculated as ratio of items which user answered corr
 
 \begin{figure}
   \includegraphics[width=10cm]{img/uneven_answers_hist}
-  \caption{Histogram of user answer performance variations}
+  \caption{Histogram of user answer performance difference}
   \label{fig:uneven_answers_hist}
 \end{figure}
 
 Figure \ref{fig:uneven_answers_hist} shows histogram of this values calculated for each user on one item-set. There are few visible groups of users. The largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of the spectrum are users who use only one answer (values close to 1.0). And in the middle, there are users who probably prefer one answer but use both answers. It is visible, that there is quite a large amount of users with a small preference for one of the answers. (It does not matter which one.)
 
-\begin{figure}
-  \includegraphics[width=10cm]{img/answers_normalization}
-  \caption{Effect filtering out subnormal users}
-  \label{fig:answers_normalization}
-\end{figure}
-
 % similar items from different levels are little closer to each other
 
 We can use this to filter out users which difference in performance is too large. We thought that this will remove the separation of items based on a correct answer from a projection. And it does. Figure \ref{fig:answers_normalization} shows projection before and after filtering users based on their answer performance difference. In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.06 which is median value. Colors in this particular image represent correct answers of items.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{img/answers_normalization}
+  \caption{Effect of filtering out users}
+  \label{fig:answers_normalization}
+\end{figure}
 
 In section \ref{regularities-level-regularity} of the second chapter we also mentioned that there are words in different levels which should be appear closer to each other than they do using simple pipeline. Such pair of words is shown in figure \ref{fig:answers_normalization} with the black straight line connecting them. Distance between them shrank. But this also caused that that all possible answers are now mixed together. One could argue whether this is better or worse than before as questions with different answers in our particular tutoring system probably should not be as similar. But this depends on goal of use-case for which is similarity used.
 
@@ -712,18 +678,12 @@ Once again, we used simulated data to gather more information about this. A simu
 % What can one answer possibly affect in different matrices (value in performance matrix, row and column in similarity and all in projection or second level of similarity)
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/simulated_missing_D12}
-  \caption{First two components of PCA on simulated data}
-  \label{fig:simulated_missing_d12}
+  \includegraphics[width=\textwidth]{img/simulated_missing}
+  \caption{First and second (left) and second and third (right) principal components of PCA on simulated data; image on left is colored by difficulty of items}
+  \label{fig:simulated_missing}
 \end{figure}
 
-\begin{figure}
-  \includegraphics[width=10cm]{img/simulated_missing_D23}
-  \caption{Second and third components of PCA on simulated data}
-  \label{fig:simulated_missing_d23}
-\end{figure}
-
-Figure \ref{fig:simulated_missing_d12} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in the first image depict difficulty of items (dark are difficult, light simple items). The second image is colored by levels as usual.
+Figure \ref{fig:simulated_missing} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in the first image depict difficulty of items (dark are difficult, light simple items). The second image is colored by levels as usual.
 
 In this case first dimension corresponds pretty well with difficulty of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data it is much harder to say anything about its axis.
 
@@ -739,7 +699,7 @@ As we know items are divided into in such manner that difficulty of levels raise
 
 \begin{figure}
   \includegraphics[width=10cm]{img/items_performance_levels}
-  \caption{Mean performance of items in three levels}
+  \caption{Mean performance of items in three levels of single item-set}
   \label{fig:item_performance_levels}
 \end{figure}
 
@@ -856,6 +816,40 @@ After concluding all this I think given task was fulfilled. TODO
 
 \appendix %% Start the appendices.
 \chapter{An appendix}
-Here you can insert the appendices of your thesis.
+
+\begin{table}
+  \begin{tabular}{ | l | l | l | l | }
+    \hline
+       & min & median & max \\ \hline
+      delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
+      delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
+      koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
+      koncovky-ovi-ovy & -0.022328 & 1.000000 & 1.000000 \\ \hline
+      koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
+      koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
+      koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
+      koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
+      me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1.000000 \\ \hline
+      predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
+      psani-be-bje & -0.009319 & 0.671716 & 1.000000 \\ \hline
+      psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
+      psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
+      psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
+      psani-ve-vje & -0.013296 & 1.000000 & 1.000000 \\ \hline
+      shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
+      sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
+      slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
+      tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
+      vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
+      vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
+      vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
+      vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
+      vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
+      vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
+      vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
+  \end{tabular}
+  \caption{Quality of clusters in different item-sets}
+  \label{tab:quality-of-clusters}
+\end{table}
 
 \end{document}
