@@ -109,7 +109,7 @@ Tutoring systems are computer-based systems designed to introduce users into var
 
 % one possible method, using similarity of items
 
-One possible way how to achieve this is to use similarity of items. Similarity is basic metric which can be then used in various use-cases, e.g., projections, clustering, outsider detection. Work discusses different possible similarity measures and differences between them.
+One possible way how to achieve this is to use similarity of items. Similarity is basic metric which can be then used in various use-cases, e.g., projections, clustering, outlier detection. Work discusses different possible similarity measures and differences between them.
 
 % our similarity
 
@@ -222,7 +222,7 @@ To we can wrap it up. There are a few data structures and few calculations invol
   \item
     \textbf{Dimensionality reduction} is used to transform similarity matrix into a projection. Techniques like PCA or t-SNE may be used for this.
   \item
-    \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users. There are other possible use-cases of similarity like clustering, outsider detection but we are focusing on projections.
+    \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users. There are other possible use-cases of similarity like clustering, outlier detection but we are focusing on projections.
 \end{enumerate}
 
 % > Why is similarity of items useful
@@ -241,11 +241,11 @@ Two previous use cases were using problem similarity to automatically make some 
 
 One possible way of achieving this is plotting problems to plane and displaying it to the author. This still can not be used for a very large amount of items. But we choose this approach for our specific data as they contain a large number of items but can be divided into item-sets which are solved independently in the system.
 
-One of the use cases of visualizations is a detection of outsiders - items which behave differently than others. This behavior is directly shown in projection and such items lie far away from others.
+One of the use cases of visualizations is a detection of outliers - items which behave differently than others. This behavior is directly shown in projection and such items lie far away from others.
 
 There is one more usage of similarity which we won't be discussing further. The similarity of items can be utilized for automatic construction of clustering and hierarchical categorization. Even when author already has items categorized he can compare it to computed categorization to verify that groups are formed correctly and refine them if needed.
 
-%TODO mention visualizations, clustering and outsider detection explicitly
+%TODO mention visualizations, clustering and outlier detection explicitly
 
 \chapter{Used data and techniques}\label{used-data-and-techniques}
 
@@ -535,7 +535,7 @@ This section describes in detail some of our experiments we concluded which rela
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-When exploring data, it may be useful to detect outsiders. One possible way of how to detect an outsider is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done by [CITE]. In particular, this means that an item with a low sum of similarities to other items may be an outsider. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outsider detection as items having some correct answers have higher probability to be selected as outsider and its apparently not true.
+When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done by [CITE]. In particular, this means that an item with a low sum of similarities to other items may be an outlier. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have higher probability to be selected as outlier and its apparently not true.
 
 Still, it is worth mentioning that this is not true for all similarity measures. It is apparent that Pearson and Cosine have this property but measures like Jaccard does not. It has different similarity for different levels instead. This is another difference between used similarity measures.
 
@@ -773,9 +773,9 @@ simples one
 for each item-set seaprately
 
 
-% in outsider detection
+% in outlier detection
 
-For outsider detection we can recommend
+For outlier detection we can recommend
 
 using method that does not depend on global dsitribution of values, only on local neighborhood
 or
@@ -806,7 +806,7 @@ Most of the findings discovered on this dataset may not be directly transferable
 
 This work was concluded as exploration analysis and hence its results consists mostly of gathered information and recommendations for future work. In particular implementing proposed recommendations when using similarity of items in mentioned tutoring system. Similarity of items is currently not used in the system \umimeCesky{} but increasing number of items will soon call for some automated management of problem pool. For this reason it will be useful to further analyze methods for detecting problems with item pool.
 
-In particular compare usefulness of different methods of item visualizations for human judgment. Also implementation of automatic detection of duplicate and outsider items may be useful. In some special cases it may be even possible to recommend kinds of items that are missing from the system using similarity of items.
+In particular compare usefulness of different methods of item visualizations for human judgment. Also implementation of automatic detection of duplicate and outlier items may be useful. In some special cases it may be even possible to recommend kinds of items that are missing from the system using similarity of items.
 
 % Recapitulation of how well we finished our task,..
 
