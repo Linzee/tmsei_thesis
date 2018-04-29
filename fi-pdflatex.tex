@@ -204,7 +204,7 @@ When we have vectors for each item we can compare them pairwise to get similarit
 
 % Edit distance
 
-Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. Edit distance can be then converted into similarity using something like $1 / (1 + \text{edit distance})$. So this covers another common group of information we can encounter.
+Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. Edit distance can be then converted into similarity using something like $1 / (1 + \text{edit distance})$. Therefore this covers another common group of information we can encounter.
 
 % > > Standard pipeline
 
@@ -222,7 +222,7 @@ To we can wrap it up. There are a few data structures and few calculations invol
   \item
     \textbf{Dimensionality reduction} is used to transform similarity matrix into a projection. Techniques like PCA or t-SNE may be used for this.
   \item
-    \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users.
+    \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users. There are other possible use-cases of similarity like clustering, outsider detection but we are focusing on projections.
 \end{enumerate}
 
 % > Why is similarity of items useful
@@ -244,6 +244,8 @@ One possible way of achieving this is plotting problems to plane and displaying 
 One of the use cases of visualizations is a detection of outsiders - items which behave differently than others. This behavior is directly shown in projection and such items lie far away from others.
 
 There is one more usage of similarity which we won't be discussing further. The similarity of items can be utilized for automatic construction of clustering and hierarchical categorization. Even when author already has items categorized he can compare it to computed categorization to verify that groups are formed correctly and refine them if needed.
+
+%TODO mention visualizations, clustering and outsider detection explicitly
 
 \chapter{Used data and techniques}\label{used-data-and-techniques}
 
@@ -705,6 +707,10 @@ As we know items are divided into in such manner that difficulty of levels raise
 Figure \ref{fig:item_performance_levels} shows mean items performance (ratio of correct answers to all answers) from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
 
 TODO more text about this
+
+% different performance of items in levels does not cause such clusters
+
+%
 
 % > Notebook
 
