@@ -225,7 +225,53 @@ To we can wrap it up. There are a few data structures and few calculations invol
     \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users. There are other possible use-cases of similarity like clustering, outlier detection but we are focusing on projections.
 \end{enumerate}
 
+% > > Similarity measures
+
+\subsection{Similarity measures}\label{similarity-measures}
+
+There is many possibilities how to calculate similarity matrix. 
+
+% What different measurements measure
+
+When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
+
+\begin{table}
+  \begin{tabular}{ | l | l | l | }
+      \hline
+       & incorrect & correct \\ \hline
+      incorrect & \ppl{$a$} & \ppl{$b$} \\ \hline
+      correct & \ppl{$c$} & \ppl{$d$} \\ \hline
+  \end{tabular}
+  \caption{Four parameters of used boolean similarity measures}
+  \label{tab:boolean-attributes}
+\end{table}
+
+\begin{itemize}
+\item
+  \textbf{Pearson} \ppl{$(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$}
+\item
+  \textbf{Yule} \ppl{$(ad-bc)/(ad+bc)$}
+\item
+  \textbf{Jaccard} \ppl{$a / (a+b+c)$}
+\item
+  \textbf{Sokal} \ppl{$(a+d)/(a+b+c+d)$}
+\item
+  \textbf{Cosine} \ppl{$a / \sqrt{ (a+b)(a+c) }$}
+\end{itemize}
+
 % > Why is similarity of items useful
+
+% > Previous work
+
+\section{Previous work}\label{previous-work}
+
+Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
+
+They compared few chosen similarity measures to each other. The result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for the stability of results. Especially that using Pearson correlation coefficient is a good default choice.
+
+We are also using it for several reasons. The described article showed that it has good enough results in producing distinct clusters on performance data. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
+
+The article also showed that using ``second level of similarity'' improves the stability of results further. However, we choose not to use it as our dataset is large enough to be sable even with a simpler measure. Using straightforward measure is also beneficial when explaining results and this factor is important to our work.
 
 \section{Why is similarity of items useful}\label{why-is-similarity-of-items-useful}
 
@@ -329,19 +375,11 @@ This section provides some basic statistics about the size of dataset and users 
 A primary group of users using \umimeCesky{} are children studying at primary and secondary school. Users can have individual accounts
 but the system also allows teachers to create a virtual class and assign students to it. A teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
 
-% > Previous work
+% TODO previous work with this dataset
 
-\section{Previous work}\label{previous-work}
+Dataset from \umimeCesky{} was used previously in few articles and thesis...
 
-Dataset from \umimeCesky{} was used previously in few articles and thesis. Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
-
-They compared few chosen similarity measures to each other. The result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for the stability of results. Especially that using Pearson correlation coefficient is a good default choice.
-
-We are also using it for several reasons. The described article showed that it has good enough results in producing distinct clusters on performance data. Another reason is that Pearson correlation is easy to use as many computational environments already contain fast implementation.
-
-The article also showed that using ``second level of similarity'' improves the stability of results further. However, we choose not to use it as our dataset is large enough to be sable even with a simpler measure. Using straightforward measure is also beneficial when explaining results and this factor is important to our work.
-
-% Description of common projection output
+% > Used techniques
 
 \section{Used techniques}\label{Used techniques}
 
@@ -395,7 +433,7 @@ This choice of a pipeline is also relatively easy to understand. As it consists 
   \label{fig:common_projection}
 \end{figure}
 
-Figure \ref{fig:common_projection} shows how can resulting projection look like. This particular projection shows 273 items (single item-set). Each item is represented as one dot in the image and its proximity to others represents how similar they are.
+Figure \ref{fig:common_projection} shows how can resulting projection look like. This particular projection shows 273 items (single item-set). Each item is represented as one dot in the image and its proximity to others represents how similar they are. There are no labels on plot axis as dimensions of projection can not be named explicitly only proximity of items is preserved.
 
 % Similar words near each other
 
@@ -479,9 +517,9 @@ So we can conclude that this behavior is present in all item-sets.
 
 % > > Similarity measures
 
-\subsection{Similarity measures}\label{similarity-measures}
+\subsection{Similarity measures}\label{evaluation-similarity-measures}
 
-In another experiment we inter exchanged four different measures for computing similarity of items to verify that previous results aren't specific to a single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer.
+In another experiment we exchanged measure used for computing similarity of items to verify that previous results aren't specific to a single measure. Especially whether they all preserve smaller similarity of items with different levels and correct answer. We evaluated all four previously chosen measures.
 
 \begin{figure}
   \includegraphics[height=8cm]{img/measures}
@@ -494,33 +532,19 @@ In another experiment we inter exchanged four different measures for computing s
 
 Figure \ref{fig:measures} shows four different similarity measures used on same data. Resulting projections are different. However, they all preserve information which is causing items from the same level and answer to form clusters. Different colors represent different levels and markers different answers.
 
-% What different measurements measure
-
-When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
-
-\begin{table}
-  \begin{tabular}{ | l | l | l | }
-      \hline
-       & incorrect & correct \\ \hline
-      incorrect & \ppl{$a$} & \ppl{$b$} \\ \hline
-      correct & \ppl{$c$} & \ppl{$d$} \\ \hline
-  \end{tabular}
-  \caption{Four parameters of used boolean similarity measures}
-  \label{tab:boolean-attributes}
-\end{table}
-
+% Visible comparison
 \begin{itemize}
 \item
-  \textbf{Pearson} \ppl{$(ad - bc) / \sqrt{(a+b)(a+c)(b+d)(c+d)}$} \\ is commonly used. It correlates well with visibly simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
+  \textbf{Pearson} is commonly used. It correlates well with visibly simpler measure \textbf{Yule} ($(ad-bc)/(ad+bc)$).
 
 \item
-  \textbf{Jaccard} \ppl{$a / (a+b+c)$} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer but similarity of the items does not correlate measures like Pearson. This is also mentioned later in evaluation chapter.
+  \textbf{Jaccard} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer but similarity of the items does not correlate measures like Pearson. Specific difference is mentioned later in this chapter.
 
 \item
-  \textbf{Sokal} \ppl{$(a+d)/(a+b+c+d)$} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
+  \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is a number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
 
 \item
-  \textbf{Cosine} \ppl{$a / \sqrt{ (a+b)(a+c) }$} similarity produces projection very similar to Jaccard.
+  \textbf{Cosine} similarity produces projection very similar to Jaccard.
 \end{itemize}
 
 So we can conclude that clusters are present despite used similarity measure.
