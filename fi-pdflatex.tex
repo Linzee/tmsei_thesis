@@ -6,6 +6,8 @@
 %% conditions are required by law.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\radek}{doc. Mgr. Radek Pel\'anek, Ph.D.}
+
 \documentclass[
   digital, %% This option enables the default options for the
            %% digital version of a document. Replace with `printed`
@@ -44,13 +46,13 @@
 %%
 %% The following section sets up the metadata of the thesis.
 \thesissetup{
-    date          = \the\year/\the\month/\the\day,
+    date          = 2018/05/28,
     university    = mu,
     faculty       = fi,
     type          = bc,
     author        = Dominik Gmiterko,
     gender        = m,
-    advisor       = Radek Pelánek,
+    advisor       = \radek,
     title         = {Techniques for measuring similarity of educational items},
     TeXtitle      = {Techniques for measuring similarity of educational items},
     keywords      = {similarity, measure, keyword2, ...},
@@ -411,8 +413,8 @@ Dataset from \umimeCesky{} was used previously in few articles and thesis...
 \section{Visible properties of projections}\label{visible-properties-of-projections}
 
 \begin{figure}
-    \includegraphics[height=8cm]{img/common_projection}
-  \caption{Basic t-SNE projection of one item-set (``Vyjmenovaná slova po B'')}
+    \includegraphics[width=\textwidth]{img/common_projection}
+  \caption{Basic t-SNE projection of item-set ``Vyjmenovaná slova po B''; colors distinguish levels and markers correct answers of items}
   \label{fig:common_projection}
 \end{figure}
 
@@ -464,9 +466,22 @@ Another property of items in figure \ref{fig:common_projection} is depicted by a
 
 In our particular context of Czech language items should be similar only when they have same correct answer. So this regularity should not cause any problems with projection directly but it is still useful to explore why is this behavior present at all.
 
+% > > Research questions
+
+\subsection{Specific questions}\label{specific-questions}
+
+There is several main question we are trying to address:
+
+\begin{itemize}
+ \item Which high-level factor in data can cause this regularities?
+ \item Is there multiple factors causing this regularities?
+ \item Can we explain them sufficiently?
+ \ item Are we able to replicate this factors on simulated data?
+\end{itemize}
+
 % general to be continued text
 
-General question we are trying to address is why does calculation of similarity in this way project to clusters of levels and correct answers. Whole following chapter is focusing on this question.
+Following two chapters are focusing on this questions. First we describe concluded experiments and then summarize conclusions.
 
 % --------------------------- %
 % Evaluation                  %
@@ -498,7 +513,13 @@ When introducing the problem of unneeded clusters in section \ref{regularities} 
 
 Quantification of quality of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We ask k-means clustering algorithm to find \textit{levels $\times$ correct answers} clusters. Quality of clustering is then evaluated using Rand index. So value 1.0 represents that k-means divide all items into same clusters as correct classification (clusters created as a combination of item level and correct answer). On other hand, lover values represent it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
-Table \ref{tab:quality-of-clusters} describes quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with an obscure structure of projection. This mostly occurs when item-set have a large number of possible answers.
+\begin{figure}
+  \includegraphics[width=\textwidth]{img/clustering_quality}
+  \caption{Evaluation of cluster quality on different item-sets}
+  \label{fig:clustering_quality}
+\end{figure}
+
+Figure \ref{fig:clustering_quality} depicts quality of clusters on different item-sets. Results show that many item-sets have distinct clusters of different levels and answers. But there are some item-sets with an obscure structure of projection. This mostly occurs when item-set have a large number of possible answers. It is worth mentioning that even when some item-sets do not have high score when comparing extracted clusters to actual but results are stable across runs of k-means. Which also suggests that projections have nicely visible clusters but items are not divided (only) by levels and answers.
 
 % Why we are looking at both item-answer clusters and not separated?
 
@@ -519,7 +540,6 @@ In another experiment we exchanged measure used for computing similarity of item
   \caption{Comparison of four similarity measures on same item-set}
   \label{fig:measures}
 \end{figure}
-
 
 % preserving of clusters
 
@@ -709,8 +729,6 @@ Yet this is not true true in general only if amount of users who solved items in
 
 \subsection{Item performance}\label{item-performance}
 
-As we know items are divided into in such manner that difficulty of levels raises. Question is whether this is directly projected into similarity of items.
-
 \begin{figure}
   \includegraphics[width=10cm]{img/items_performance_levels}
   \caption{Mean performance of items in three levels of single item-set}
@@ -719,7 +737,9 @@ As we know items are divided into in such manner that difficulty of levels raise
 
 Figure \ref{fig:item_performance_levels} shows mean items performance (ratio of correct answers to all answers) from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
 
-TODO more text about this
+Items are divided into in such manner that difficulty of levels raises. However this division is not strict. It is visible on Figure \ref{fig:item_performance_levels} that difficulty of items in levels overlap. Question is whether difficulty of items is somehow projected into similarity of items.
+
+
 
 % different performance of items in levels does not cause such clusters
 
@@ -811,7 +831,7 @@ There were some limitations forced by source of data we used, and some decisions
 
 We explored differences in using different methods for measuring similarity of educational items based on data about correctness of users answers. Prior to starting this work we knew there were some unclear circumstances considering formation of clusters in projection and therefore distribution of similarities of items. All the experiments we concluded were focused on this behavior. Now we understand how structure of system may affect performance data and similarity of items itself.
 
-We determined whether is this unclear behavior present in all data and as part of this we also compared different similarity measures. Multiple experiments using simulated data were concluded. And as the result we are pretty sure about cause of one of the regularities and proposed some high-level factors that can cause other observed regularity. As in real data there may be multiple factors causing any information in the data it is not straightforward to explain clusters of items from same level.
+We determined whether is this behavior present in whole dataset and all similarity measures. Multiple experiments using both real and simulated data were concluded. And as a result we were able to answer questions proposed in section \ref{specific-questions}. We found multiple high-level factors that can cause regularities which were validated using simulations. We are pretty sure about cause of one of the regularities and described some factors that can cause other observed regularity. We think that in real data there may be multiple factors causing level regularity as it is not straightforward to explain clusters of items from same level.
 
 Most of the findings discovered on this dataset may not be directly transferable to other tutoring system. But used analysis can also help understand other tutoring systems. Or maybe even systems which are not used for learning but contains items with similar properties.
 
@@ -832,42 +852,7 @@ After concluding all this I think given task was fulfilled. TODO
 %\addcontentsline{toc}{chapter}{\indexname} %% table of contents.
 %\printindex
 
-\appendix %% Start the appendices.
-\chapter{An appendix}
-
-\begin{table}
-  \begin{tabular}{ | l | l | l | l | }
-    \hline
-       & min & median & max \\ \hline
-      delka-samohlasek-i & 0.272173 & 0.572914 & 0.733154 \\ \hline
-      delka-samohlasek-u & 0.179007 & 0.218907 & 0.278768 \\ \hline
-      koncovky-mi-my-ma & 0.173923 & 0.378383 & 0.574999 \\ \hline
-      koncovky-ovi-ovy & -0.022328 & 1.000000 & 1.000000 \\ \hline
-      koncovky-podstatnych-jmen-muzsky-rod & 0.460326 & 0.526986 & 0.652672 \\ \hline
-      koncovky-podstatnych-jmen-stredni-rod & 0.444935 & 0.859304 & 0.880381 \\ \hline
-      koncovky-podstatnych-jmen-zensky-rod & 0.358566 & 0.423671 & 0.501532 \\ \hline
-      koncovky-pridavnych-jmen & 0.431434 & 0.500458 & 0.558587 \\ \hline
-      me-mne-samostatne-zajmeno-ja & -0.012182 & 0.289142 & 1.000000 \\ \hline
-      predlozky-s-z & 0.31752 & 0.413021 & 0.455101 \\ \hline
-      psani-be-bje & -0.009319 & 0.671716 & 1.000000 \\ \hline
-      psani-me-mne-ve-slove & 0.646219 & 0.733133 & 0.733133 \\ \hline
-      psani-nn-a-n & 0.305013 & 0.409739 & 0.462562 \\ \hline
-      psani-s-c-s-z & 0.288553 & 0.353498 & 0.44766 \\ \hline
-      psani-ve-vje & -0.013296 & 1.000000 & 1.000000 \\ \hline
-      shoda-podmetu-s-prisudkem & 0.189355 & 0.245732 & 0.306245 \\ \hline
-      sklonovani-zajmen-jez-jenz-nimz-ji & -0.01751 & 0.121347 & 0.353978 \\ \hline
-      slovesa-podminovaci-zvratna & 0.06066 & 0.10416 & 0.173317 \\ \hline
-      tvrde-a-mekke-souhlasky & 0.135091 & 0.257167 & 0.832182 \\ \hline
-      vyjmenovana-slova-po-b & 0.385475 & 0.597867 & 0.637596 \\ \hline
-      vyjmenovana-slova-po-l & 0.575217 & 0.641585 & 0.837544 \\ \hline
-      vyjmenovana-slova-po-m & 0.478953 & 0.928013 & 0.943975 \\ \hline
-      vyjmenovana-slova-po-p & 0.641131 & 0.832391 & 0.88884 \\ \hline
-      vyjmenovana-slova-po-s & 0.373571 & 0.421781 & 0.446662 \\ \hline
-      vyjmenovana-slova-po-v & 0.483608 & 0.678045 & 0.722796 \\ \hline
-      vyjmenovana-slova-po-z & 0.528562 & 0.565708 & 0.657444 \\ \hline
-  \end{tabular}
-  \caption{Quality of clusters in different item-sets}
-  \label{tab:quality-of-clusters}
-\end{table}
+%\appendix %% Start the appendices.
+%\chapter{An appendix}
 
 \end{document}
