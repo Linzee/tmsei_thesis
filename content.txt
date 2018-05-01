@@ -17,6 +17,7 @@
       - Performance
       - Similarity
       - Projection
+  - Previous work
   - Why is similarity of items useful
     - "navigate" problem pool, "empowering humans", ..
 - Used data and techniques
