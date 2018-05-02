@@ -134,8 +134,7 @@ This is draft from \today %TODO remove!
 
 % Intro to chapter, structure
 
-In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. At the beginning of the chapter, we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all through the work. We also describe different kinds of data available about items and possible measures for calculating similarity.
-The last section of this chapter describes data used in our experiments. In particular, we describe used dataset and outline ways of simulating artificial data.
+In this chapter, we talk in general about items (questions) in tutoring systems and computing their similarity. At the beginning of the chapter, we focus on better explaining basic terms like tutoring system, item, and similarity which will be used all through the work. Core of the chapter focuses on description of different kinds of data available about items and possible measures for calculating similarity. Then we report about previous work in this area. And the last section describes why is similarity useful and lists its possible usage.
 
 % > Tutoring systems
 
@@ -161,9 +160,7 @@ One difference is that we can use some additional data about items. There are it
 
 % Why this term
 
-In this work, we use the term ``items'' which may refer to problems, questions, assignments in different systems. Item is a single entry in an educational system which
-users can answer to. Since many aspects of this work are generally applicable we decided to use this broad term. Complexity of single item in tutoring system can differ greatly. In some tutoring systems, this may refer to simple choice from two options while in other one item is complex
-tasks which user solves in a matter of minutes.
+In this work, we use the term ``items'' which may refer to problems, questions, assignments in different systems. Item is a single entry in an educational system which users can answer to. Since many aspects of this work are generally applicable we decided to use this broad term. Complexity of single item in tutoring system can differ greatly. In some tutoring systems, this may refer to simple choice from two options while in other one item is complex tasks which user solves in a matter of minutes.
 
 % Data sources
 
@@ -194,7 +191,7 @@ Dealing with a large pool of items may not be easy. To maintain a pool of items 
 
 \section{Measuring similarity}\label{measuring-similarity}
 
-The following section is explaining general approach to measuring and using similarity of educational items.
+This section explains possible approaches to measuring similarity of educational items. Following subsections then focuses on specific pipeline we use and comparison of used similarity measures.
 
 % what is a similarity, how can we compute it
 
@@ -206,13 +203,11 @@ When we have vectors for each item we can compare them pairwise to get similarit
 
 % Edit distance
 
-Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. Edit distance can be then converted into similarity using something like $1 / (1 + \text{edit distance})$. Therefore this covers another common group of information we can encounter.
+Another possible way to measuring similarity is counting edits which would convert one item to another. This is called edit distance and there are standard ways of computing it for both strings and trees. Edit distance can be then converted into similarity using something like $1 / (1 + \text{edit distance})$. Therefore we can easily cover another common group of data structures we encounter.
 
 % > > Standard pipeline
 
 \subsection{Standard pipeline}\label{standard-pipeline}
-
-To we can wrap it up.
 
 % How is a projection (similarity) computed
 
@@ -258,11 +253,9 @@ This choice of a pipeline is also relatively easy to understand. As it consists 
 
 \subsection{Similarity measures}\label{similarity-measures}
 
-There is many possibilities how to calculate similarity matrix.
+There is many possibilities how to calculate similarity of two vectors describing performance of users. As we focus on using performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
 
-% What different measurements measure
-
-When we encounter performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
+% Similarity measures definitions
 
 \begin{table}
   \begin{tabular}{ | l | l | l | }
@@ -322,16 +315,13 @@ There is one more usage of similarity which we won't be discussing further. The 
 
 %TODO mention visualizations, clustering and outlier detection explicitly
 
-\chapter{Used data and techniques}\label{used-data-and-techniques}
+\chapter{Used dataset}\label{used-dataset}
 
 % --------------------------- %
 % Used datasets               %
 % --------------------------- %
 
-The first half of this chapter focuses on used sources of data. It describes both simulated data and dataset from the actual system.
-We outline structure of tutoring system and focus on exercises and its objects that are useful for our work. Another section includes basic statistics about data from \umimeCesky{}. We also summarise previous work using the same dataset.
-
-After that second half of the chapter gives a detailed description of pipeline used in our experiments when calculating similarity and projections. End of the chapter,contains example of the simple projection and description of what properties should it have to be useful.
+The first half of this chapter focuses on used sources of data. It describes both simulated data and dataset from the actual system. We outline structure of tutoring system and focus on exercises and its objects that are useful for our work. Another section includes basic statistics about data from \umimeCesky{}. End of the chapter provides example of the simple projection and description what properties should useful projection have. Last section describes problems we are trying to solve and specific questions this work tries to answer.
 
 % types of data (real, simulated), why, real, simulated
 
@@ -357,7 +347,9 @@ We will talk more in depth about how we generated simulated data in next chapter
 
 % Czech grammar, ``fill-in-the-blank'' with two choices
 
-\href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
+\href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. This section describes the tutoring system, exercise used in our analysis and lists basic statistics about datasets size.
+
+The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them.
 
 \begin{figure}
   \includegraphics[width=7cm]{img/umimecesky_doplnovacka}
@@ -489,7 +481,7 @@ Following two chapters are focusing on this questions. First we describe conclud
 
 \chapter{Evaluation}\label{evaluation}
 
-The chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which performance correlates will be similar (close to each other) in projection. But we focus on higher-level factors in tutoring systems that can cause this correlation.
+The chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which performance correlates will be similar (close to each other) in projection. But we focus on higher-level factors in tutoring systems that can cause this behavior.
 
 \section{Basic}\label{evaluation-basic}
 
@@ -765,7 +757,7 @@ Concluded experiments are collected in Jupyter Notebooks which also use scripts 
 
 % superintro
 
-This short chapter summarizes recommendations gathered after looking at results of our experiments.
+This short chapter summarizes recommendations gathered after looking at results of our experiments. We list both general recommendations which I think are useful and practical recommendations for future work on this specific dataset.
 
 % intro, affected portion of data on different stages of pipeline
 
@@ -849,7 +841,7 @@ In particular compare usefulness of different methods of item visualizations for
 
 % Recapitulation of how well we finished our task,..
 
-After concluding all this I think given task was fulfilled. TODO
+% TODO ?
 
 % See ya
 
