@@ -1,70 +1,61 @@
-% Our research
+% --------------------------- %
+% Our research                %
+% --------------------------- %
 
- @article{pelanek2017measuring,
-   title={Measuring Similarity of Educational Items Using Data on Learners’ Performance},
-   author={Pel{\'a}nek, Radek and {\v{R}}ih{\'a}k, Ji{\v{r}}{\'i}},
-   year={2017}
- }
+% Item Similarity in Programming
 
- @inproceedings{borovs2013automatic,
-   title={Automatic detection of concepts from problem solving times},
-   author={Boro{\v{s}}, Petr and Ni{\v{z}}nan, Juraj and Pel{\'a}nek, Radek and {\v{R}}ih{\'a}k, Ji{\v{r}}{\'\i}},
-   booktitle={International Conference on Artificial Intelligence in Education},
-   pages={595--598},
-   year={2013},
-   organization={Springer}
- }
-
-% Christopher Piech
-
-% program similarity metrics (bag of words, AST, …)
-@inproceedings{piech2012modeling,
-  title={Modeling how students learn to program},
-  author={Piech, Chris and Sahami, Mehran and Koller, Daphne and Cooper, Steve and Blikstein, Paulo},
-  booktitle={Proceedings of the 43rd ACM technical symposium on Computer Science Education},
-  pages={153--160},
-  year={2012},
-  organization={ACM}
+@inproceedings{pelanek2018programming,
+  author = {Radek Pelánek and Tomáš Effenberger and Matěj Vaněk and Vojtěch Sassmann and Dominik Gmiterko},
+  title = {Measuring Item Similarity in Introductory Programming},
+  booktitle = {Proc. of Learning at Scale},
+  year = {2018},
+  publisher = {ACM},
+  note = {To appear}
 }
 
-% data -> NN -> embedding -> NN -> combine to some features matrix
-@article{piech2015learning,
-  title={Learning program embeddings to propagate feedback on student code},
-  author={Piech, Chris and Huang, Jonathan and Nguyen, Andy and Phulsuksombati, Mike and Sahami, Mehran and Guibas, Leonidas},
-  journal={arXiv preprint arXiv:1505.05969},
-  year={2015}
+% Measuring Similarity of Educational Items
+
+@article{pelanek2017measuring,
+  title={Measuring Similarity of Educational Items Using Data on Learners’ Performance},
+  author={Pel{\'a}nek, Radek and {\v{R}}ih{\'a}k, Ji{\v{r}}{\'i}},
+  year={2017}
 }
 
-% Hint genration
+% Adaptive tutoring system
 
-% use of AST, canonization
-@article{rivers2017data,
-  title={Data-driven hint generation in vast solution spaces: a self-improving python programming tutor},
-  author={Rivers, Kelly and Koedinger, Kenneth R},
-  journal={International Journal of Artificial Intelligence in Education},
-  volume={27},
-  number={1},
-  pages={37--64},
-  year={2017},
-  publisher={Springer}
+@inproceedings{papouvsek2015impact,
+  title={Impact of adaptive educational system behaviour on student motivation},
+  author={Papou{\v{s}}ek, Jan and Pel{\'a}nek, Radek},
+  booktitle={International Conference on Artificial Intelligence in Education},
+  pages={348--357},
+  year={2015},
+  organization={Springer}
 }
 
-% "codestate", "wordstate"
-% hints in BOTS game
-@inproceedings{iii2014generating,
-  title={Generating hints for programming problems using intermediate output},
-  author={Iii, Barry Peddycord and Hicks, Andrew and Barnes, Tiffany},
+% Using problem solving times
+
+@inproceedings{niznan2014using,
+  title={Using problem solving times and expert opinion to detect skills},
+  author={Niznan, Juraj and Pel{\'a}nek, Radek and {\v{R}}ih{\'a}k, Ji{\v{r}}{\'i}},
   booktitle={Educational Data Mining 2014},
   year={2014}
 }
 
-% Code similarity
+% --------------------------- %
+% Tutoring systems            %
+% --------------------------- %
 
-% string edit distance, tree ED, graph ED, n-grams (w-shingling)
-@misc{beth2014comparison,
-  title={A Comparison of Similarity Techniques for Detecting Source Code Plagiarism},
-  author={Beth, Bradley},
-  year={2014}
+% Stupid tutoring systems, intelligent humans
+
+@article{baker2016stupid,
+  title={Stupid tutoring systems, intelligent humans},
+  author={Baker, Ryan S},
+  journal={International Journal of Artificial Intelligence in Education},
+  volume={26},
+  number={2},
+  pages={600--614},
+  year={2016},
+  publisher={Springer}
 }
 
 @article{hosseini2017study,
@@ -76,17 +67,56 @@
   publisher={Taylor \& Francis}
 }
 
-% AST: small edit distance => similar functionality
-@inproceedings{huang2013syntactic,
-  title={Syntactic and functional variability of a million code submissions in a machine learning mooc},
-  author={Huang, Jonathan and Piech, Chris and Nguyen, Andy and Guibas, Leonidas},
-  booktitle={AIED 2013 Workshops Proceedings Volume},
-  pages={25},
-  year={2013}
+% --------------------------- %
+% Similarity computation      %
+% --------------------------- %
+
+% Exhaustive list
+
+@article{choi2010survey,
+  title={A survey of binary similarity and distance measures},
+  author={Choi, Seung-Seok and Cha, Sung-Hyuk and Tappert, Charles C},
+  journal={Journal of Systemics, Cybernetics and Informatics},
+  volume={8},
+  number={1},
+  pages={43--48},
+  year={2010},
+  publisher={Citeseer}
 }
 
-% China
-% code similarity: text-based [11–14], token-based [15–20], tree-based [21–25], metrics-based [26–30], and graph-based [31–35] approach
+% --------------------------- %
+% Similarity usage            %
+% --------------------------- %
+
+@inproceedings{kaser2013cluster,
+  title={Cluster-based prediction of mathematical learning patterns},
+  author={K{\"a}ser, Tanja and Busetto, Alberto Giovanni and Solenthaler, Barbara and Kohn, Juliane and von Aster, Michael and Gross, Markus},
+  booktitle={International Conference on Artificial Intelligence in Education},
+  pages={389--399},
+  year={2013},
+  organization={Springer}
+}
+
+% --------------------------- %
+% Outlier detection           %
+% --------------------------- %
+
+@article{zhang2006detecting,
+  title={Detecting outlying subspaces for high-dimensional data: the new task, algorithms, and performance},
+  author={Zhang, Ji and Wang, Hai},
+  journal={Knowledge and information systems},
+  volume={10},
+  number={3},
+  pages={333--355},
+  year={2006},
+  publisher={Springer}
+}
+
+% --------------------------- %
+% Programming problems        %
+% --------------------------- %
+
+% china, code similarity: text-based [11–14], token-based [15–20], tree-based [21–25], metrics-based [26–30], and graph-based [31–35] approach
 @article{wang2014detection,
   title={Detection of semantically similar code},
   author={Wang, Tiantian and Wang, Kechao and Su, Xiaohong and Ma, Peijun},
@@ -95,36 +125,5 @@
   number={6},
   pages={996--1011},
   year={2014},
-  publisher={Springer}
-}
-
-% China[26]
-% NN as metric for source code similarity
-@article{davey1995development,
-  title={The development of a software clone detector},
-  author={Davey, Neil and Barson, Paul and Field, Simon and Frank, Ray and Tansley, D},
-  journal={International Journal of Applied Software Technology},
-  year={1995}
-}
-
-@inproceedings{schleimer2003winnowing,
-  title={Winnowing: local algorithms for document fingerprinting},
-  author={Schleimer, Saul and Wilkerson, Daniel S and Aiken, Alex},
-  booktitle={Proceedings of the 2003 ACM SIGMOD international conference on Management of data},
-  pages={76--85},
-  year={2003},
-  organization={ACM}
-}
-
-% Abstract
-
-@article{baker2016stupid,
-  title={Stupid tutoring systems, intelligent humans},
-  author={Baker, Ryan S},
-  journal={International Journal of Artificial Intelligence in Education},
-  volume={26},
-  number={2},
-  pages={600--614},
-  year={2016},
   publisher={Springer}
 }

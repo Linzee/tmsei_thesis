@@ -113,11 +113,9 @@ Tutoring systems are computer-based systems designed to introduce users into var
 
 One possible way how to achieve this is to use similarity of items. Similarity is basic metric which can be then used in various use-cases, e.g., projections, clustering, outlier detection. Work discusses different possible similarity measures and differences between them.
 
-% our similarity
-
 % goal of this work
 
-Main part of this work consists exploitative analysis of one such tutoring system. We were trying to find different aspects in tutoring system which can affect similarity measure and explain them. This work focuses on tutoring systems with thousands of items as such similarity measure is most useful for them. In particular we used data from tutoring system \umimeCesky{}.
+Main part of this work consists exploitative analysis of one such tutoring system. We were trying to find different aspects in tutoring system which can affect similarity of items and explain them. This work focuses on tutoring systems with thousands of items as such similarity measure is most useful for them. In particular we used data from tutoring system \umimeCesky{}. Prior to work on this thesis I also contributed to research about similarity of programming problems \cite{pelanek2018programming}.
 
 % structure of this work
 
@@ -144,7 +142,7 @@ Tutoring systems are computer systems which purpose is to teach its users (stude
 
 % Autonomous aspects of tutoring systems
 
-Many different aspects of learning may be implemented into the system or they may also be left out. The most common task which tutoring systems solve is choosing a most beneficial item from the pool of items available for users to solve. This can be done in some simple way or system may also adapt to each of the users choosing more challenging and interesting items to users who are more skilled in a specific area. While presenting users who struggle with more basic items. This is beneficial for maximizing learning aspect of the system. [CITE?] Another aspect which can tutoring systems solve is providing hints and feedback to students. When there are teachers interacting with the system we can also provide feedback about their students progress and so on.
+Many different aspects of learning may be implemented into the system or they may also be left out. The most common task which tutoring systems solve is choosing a most beneficial item from the pool of items available for users to solve. This can be done in some simple way or system may also adapt to each of the users choosing more challenging and interesting items to users who are more skilled in a specific area. While presenting users who struggle with more basic items. This is beneficial for maximizing learning aspect of the system \cite{papouvsek2015impact}. Another aspect which can tutoring systems solve is providing hints and feedback to students. When there are teachers interacting with the system we can also provide feedback about their students progress and so on.
 
 % Recommender systems
 
@@ -253,7 +251,7 @@ This choice of a pipeline is also relatively easy to understand. As it consists 
 
 \subsection{Similarity measures}\label{similarity-measures}
 
-There is many possibilities how to calculate similarity of two vectors describing performance of users. As we focus on using performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs. See table \ref{tab:boolean-attributes}.
+There is many possibilities how to calculate similarity of two vectors describing performance of users. As we focus on using performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs \cite{choi2010survey}. See table \ref{tab:boolean-attributes}.
 
 % Similarity measures definitions
 
@@ -287,7 +285,7 @@ There is many possibilities how to calculate similarity of two vectors describin
 
 \section{Previous work}\label{previous-work}
 
-Most of the work relevant to our problem comes from article Measuring Similarity of Educational Items Using Data on Learners’ Performance [CITE].
+Most of the work relevant to our problem comes from single article \cite{pelanek2017measuring}.
 
 They compared few chosen similarity measures to each other. The result was that some of the similarity measures correlate greatly and some do not. It was also determined which similarity measures it is best to use for the stability of results. Especially that using Pearson correlation coefficient is a good default choice.
 
@@ -303,9 +301,9 @@ As we mentioned previously key part of learning is solving educational items. De
 
 First, most direct, usage is a recommendation of items for a student to solve. We do not want to recommend very similar items to those that were solved without any problems. However when user struggled system should consider recommending more of the similar problems to strengthen users knowledge.
 
-Another possible usage is generating hints by selecting examples which are similar to the item which is currently solved. Examples are selected from a database of examples. This usage of similarity was used by [CITE Hosseini; Brusilovsky].
+Another possible usage is generating hints by selecting examples which are similar to the item which is currently solved. Examples are selected from a database of examples. This usage of similarity was utilized by \citeauthor{hosseini2017study}\cite{hosseini2017study}.
 
-Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop [CITE]. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting redundant problems and pointing out where there are not enough similar problems.
+Two previous use cases were using problem similarity to automatically make some choices inside tutoring system. Another approach is to bring humans into the decision-making loop \cite{baker2016stupid}. This approach provides authors of tutoring system with visualizations which should inform them what changes may be useful. E.g. detecting redundant problems and pointing out where there are not enough similar problems.
 
 One possible way of achieving this is plotting problems to plane and displaying it to the author. This still can not be used for a very large amount of items. But we choose this approach for our specific data as they contain a large number of items but can be divided into item-sets which are solved independently in the system.
 
@@ -365,7 +363,7 @@ Items in item-sets are then divided into levels. Where higher levels are intende
 
 The used dataset contains multiple sources of information about items. In ``item statement'' group it is a statement of the question with one missing spot and two possible answers to fill in there. We also know answers from all the users. Then in performance group of information, it is correctness of user answers and response time.
 
-It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both lengths of questions and users reading speed. Also, it is a good idea to use logarithm of time instead of time itself. This is shown by [CITE]. Only then it would be useful to use data about response times. This is a reason why we are using mostly correctness of user answers.
+It is not possible to use response time directly. We need to normalize it in some clever way as raw response time is greatly affected by both lengths of questions and users reading speed. Also, it is a good idea to use logarithm of time instead of time itself. This is shown by \citeauthor{niznan2014using}\cite{niznan2014using}. Only then it would be useful to use data about response times. This is a reason why we are using mostly correctness of user answers.
 
 % Why this system
 
@@ -491,7 +489,7 @@ The first section is focusing on experiments which determine a range of this beh
 
 % Why bother about this
 
-Our performance matrix contains only one value for each item-user pair. But users can possibly answer to the item multiple times. This raises a question about which of user answers to use. [CITE]
+Our performance matrix contains only one value for each item-user pair. But users can possibly answer to the item multiple times. This raises a question about which of user answers to use.
 
 % What we used in performance matrix
 
@@ -564,7 +562,7 @@ This section describes in detail some of our experiments we concluded which rela
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done by [CITE]. In particular, this means that an item with a low sum of similarities to other items may be an outlier. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have higher probability to be selected as outlier and its apparently not true.
+When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{mitchell2014survey}\cite{mitchell2014survey}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. This is where we encountered another regularity in data. It was detected that items with some correct answer may have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have higher probability to be selected as outlier and its apparently not true.
 
 Still, it is worth mentioning that this is not true for all similarity measures. It is apparent that Pearson and Cosine have this property but measures like Jaccard does not. It has different similarity for different levels instead. This is another difference between used similarity measures.
 
