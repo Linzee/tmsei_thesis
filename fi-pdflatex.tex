@@ -713,13 +713,13 @@ Once again, we used simulated data to gather more information about this. A simu
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/simulated_missing}
-  \caption{First and second (left) and second and third (right) principal components of PCA on simulated data; image on left is colored by difficulty of items}
+  \caption{First and second (left) and second and third (right) principal components of PCA on simulated data; image on left is colored by performance of items}
   \label{fig:simulated_missing}
 \end{figure}
 
-Figure \ref{fig:simulated_missing} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in the first image depict difficulty of items (dark are difficult, light simple items). The second image is colored by levels as usual.
+Figure \ref{fig:simulated_missing} shows projection of our simulated data with missing answers. Projection on left shows first two principal components of PCA, projection on right shows second and third component of PCA. So there are 3 dimensions shown effectively. Colors in the first image depict performance of items (dark colors represent small performance and lighter colors higher performance). The second image is colored by levels as usual.
 
-In this case first dimension corresponds pretty well with difficulty of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data it is much harder to say anything about its axis.
+In this case first dimension corresponds pretty well with performance of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data it is much harder to say anything about its axis.
 
 After looking at similarity matrix we saw that there is difference between similarities in same level and similarities of items in different levels. For given amount of items, mean levels solved by single user and number of users there is visible difference in stability of similarity results. Computed similarities for items in same level are much more stable than in between levels. This may cause specific used use-case (in this case projection) to consider items in same level as more similar.
 
@@ -797,7 +797,7 @@ I found it useful to use simulations when we are dealing with techniques from wh
 
 % more dimensions of PCA
 
-Usually when using PCA only first two principal components are used but I found it useful to look at more some other dimensions as well. This approach was used in section \ref{missing-values} when first dimension correlated with difficulty of items and did not give us any useful information.
+Usually when using PCA only first two principal components are used but I found it useful to look at more some other dimensions as well. This approach was used in section \ref{missing-values} when first dimension correlated with performance of items and did not give us any useful information.
 
 \section{Practical recommendations}\label{practical-recommendations}
 
