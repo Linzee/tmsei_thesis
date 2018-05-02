@@ -739,11 +739,17 @@ Figure \ref{fig:item_performance_levels} shows mean items performance (ratio of 
 
 Items are divided into in such manner that difficulty of levels raises. However this division is not strict. It is visible on Figure \ref{fig:item_performance_levels} that difficulty of items in levels overlap. Question is whether difficulty of items is somehow projected into similarity of items.
 
+For this simulation we variate difficulty of questions. In standard simulation we for all items use difficulty drawn from normal distribution $\mathcal{N}(0,\,1)$. Only difference we put into this experiment is shifting mean of distribution for each simulated level. For this particular experiment we fitted this shifts to correspond to performances observed in real item-set.
 
+\begin{figure}
+  \includegraphics[width=10cm]{img/simulated_performance}
+  \caption{Simulated levels with different performance}
+  \label{fig:simulated_performance}
+\end{figure}
 
 % different performance of items in levels does not cause such clusters
 
-%
+Results are visible in Figure \ref{fig:simulated_performance}. We concluded that this factor does not cause such clusters of items from same level as we want to recreate. We included this experiment as example with negative answer because we expected another result.
 
 % > Notebook
 
