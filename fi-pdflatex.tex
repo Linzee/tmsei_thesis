@@ -211,6 +211,11 @@ Another possible way to measuring similarity is counting edits which would conve
 
 To better understand how is similarity of items determined and then used we have to understand steps of its computation. We call this process a standard pipeline and it is used in most cases. When some of the further analysis modify it slightly it is pointed out in the corresponding section. Whenever we don't specify so all projections were produced using this default pipeline. There are a few data structures and few calculations involved:
 
+\begin{figure}
+  \includegraphics[width=10cm]{img/pipeline_diagram}
+  \caption{Diagram showing stages of standard pipeline}
+  \label{fig:pipeline_diagram}
+\end{figure}
 
 \begin{enumerate}
   \item
@@ -395,8 +400,7 @@ A primary group of users using \umimeCesky{} are children studying at primary an
 but the system also allows teachers to create a virtual class and assign students to it. A teacher is then able to select some exercises and give them to students to solve until some deadline. Each week about 200 classes visit the system.
 
 % TODO previous work with this dataset
-
-Dataset from \umimeCesky{} was used previously in few articles and thesis...
+% Dataset from \umimeCesky{} was used previously in few articles and thesis...
 
 % > Visible properties of projections
 
@@ -791,9 +795,9 @@ Usually when using PCA only first two principal components are used but I found 
 
 \section{Practical recommendations}\label{practical-recommendations}
 
-TODO this text
-
 % in visualizations
+
+
 
 This work did not focus on differnet possible visualisations of items, but as byproduct of concluded experiments we still made some.
 
