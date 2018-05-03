@@ -56,8 +56,8 @@
     advisor       = \radek,
     title         = {Techniques for measuring similarity of educational items},
     TeXtitle      = {Techniques for measuring similarity of educational items},
-    keywords      = {similarity, measure, keyword2, ...},
-    TeXkeywords   = {similarity, measure, keyword2, \ldots},
+    keywords      = {tutoring system, similarity, educational item, unexpected regularities, similarity measures, exploitative analysis, clustering, projections},
+    TeXkeywords   = {tutoring system, similarity, educational item, unexpected regularities, similarity measures, exploitative analysis, clustering, projections},
     abstract      = {This work focuses on measuring of item similarity in tutoring systems using correctness of answers from users. We knew that some unexplained regularities may appear in similarity of items. In observer tutoring system they caused separation of items into surprising clusters. This work focus on exploitative analysis of possible causes. We found multiple high-level factors affecting similarity of items and therefore its clusters and projections. We show that structure of system can affect item similarities. E. g., preferred answer of users causing separation by correct answer or user interface affecting structure of missing data. We validated this using simulations. Finding are useful for further usage in analyzed system or replicating similar experiments in other tutoring systems.
                     },
     thanks        = {These are the acknowledgements for my thesis, which can
@@ -797,26 +797,29 @@ Usually when using PCA only first two principal components are used but I found 
 
 % in visualizations
 
-
-
-This work did not focus on differnet possible visualisations of items, but as byproduct of concluded experiments we still made some.
+This work did not focus on different possible visualizations of items, but as byproduct of concluded experiments we still run into some.
 
 projection
-simples one
+simplest one
 for each item-set seaprately
-
 
 % in outlier detection
 
 For outlier detection we can recommend
 
-using method that does not depend on global dsitribution of values, only on local neighborhood
+using method that does not depend on global distribution of values, only on local neighborhood
 or
 use same normalization, for example proposed removal of users with great preference for one answer causing this separation of items. But other less drastic normalization method can also be found we only used this one to show that this is a cause for this clusters.
 
 % in ...
 
+\section{Factors affecting different stages}\label{factors-affecting-different-stages}
 
+In third chapter \ref{evaluation} we described a few high-level factors which can cause clusters of items that we found. We described only a few factors affecting tutoring systems that we tested, there may as well be other that we did not think of. Yet we can already divide them into categories based on stage of pipeline they affect. Possible choices here are similarity matrix or some specific use cases.
+
+First described factor was usage of some answer by default. This regularity is visible even directly in similarity matrix. Topically items with one of the correct answers has higher total similarity than other group. Therefore this factor falls into first category. It is revealed in similarity matrix.
+
+On the other hand regularity caused by missing data is not present in similarity matrix. Only after some usage of similarity is this factor revealed. For projection and second level of similarity this is visible.
 
 \chapter{Conclusion}
 
