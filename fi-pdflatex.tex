@@ -795,19 +795,28 @@ Usually when using PCA only first two principal components are used but I found 
 
 \section{Practical recommendations}\label{practical-recommendations}
 
+TODO this text
+
 % in visualizations
 
-This work did not focus on different possible visualizations of items, but as byproduct of concluded experiments we still run into some.
+This work did not focus on differnet possible visualisations of items, but as byproduct of concluded experiments we still run into some.
 
-projection
-simplest one
-for each item-set seaprately
+Most straightforward visualisation type is projection. We recommend displaying them for each item-set seaprately and using some coloration of items to verify some property.
+
+Another possible visualisations include ??? %TODOco sa momentalne zobrazujeav ucitelskom mode (na slepych ampach)
+
+% clustering of similarity
+
+note that it may be as well as projection affected by both possible levels of high-level features... second level is caused by implicit (euclidean) distance in clustering algorithms %TODOnot mentioned yet
+and also second level of similarity calculated directly
+
+both projectioms ad clustering are affected by formation of clusters of same items and correct anwers. So when using them we have to be aware of this. In section \ref{} we showed possible way how to get rid of separation of answers.
+
+uneven distribution of similarity of items can affect outlier detection methods based on global values distributon
 
 % in outlier detection
 
-For outlier detection we can recommend
-
-using method that does not depend on global distribution of values, only on local neighborhood
+For outlier detection we can recommend using method that does not depend on global dsitribution of values, only on local neighborhood
 or
 use same normalization, for example proposed removal of users with great preference for one answer causing this separation of items. But other less drastic normalization method can also be found we only used this one to show that this is a cause for this clusters.
 
