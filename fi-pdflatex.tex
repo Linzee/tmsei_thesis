@@ -111,7 +111,7 @@ Tutoring systems are computer-based systems designed to introduce users into var
 
 % one possible method, using similarity of items
 
-One possible way how to achieve this is to use similarity of items. Similarity is a basic metric which can be then used in various use-cases, e.g., projections, clustering, outlier detection. Work discusses different possible similarity measures and differences between them.
+One possible way how to achieve this is to use similarity of items. The similarity is a basic metric which can be then used in various use-cases, e.g., projections, clustering, outlier detection. Work discusses different possible similarity measures and differences between them.
 
 % goal of this work
 
@@ -209,7 +209,7 @@ Another possible way to measuring similarity is counting edits which would conve
 
 % How is a projection (similarity) computed
 
-To better understand how is similarity of items determined and then used we have to understand steps of its computation. We call this process a standard pipeline and it is used in most cases. When some of the further analysis modify it slightly it is pointed out in the corresponding section. Whenever we don't specify so all projections were produced using this default pipeline. There are a few data structures and few calculations involved:
+To better understand how is similarity of items determined and then used we have to understand steps of its computation. We call this process a standard pipeline and it is used in most our experiments. When some of the further analysis modify it slightly it is pointed out in the corresponding section. Whenever we don't specify so all projections were produced using this default pipeline. There are a few data structures and calculations involved:
 
 \begin{figure}
   \includegraphics[width=10cm]{img/pipeline_diagram}
@@ -221,7 +221,7 @@ To better understand how is similarity of items determined and then used we have
   \item
     \textbf{Feature matrix} is matrix (items $\times$ features) containing source data. As we said previously this can represent any property of the items. This matrix consists of one vector for each item and it may represent item statement, solution or solutions of the item and naturally even users performance.
 
-    In our particular case we call this matrix a \textbf{performance matrix} because it contains information about user performance. The first step we have to take is converting raw logged information. Columns of the matrix are items in the educational system and each row of the matrix contains data about single user's performance. In our case, we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of the correct answer and 0.0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+    In our particular case, we call this matrix a \textbf{performance matrix} because it contains information about user performance. The first step we have to take is converting raw logged information. Columns of the matrix are items in the educational system and each row of the matrix contains data about single user's performance. In our case, we used correctness of first users answer to specific item as his performance. This means value 1.0 in case of the correct answer and 0.0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
 
   \item
     \textbf{Measuring similarity} may involve some similarity measure or edit distance. This step is used to compute the similarity between all pairs of items. In other words, we transform feature matrix into similarity matrix. For this was chosen Pearson correlation coefficient based on previous work. Values produced by correlation are between $-1$ and $+1$.
@@ -250,7 +250,7 @@ We choose this specific pipeline as we think it is utilizing data about items wh
 
 Also, performance is easier to transfer into different tutoring systems because performance is usually available and contrary to item statement performance can be expressed using a standard format (performance matrix).
 
-This choice of a pipeline is also relatively easy to understand. As it consists only of few steps which can be studied separately and interchanged.
+A similar pipeline was previously used in multiple articles \cite{pelanek2018programming, kaser2013cluster}. This choice of a pipeline is also really simple, therefore it is easy to understand and explain. As it consists only of few steps which can be studied separately and interchanged. It is possible to extend this pipeline for different types of features by adding some pre-processing and post-processing functions \cite{kaser2013cluster}.
 
 % > > Similarity measures
 
@@ -628,8 +628,6 @@ This specific simulation is using two uncorrelated skills and two answers. They 
 
 When we look at resulting projection \ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) which have items separated by the correct answer (represented by different colors).
 
-TODO better reasoning for this, explain why this happens
-
 We conclude that users proffering one answer over another can cause separation of items by correct answer in projection.
 
 % > > Filter out users
@@ -723,7 +721,7 @@ Figure \ref{fig:simulated_missing} shows a projection of our simulated data with
 
 In this case, the first dimension corresponds pretty well with the performance of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data it is much harder to say anything about its axis.
 
-After looking at similarity matrix we saw that there is a difference between similarities in the same level and similarities of items in different levels. For given amount of items, mean levels solved by single user and number of users there is a visible difference in stability of similarity results. Computed similarities for items in the same level are much more stable than in between levels. This may cause projection to consider items in the same level as more similar.
+After looking at similarity matrix we saw that there is a difference between similarities in the same level and similarities of items in different levels. For given amount of items, mean levels solved by single user, and number of users there is a visible difference in stability of similarity results. Computed similarities for items at the same level are much more stable than in between levels. This may cause projection to consider items on the same level as more similar.
 
 Yet this is not true in general only if an amount of users who solved items in more than one level is small enough. If we increase the number of simulated users by 10 times we get stable similarity and no clusters.
 
@@ -793,7 +791,7 @@ First described factor was a usage of some answer by default. This regularity is
 
 On the other hand, regularity caused by missing data is not present in similarity matrix. Only after some usage of similarity is this factor revealed. It is visible for both simulated projection and clustering.
 
-It is worth knowing which high level factor can affect which stages of similarity pipeline to be prepared they can appear there. For example factor of missing answers does not affect techniques which use similarities of single item. Only if technique compares them to each other this factor affects result.
+It is worth knowing which high-level factor can affect which stages of similarity pipeline to be prepared they can appear there. For example factor of missing answers does not affect techniques which use similarities of a single item. Only if technique compares them to each other this factor affects the result.
 
 % > Practical recommendations
 
@@ -801,35 +799,35 @@ It is worth knowing which high level factor can affect which stages of similarit
 
 % similarity
 
-It is important to choose appropriate pipeline for calculating similarity. One we experimented with is good choice. Because %TODO why?. However, there are some unneeded regularities we have to deal with.
+It is important to choose appropriate pipeline for calculating similarity. One we experimented with is a good choice. Because it is utilizing data about performance and we understand it. However, there are some unneeded regularities we have to deal with.
 
-For developers of system it is worth knowing that structure of user interface can affect data in some unexpected way (refer to section \ref{regularities}). In case that similarity would be used extensively it may be useful to implement some changes to user interface to prevent such regularities.
+For developers of the system it is worth knowing that structure of user interface can affect data in some unexpected way (refer to section \ref{regularities}). In case that similarity would be used extensively it may be useful to implement some changes to the user interface to prevent such regularities.
 
-% different pipeline - small amount of answers
+% different pipeline - a small number of answers
 
-Another possible solution is to normalize data in some way when processing them. For example because item-sets with large number of correct answers are not affected by preferred answers we ca use some modified pipeline only for item-sets with small amount of answers.
+Another possible solution is to normalize data in some way when processing them. For example, because item-sets with a large number of correct answers are not affected by preferred answers we can use some modified pipeline only for item-sets with a small number of answers.
 
 % similarity measure choice
 
-We did not find any difference in usability of observed similarity measures, therefore we recommend to use any good performing and convenient to use. Based on previous research this can be Pearson correlation coefficient applied two times sequentially. This measure has good stability of results even on smaller datasets and is easy to implement.
+We did not find any difference in the usability of observed similarity measures, therefore we recommend to use any good performing and convenient to use. Based on previous research this can be Pearson correlation coefficient applied two times sequentially. This measure has good stability of results even on smaller datasets and is easy to implement.
 
 % in visualizations
 
-Most straightforward visualization of item similarity are projections. Visualizing some known property like belongingness to level or place of item in taxonomy can be used to verify whether it is good or may need some refinement. Another possible use is interactively displaying single item-set and observing particular items manually.
+Most straightforward visualization of item similarity is projections. Visualizing some known property like belongingness level or place of an item in taxonomy can be used to verify whether it is good or may need some refinement. Another possible use is interactively displaying single item-set and observing particular items manually.
 
 % clustering
 
-Projections and clustering usually suffer from same problems. E. g., Pattern of missing answers affects both of them. This cannot be easily solved. But as this regularity is caused by unstability of items similarity it can be improved by using more stable similarity measure.
+Projections and clustering usually suffer from same problems. E. g., Pattern of missing answers affects both of them. This cannot be easily solved. But as this regularity is caused by instability of items similarity it can be improved by using more stable similarity measure.
 
-But projections and clustering are also affected by formation of clusters of same items with same correct answer. When using them we have to be aware of this.
+But projections and clustering are also affected by the formation of clusters of same items with a same correct answer. When using them we have to be aware of this.
 
 % in outlier detection
 
-For outlier detection we can recommend using method that does not depend on global distribution of values, only on local neighborhood as items with some answers have higher similarity. Another possibility is to normalize data in some way. One example is proposed removal of users with great difference of answer preference. But other less drastic normalization method can also be found we only used this one to show that this users are a cause for this separation of items by correct answer.
+For outlier detection, we can recommend using method that does not depend on the global distribution of values, only on the local neighborhood as items with some answers have higher similarity. Another possibility is to normalize data in some way. One example has proposed the removal of users with a great difference of answer preference. But other less drastic normalization methods can also be found we only used this one to show that these users are a cause for this separation of items by correct answer.
 
 % does not matter
 
-We also found multiple properties that does not affect anything. Different performance of items in levels does not cause clusters, ratio of correct answers in item-set does not affect similarity. %TODO something more?
+We also found multiple properties that do not affect anything. Different performance of items in levels does not cause clusters, a ratio of correct answers in item-set does not affect similarity. %TODO something more?
 
 % > General recommendations
 
@@ -857,7 +855,7 @@ Usually, when using PCA only first two principal components are used but I found
 
 % What we did, what important discoveries we found,..
 
-We explored differences in using different methods for measuring the similarity of educational items based on data about the correctness of users answers. Prior to starting this work, we knew there were some unclear circumstances considering the formation of clusters in projection and therefore distribution of similarities of items. All the experiments we concluded were focused on this behavior. Now we understand how the structure of system may affect performance data and similarity of items itself.
+We explored differences in using different methods for measuring the similarity of educational items based on data about the correctness of users answers. Prior to starting this work, we knew there were some unclear circumstances considering the formation of clusters in projection and therefore the distribution of similarities of items. All the experiments we concluded were focused on this behavior. Now we understand how the structure of system may affect performance data and similarity of items itself.
 
 We determined whether is this behavior present in whole dataset and all similarity measures. Multiple experiments using both real and simulated data were concluded. And as a result, we were able to answer questions proposed in section \ref{specific-questions}. We found multiple high-level factors that can cause regularities which were validated using simulations. We are pretty sure about the cause of one of the regularities and described some factors that can cause other observed regularity. We think that in real data there may be multiple factors causing level regularity as it is not straightforward to explain clusters of items from the same level.
 
@@ -873,7 +871,7 @@ It also may be useful to look at the same data from another perspective and obse
 
 % Recapitulation of how well we finished our task,..
 
-% TODO
+But we already fulfilled our goals for this work and answered questions we asked.
 
 % See ya
 
