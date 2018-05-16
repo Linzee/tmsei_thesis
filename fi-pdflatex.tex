@@ -262,7 +262,7 @@ To better understand how is similarity of items determined and then used we have
 
     % PCA over TSNE
 
-    We decided to use Principal component analysis (PCA), and first two principal components are then used for 2D visualizations. We choose PCA over other commonly used technique t-SNE (which can produce better-looking results) for one important reason. Results of PCA are deterministic. It produces the same result for same input each time it is run. This is not true for t-SNE which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is no variation in results caused by the algorithm. Besides, it is much easier to compare results when altering measure used for computing item similarities.
+    We decided to use Principal component analysis (PCA) \cite{wold1987principal}, and first two principal components are then used for 2D visualizations. We choose PCA over other commonly used technique t-SNE (which can produce better-looking results) for one important reason. Results of PCA are deterministic. It produces the same result for same input each time it is run. This is not true for t-SNE \cite{maaten2008visualizing} which is technique using machine learning and gradient descent for finding some local extreme. Stable results are more suitable for understanding data as there is no variation in results caused by the algorithm. Besides, it is much easier to compare results when altering measure used for computing item similarities.
 
   \item
     \textbf{Projection} is more compact representation (item $\times$ 2) of similarity matrix used for visualizations for end users. There are other possible use-cases of similarity like clustering, outlier detection but we are focusing on projections.
@@ -515,7 +515,7 @@ When introducing the problem of unneeded clusters in section \ref{regularities} 
 
 % Quantification of level-answer clustering
 
-Quantification of the regularity of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We use the k-means clustering algorithm \cite{TODO} to find \textit{levels $\cdot$ correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index \cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value 1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
+Quantification of the regularity of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We use the k-means clustering algorithm \cite{hartigan1979algorithm} to find \textit{levels $\cdot$ correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index \cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value 1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/clustering_quality}
@@ -536,7 +536,7 @@ We can conclude that regularities are present in some form in all item-sets.
 Another question is whether using Pearson correlation coefficient is not cause of some of the regularities. Therefore, we tried exchanging measure used for computing similarity of items to verify that previous results are not specific to a single measure. We evaluated all four previously chosen measures.
 
 \begin{figure}
-  \includegraphics[height=8cm]{img/measures}
+  \includegraphics[height=10cm]{img/measures}
   \caption{Comparison of four similarity measures projected by PCA using the same item-set}
   \label{fig:measures}
 \end{figure}
