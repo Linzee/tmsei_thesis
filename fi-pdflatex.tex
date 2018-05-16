@@ -365,15 +365,15 @@ We will talk more in depth about how we generated simulated data in next chapter
 
 The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them. This is showed in figure \ref{fig:umimecesky_doplnovacka}. After answering user receives feedback whether the answer was correct or not.
 
+Although we focused only on ``fill-in-the-blank'' exercise, it can still be used to train various concepts of Czech grammar. The exercise contains many questions, and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., \cvicenieB{} or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. Since our analysis works only with item-sets separately this categorization into different aspects is not important to us. After the user chooses some item-set the questions are selected randomly, so we consider the items in each item-set to be uniform and can compare them.
+
+Items in item-sets are divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels, but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
+
 \begin{figure}
   \includegraphics[width=7cm]{img/umimecesky_doplnovacka}
   \caption{Sample question from ``fill-in-the-blank'' exercise in \umimeCesky{}}
   \label{fig:umimecesky_doplnovacka}
 \end{figure}
-
-Although we focused only on ``fill-in-the-blank'' exercise, it can still be used to train various concepts of Czech grammar. The exercise contains many questions, and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., \cvicenieB{} or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. Since our analysis works only with item-sets separately this categorization into different aspects is not important to us. After the user chooses some item-set the questions are selected randomly, so we consider the items in each item-set to be uniform and can compare them.
-
-Items in item-sets are divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels, but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
 % information about items: question, correctness and time
 
@@ -414,7 +414,7 @@ A primary group of users using \umimeCesky{} are children studying at primary an
 
 \begin{figure}
     \includegraphics[width=\textwidth]{img/common_projection}
-  \caption{Basic projection of item-set \cvicenieB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
+  \caption{Basic projection of item-set \cvicenieB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group (items inside circle) is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
   \label{fig:common_projection}
 \end{figure}
 
