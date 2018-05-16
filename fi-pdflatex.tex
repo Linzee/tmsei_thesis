@@ -677,7 +677,7 @@ To sum it up. When we simulated users, we gave them all habit to use one answer 
 
 \section{Levels regularity}\label{evaulation-levels-regularity}
 
-This section describes in detail some of our experiments we concluded which relates to the formation of items into clusters of the same level. The section contains two experiments sowing some factors which can affect similarity in such manner that clusters forms.
+This section describes in detail some of our experiments we concluded which relates to the formation of items into clusters of the same level. The section contains two experiments sowing some factors which can cause this regularity.
 
 % > > Missing values
 
@@ -685,31 +685,44 @@ This section describes in detail some of our experiments we concluded which rela
 
 % Can missing data affect the result of similarity calculation?
 
-As we mentioned before, performance matrix is relatively sparse. Missing values are not distributed randomly, and they form a pattern. Our question is whether this pattern of missing values can affect similarity of items and projections.
+As we mentioned before, performance matrix is relatively sparse. Missing values are not distributed randomly, but they form a pattern. Our question is whether this pattern of missing values can affect similarity of items and projections.
 
 % structure of performance matrix
 
-Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
+Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in figure \ref{fig:missing_patter_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
-% simulation of missing values
+%TODO diagram of missing data
+\begin{figure}
+  \includegraphics[width=\textwidth]{img/missing_patter_diagram}
+  \caption{Diagram showing pattern of missing data}
+  \label{fig:missing_patter_diagram}
+\end{figure}
 
-Once again, we used simulated data to gather more information about this. A simulation was concluded in the same way as we explained before in section \ref{simulated-data}. The only difference is that resulting performance matrix will now contain missing values. We wanted to recreate missing data similarly that this occurs in real performance matrix. This is achieved by simulated users not solving all items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve two levels, and only a few users solve all three levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically. This is also visible in real data. There are users who solve only second or only highest difficulty level.
+% > > > Simulation of missing values
 
-% What can one answer possibly affect in different matrices (value in performance matrix, row, and column similarity and all in projection or second level of similarity)
+\subsubsection{Simulation of missing values}\label{simulation-of-missing-values}
+
+Once again, we use simulation to verify whether this factor can cause such regularity. This simulation is also constructed similarly as one we explained before in section \ref{simulated-data}. The only difference is that resulting performance matrix will now contain missing values. We achieve this by requiring simulated users to solve only some items. Each user starts with solving one level and then with some probability continues to another. So most users solve only one level, some users solve two levels, and only a few users solve all three levels. Order in which they answer levels is chosen at random as users are not required to continue chronologically.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/simulated_missing}
-  \caption{First and second (left) and second and third (right) principal components of PCA on simulated data; image on left is colored by performance of items}
+  \caption{First and second (left) and second and third (right) principal components of PCA on simulated data}
   \label{fig:simulated_missing}
 \end{figure}
 
-Figure \ref{fig:simulated_missing} shows a projection of our simulated data with missing answers. Projection on the left shows first two principal components of PCA, projection on the right shows second and third component of PCA. So there are three dimensions shown effectively. Colors in the first image depict performance of items (dark colors represent small performance and lighter colors higher performance). The second image is colored by levels as usual.
+Figure \ref{fig:simulated_missing} shows two resulting projections of simulated data with missing answers. There are two shown projections. They are both colored by a level of items. Difference between this projections is that one on the left shows first two principal components of PCA, while second projection shows second and third component of PCA. So there are three dimensions shown effectively.
 
-In this case, the first dimension corresponds pretty well with the performance of items and next two dimensions (second image) distinguish belongingness to each level. Such easy explanation of axis is possible only for simulated data. When looking at projections of real data, it is much harder to say anything about its axis.
+In this particular projection, the first dimension corresponds pretty well with the difficulty of items and next two dimensions (second image) distinguish belongingness to each level. However, such easy explanation of axis is possible only for simulated data. When looking at projections of real data, it is much harder to describe its axis.
 
-After looking at similarity matrix, we saw that there is a difference between similarities in the same level and similarities of items in different levels. For given amount of items, mean levels solved by a single user, and a number of users there is a visible difference in stability of similarity results. Computed similarities for items at the same level are much more stable than in between levels. This may cause projection to consider items on the same level as more similar.
+This simulation showed that pattern of missing data could cause clusters of items.
 
-This is not true in general only if an amount of users who solved items in more than one level is small enough. If we increase the number of simulated users by ten times, we get stable similarity and no clusters.
+\subsubsection{Cause of missing data regularity}\label{cause-of-missing-data-regularity}
+
+After looking at similarity matrix of this particular simulated data, we noticed that there is a slight difference between similarities in the same level and similarities of items in different levels. There is a visible difference in stability. Similarity values of items in different levels contain much more noise than items in the same level. This causes projection to consider items on the same level as more similar.
+
+However, this is not true in general only if an amount of users who solved items in more than one level is small enough. If we increase the number of simulated users by ten times, we get stable similarity and no clusters.
+
+The pattern of missing data is another high-level factor which we explained and can cause regularities in item similarities.
 
 % > > Item performance
 
