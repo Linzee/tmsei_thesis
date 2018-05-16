@@ -21,7 +21,7 @@
            %% hide the List of Tables.
   nocover,
   color,
-  final, %draft
+  final,
   %% More options are listed in the user guide at
   %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fi.pdf>.
 ]{fithesis3}
@@ -257,7 +257,7 @@ To better understand how is similarity of items determined and then used we have
 
     % PCA, (TSNE)
 
-    The similarity matrix is useful for a computer to make a decision based on it directly. However, this matrix still contains way too many values for a human to interpret. As some of our goals are explaining data to authors of the system we continue with a dimensional reduction to produce a more compact representation of data.
+    The similarity matrix is useful for a computer to make a decision based on it directly. However, this matrix still contains way too many values for a human to interpret. As some of our goals are explaining data to authors of the system, we continue with a dimensional reduction to produce a more compact representation of data.
 
     % PCA over TSNE
 
@@ -350,8 +350,6 @@ Next, we simulate each user answering to each item. The user answers correctly w
 P(\text{correct}|s, d) = \sigma(s - d)
 \end{gather*}
 
-%TODO check and improve /\
-
 We will talk more in depth about how we generated simulated data in next chapter when describing how we used them specifically. In all experiments using simulated data, we altered this basic simulation in some way to achieve results corresponding to some attribute of real data.
 
 % > Umime cesky
@@ -362,11 +360,11 @@ We will talk more in depth about how we generated simulated data in next chapter
 
 \href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. This section describes the tutoring system, exercise used in our analysis and lists basic statistics about datasets size.
 
-The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them. This is showed in figure \ref{fig:umimecesky_doplnovacka}. After answering user receives feedback whether the answer was correct or not. Answers are always displayed in alphabetical order, so their position does not change when solving different items.
+The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them. This is showed in Figure \ref{fig:umimecesky_doplnovacka}. After answering user receives feedback whether the answer was correct or not. Answers are always displayed in alphabetical order, so their position does not change when solving different items.
 
 Although we focused only on ``fill-in-the-blank'' exercise, it can still be used to train various concepts of Czech grammar. The exercise contains many questions, and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., \cviceniB{} or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. Since our analysis works only with item-sets separately this categorization into different aspects is not important to us. After the user chooses some item-set the questions are selected randomly, so we consider the items in each item-set to be uniform and can compare them.
 
-Items in item-sets are divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels, but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
+Items in item-sets are divided into levels. Higher levels are intended to be solved by more experienced users as they contain more difficult questions. In general, there are three difficulty levels, but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
 \begin{figure}
   \includegraphics[width=7cm]{img/umimecesky_doplnovacka}
@@ -413,7 +411,7 @@ A primary group of users using \umimeCesky{} are children studying at primary an
 
 \begin{figure}
     \includegraphics[width=\textwidth]{img/common_projection}
-  \caption{Basic projection of item-set \cviceniB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group (items inside circle) is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
+  \caption{Basic projection of item-set \cviceniB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group (items inside the circle) is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
   \label{fig:common_projection}
 \end{figure}
 
@@ -433,7 +431,7 @@ Figure \ref{fig:common_projection} shows how can resulting projection look like.
 
 As projections are meant to be used for managing item pool, this puts some constraints on how ideal projection should look like.
 
-We want similar items to end as close to each other as possible. In particular, when using performance as a source of data, we can interpret this as items which require same skills should be projected near each other. For example, when we look at item-set \cviceniB{} (figure \ref{fig:common_projection}) there is highlighted group of words starting with common prefix ``bio''. It is correct that they are close to each other as they are indeed similar because they are based on a single word. But remember, there is no information about item statement presented to the similarity measure.
+We want similar items to end as close to each other as possible. In particular, when using performance as a source of data, we can interpret this as items which require same skills should be projected near each other. For example, when we look at item-set \cviceniB{} (Figure \ref{fig:common_projection}) there is highlighted group of words starting with common prefix ``bio''. It is correct that they are close to each other as they are indeed similar because they are based on a single word. But remember, there is no information about item statement presented to the similarity measure.
 
 % > Regularities
 
@@ -441,7 +439,7 @@ We want similar items to end as close to each other as possible. In particular, 
 
 % This causes similar words to end-up far away one from another
 
-Projections of item-sets from system \umimeCesky{} (figure \ref{fig:common_projection}) all display some regularities. Items depicted with same colors and items using same markers form clusters. This section talks about formed clusters in projection and why it is a problem.
+Projections of item-sets from system \umimeCesky{} (Figure \ref{fig:common_projection}) all display some regularities. Items depicted with same colors and items using same markers form clusters. This section talks about formed clusters in projection and why it is a problem.
 
 % > > Level regularity
 
@@ -455,13 +453,13 @@ As we mentioned before, only data about user performance (correctness of answers
 
 % why is this unsuitable, example of similar words far away one from another
 
-This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set \cviceniB{}. They are connected by a line in the figure \ref{fig:common_projection}.
+This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set \cviceniB{}. They are connected by a line in the Figure \ref{fig:common_projection}.
 
 % > > Answers regularity
 
 \subsection{Answers regularity}\label{answers-regularity}
 
-Another property of items in figure \ref{fig:common_projection} is depicted by a marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity, but such clusters form despite it. So it is useful to explore why is this behavior present at all.
+Another property of items in Figure \ref{fig:common_projection} is depicted by a marker used. One type of marker (rectangle) shows items with correct answer ``i'' and another marker (triangle) shows items with correct answer ``y''. Again, there is no direct information about this presented to measure of similarity, but such clusters form despite it. So it is useful to explore why is this behavior present at all.
 
 % > > Research questions
 
@@ -551,7 +549,7 @@ Figure \ref{fig:measures} shows four different similarity measures used on same 
   \textbf{Pearson} is most commonly used.
 
 \item
-  \textbf{Jaccard} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer, but the similarity of the items does not correlate with correlation-based measures like Pearson. Specific difference is mentioned later in this chapter.
+  \textbf{Jaccard} differs visibly from other measures. Resulting projection still shows same clusters of levels and items are split based on a correct answer, but the similarity of the items does not correlate with correlation-based measures like Pearson.
 
 \item
   \textbf{Sokal} shows best that different similarity measures can highlight different aspects of item performance. The similarity of items depends heavily on the performance of items when using Sokal. (Where performance of item is the number of correct answers divided by all answers.) Items with higher performance are much more similar than items with lower performance. This property is causing a packed cluster of items from a first level (easy) and a spread out cluster of items from third level (harder).
@@ -574,11 +572,7 @@ This section describes in detail some of our experiments we concluded which rela
 
 When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{zhang2006detecting}\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point, we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
 
-Still, it is worth mentioning that this is not true for all similarity measures. It is apparent that Pearson and Cosine have this property, but measures like Jaccard does not. It has different similarity for different levels instead. This is one observed high-level difference between used similarity measures.
-
-%TODO figure showing???
-
-For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Distribution of this values is shown for item-set \cviceniB{} in figure \ref{fig:histogram_i_y}.
+For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Distribution of this values is shown for item-set \cviceniB{} in Figure \ref{fig:histogram_i_y}.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/histogram_i_y}
@@ -590,9 +584,9 @@ For this purpose, we define another property of items. The total similarity is a
 
 % other item-sets
 
-This is not specific to only one item-set (displayed in figure \ref{fig:histogram_i_y}) almost all item-sets display similar pattern. Although for some item-sets, it's more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
+This is not specific to only one item-set (displayed in Figure \ref{fig:histogram_i_y}) almost all item-sets display similar pattern. Although for some item-sets, it is more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
 
-We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter \ref{fig:umimecesky_doplnovacka}) Our finding was that preferred answer can be located on both left and right button. In particular, in concept \cviceniB{} which have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' which has the same possible answers is preferred one ``y'' on the right.
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter \ref{fig:umimecesky_doplnovacka}) Our finding was that preferred answer could be located on both left and right button. In particular, in concept \cviceniB{} which have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' which has the same possible answers is preferred one ``y'' on the right.
 
 This experiment told us only that there is some underlying difference between items with different correct answers but did not tell us what.
 
@@ -600,7 +594,7 @@ This experiment told us only that there is some underlying difference between it
 
 \subsection{Performance matrix}\label{performance-matrix}
 
-In performance matrix, there are some users which performance differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items (columns) in the matrix are sorted that all items with correct answer ``i'' are on the left and items with another possible correct answer ``y'' are on the right.
+In performance matrix, there are some users which performance differs greatly on different answers. This can be seen in Figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items (columns) in the matrix are sorted that all items with correct answer ``i'' are on the left and items with another possible correct answer ``y'' are on the right.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/performance_matrix}
@@ -690,7 +684,6 @@ As we mentioned before, performance matrix is relatively sparse. Missing values 
 
 Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in figure \ref{fig:missing_pattern_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
-%TODO diagram of missing data
 \begin{figure}
   \includegraphics[width=5cm]{img/missing_pattern_diagram}
   \caption{Diagram showing pattern of missing data}
@@ -719,7 +712,7 @@ This simulation showed that pattern of missing data could cause clusters of item
 
 After looking at similarity matrix of this particular simulated data, we noticed that there is a slight difference between similarities in the same level and similarities of items in different levels. There is a visible difference in stability. Similarity values of items in different levels contain much more noise than items in the same level. This causes projection to consider items on the same level as more similar.
 
-However, this is not true in general only if an amount of users who solved items in more than one level is small enough. If we increase the number of simulated users by ten times, we get stable similarity and no clusters.
+However, this is not true in general only if an amount of users who solved items in more than one level is small enough. If we increase the number of simulated users by ten times, we get stable similarity and no clusters. In other words, the value of similarity is not affected by the amount of data, but its stability is. And this can also appear in final use-case.
 
 The pattern of missing data is another high-level factor which we explained and can cause regularities in item similarities.
 
@@ -727,27 +720,29 @@ The pattern of missing data is another high-level factor which we explained and 
 
 \subsection{Item performance}\label{item-performance}
 
+Another possible factor affecting similarities and therefore projections can be difficulty od items. The first part of this section analyzes difficulty of items in the tutoring system. Then we try to replicate this data using simulation.
+
 \begin{figure}
   \includegraphics[width=10cm]{img/items_performance_levels}
-  \caption{Mean performance of items in three levels of single item-set}
+  \caption{Boxplot showing performance of items divided into three levels}
   \label{fig:item_performance_levels}
 \end{figure}
 
-Figure \ref{fig:item_performance_levels} shows mean items performance (ratio of correct answers to all answers) from one item-set. Horizontal axis contains items sorted by level and mean their performance. The vertical axis shows a performance of each item. Given item-set contains three item-sets with mean performance 94\%, 86\%, 71\% respectively.
+Figure \ref{fig:item_performance_levels} shows boxplot of items performance (ratio of correct answers to all answers) from one item-set. Given item-set contains three levels with mean performances 94\%, 86\%, and 71\% respectively.
 
 Items are divided in such manner that difficulty of levels raises. However, this division is not strict. It is visible on Figure \ref{fig:item_performance_levels} that difficulty of items in levels overlap. Question is whether the difficulty of items is somehow projected into similarity of items.
 
-For this simulation, we variate difficulty of questions. In the standard simulation, we use the difficulty of items drawn from same normal distribution $\mathcal{N}(0,\,1)$. The only difference is that we use different means of distributions for each simulated level. For this particular experiment, we fitted this shifts to correspond to performances observed in real item-set.
+For this simulation, we variate difficulty of questions. In the standard simulation, we use the difficulty of items drawn from same normal distribution $\mathcal{N}(0,\,1)$. The only difference is that we alternate mean value of normal distributions for each simulated level. For this particular experiment, we fitted this shifts to correspond to performances observed in real item-set ($\mathcal{N}(1.4,\,1), \mathcal{N}(2.0,\,1), \text{and} \mathcal{N}(3.0,\,1)$).
 
 \begin{figure}
   \includegraphics[width=10cm]{img/simulated_performance}
-  \caption{Simulated levels with different performance}
+  \caption{Three simulated levels with different mean performance}
   \label{fig:simulated_performance}
 \end{figure}
 
 % different performance of items in levels does not cause such clusters
 
-Results are visible in Figure \ref{fig:simulated_performance}. We concluded that this factor does not cause such clusters of items from the same level as we want to recreate. We included this experiment as an example of a negative answer because we expected another result.
+Results are visible in Figure \ref{fig:simulated_performance}. We concluded that this factor could also cause clusters of items from the same level. However, they are not as apparent as with the previous factor of pattern in missing data.
 
 % --------------------------- %
 % Recommendations             %
@@ -819,7 +814,7 @@ For outlier detection, we can recommend using method that does not depend on the
 
 % does not matter
 
-We also found multiple properties that do not affect anything. Different performance of items in levels does not cause clusters, a ratio of correct answers in item-set does not affect similarity. %TODO something more?
+We also found multiple properties that do not affect anything. E.g., the ratio of correct answers in item-set does not affect similarity. Item performance does not correlate with its similarity. Also considering users first or the last answer to given item does not matter.
 
 % > General recommendations
 
@@ -877,9 +872,9 @@ However, we already fulfilled our goals for this work and answered questions we 
 \appendix %% Start the appendices.
 \chapter{An appendix}
 
-% > Notebook
+% > Jupyter Notebook
 
-\section{Notebook}\label{notebook}
+\section{Jupyter Notebook}\label{jupyter-notebook}
 
 Concluded experiments are collected in Jupyter Notebooks which also use scripts written in python to simplify our work and make notebooks cleaner. There is also some additional experiment not described in this text as we chose to include here only experiments with somehow surprising results or which gave us the most insight into problems we were solving. Providing all the experiments in this way gives everyone possibility to alter and re-execute them. More information about launching this environment is present in enclosed files.
 
