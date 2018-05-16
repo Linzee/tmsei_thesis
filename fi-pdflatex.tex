@@ -91,7 +91,7 @@
 \newcommand{\ppl}[1]{\textcolor[rgb]{0.6,0.2,1.0}{#1}}
 % \newcommand{\umimeCesky}{\ppl{Umíme česky}}
 \newcommand{\umimeCesky}{Umíme česky}
-\newcommand{\cvicenieB}{``Vyjmenovaná slova po B''}
+\newcommand{\cviceniB}{``Vyjmenovaná slova po B''}
 
 \hyphenpenalty=9999
 \exhyphenpenalty=10000
@@ -363,9 +363,9 @@ We will talk more in depth about how we generated simulated data in next chapter
 
 \href{https://umimecesky.cz/}{Umíme česky} is a system for practice of Czech grammar. This section describes the tutoring system, exercise used in our analysis and lists basic statistics about datasets size.
 
-The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them. This is showed in figure \ref{fig:umimecesky_doplnovacka}. After answering user receives feedback whether the answer was correct or not.
+The system contains multiple exercise types, but in our analysis, we use only one exercise type. It is simple ``fill-in-the-blank'' with two possible answers. A user is asked to choose one of them. This is showed in figure \ref{fig:umimecesky_doplnovacka}. After answering user receives feedback whether the answer was correct or not. Answers are always displayed in alphabetical order, so their position does not change when solving different items.
 
-Although we focused only on ``fill-in-the-blank'' exercise, it can still be used to train various concepts of Czech grammar. The exercise contains many questions, and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., \cvicenieB{} or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. Since our analysis works only with item-sets separately this categorization into different aspects is not important to us. After the user chooses some item-set the questions are selected randomly, so we consider the items in each item-set to be uniform and can compare them.
+Although we focused only on ``fill-in-the-blank'' exercise, it can still be used to train various concepts of Czech grammar. The exercise contains many questions, and they are divided into item-sets. Each item-set consists of items practicing a different aspect of language, e.g., \cviceniB{} or ``Velká písmena: státy, oblasti''. This item-sets are arranged into hierarchical categorization as seen in the user interface. Since our analysis works only with item-sets separately this categorization into different aspects is not important to us. After the user chooses some item-set the questions are selected randomly, so we consider the items in each item-set to be uniform and can compare them.
 
 Items in item-sets are divided into levels. Where higher levels are intended for solving by more experienced users as they contain more difficult questions. In general, there are three difficulty levels, but not all item-sets have all three of them. Some easy item-sets include only first level. On another hand, there are item-sets which have all three levels or only higher levels.
 
@@ -395,14 +395,14 @@ We choose this tutoring system because, as we explained before, we are focusing 
      & Items & Users & Answers \\
     \hline
     Whole exercise & 6\,037 & 46\,128 & 10\,421\,521 \\
-    \cvicenieB{} & 273 & 14\,207 & 1\,216\,403 \\
+    \cviceniB{} & 273 & 14\,207 & 1\,216\,403 \\
     \hline
   \end{tabular}
   \caption{Basic statistics of dataset}
   \label{tab:basic-statistics}
 \end{table}
 
-This section provides some basic statistics about the size of dataset and users of the system. Table \ref{tab:basic-statistics} shows number of items, users and answers. Statistics are both global and for selected item-set \cvicenieB{} which is most commonly used for our analysis. This item-set has most answers from users. Therefore, it is ideal for analysis because results are more stable. We used this item-set by default, but we also confirmed observed behavior on other item-sets.
+This section provides some basic statistics about the size of dataset and users of the system. Table \ref{tab:basic-statistics} shows number of items, users and answers. Statistics are both global and for selected item-set \cviceniB{} which is most commonly used for our analysis. This item-set has most answers from users. Therefore, it is ideal for analysis because results are more stable. We used this item-set by default, but we also confirmed observed behavior on other item-sets.
 
 % Users using the system
 
@@ -414,7 +414,7 @@ A primary group of users using \umimeCesky{} are children studying at primary an
 
 \begin{figure}
     \includegraphics[width=\textwidth]{img/common_projection}
-  \caption{Basic projection of item-set \cvicenieB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group (items inside circle) is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
+  \caption{Basic projection of item-set \cviceniB{}. Three used colors distinguish levels and markers correct answers of items. The highlighted group (items inside circle) is words starting with prefix ``bio'' which are correctly considered similar and appear close to each other. On the other hand, two connected items should be considered similar, but they are not because they are in different levels.}
   \label{fig:common_projection}
 \end{figure}
 
@@ -434,7 +434,7 @@ Figure \ref{fig:common_projection} shows how can resulting projection look like.
 
 As projections are meant to be used for managing item pool, this puts some constraints on how ideal projection should look like.
 
-We want similar items to end as close to each other as possible. In particular, when using performance as a source of data, we can interpret this as items which require same skills should be projected near each other. For example, when we look at item-set \cvicenieB{} (figure \ref{fig:common_projection}) there is highlighted group of words starting with common prefix ``bio''. It is correct that they are close to each other as they are indeed similar because they are based on a single word. But remember, there is no information about item statement presented to the similarity measure.
+We want similar items to end as close to each other as possible. In particular, when using performance as a source of data, we can interpret this as items which require same skills should be projected near each other. For example, when we look at item-set \cviceniB{} (figure \ref{fig:common_projection}) there is highlighted group of words starting with common prefix ``bio''. It is correct that they are close to each other as they are indeed similar because they are based on a single word. But remember, there is no information about item statement presented to the similarity measure.
 
 % > Regularities
 
@@ -456,7 +456,7 @@ As we mentioned before, only data about user performance (correctness of answers
 
 % why is this unsuitable, example of similar words far away one from another
 
-This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set \cvicenieB{}. They are connected by a line in the figure \ref{fig:common_projection}.
+This phenomenon is not suitable for analysis of item similarity as it can cause misleading results about similarity. One particular example is when similar words are displayed far away from one another just because they belong to different levels. Such example is pair of words ``bič'' and ``bičík'' in item-set \cviceniB{}. They are connected by a line in the figure \ref{fig:common_projection}.
 
 % > > Answers regularity
 
@@ -573,13 +573,13 @@ This section describes in detail some of our experiments we concluded which rela
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{zhang2006detecting}\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
+When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{zhang2006detecting}\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point, we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
 
 Still, it is worth mentioning that this is not true for all similarity measures. It is apparent that Pearson and Cosine have this property, but measures like Jaccard does not. It has different similarity for different levels instead. This is one observed high-level difference between used similarity measures.
 
-%TODO figure showing
+%TODO figure showing???
 
-For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items.
+For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Distribution of this values is shown for item-set \cviceniB{} in figure \ref{fig:histogram_i_y}.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/histogram_i_y}
@@ -591,25 +591,25 @@ For this purpose, we define another property of items. The total similarity is a
 
 % other item-sets
 
-This is not specific to only one item-set (which was used in previous images), almost all item-sets display similar pattern. Although for some item-sets, it's more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
+This is not specific to only one item-set (displayed in figure \ref{fig:histogram_i_y}) almost all item-sets display similar pattern. Although for some item-sets, it's more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
 
-We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on left or on the right in the user interface. Our finding was that there are item-set with a preferred answer on both left and right button. In particular, in concept \cvicenieB{} which have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' which has the same possible answers is preferred one ``y'' on the right.
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter \ref{fig:umimecesky_doplnovacka}) Our finding was that preferred answer can be located on both left and right button. In particular, in concept \cviceniB{} which have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' which has the same possible answers is preferred one ``y'' on the right.
 
-This experiment tells us only that there is some underlying difference between items with different correct answers but does not tell us what.
+This experiment told us only that there is some underlying difference between items with different correct answers but did not tell us what.
 
 % > > Performance matrix
 
 \subsection{Performance matrix}\label{performance-matrix}
 
-In performance matrix, there are some users which performance differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items are ordered in a way that all items having first of the answers as correct are on the left and items with another correct answer on the right.
+In performance matrix, there are some users which performance differs greatly on different answers. This can be seen in figure \ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items (columns) in the matrix are sorted that all items with correct answer ``i'' are on the left and items with another possible correct answer ``y'' are on the right.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/performance_matrix}
-  \caption{Part of performance matrix with highlighted row contains uneven answers from single user}
+  \caption{Part of performance matrix with highlighted row contains uneven answers from single user (green - correct, red - incorrect, gray - missing)}
   \label{fig:performance_matrix}
 \end{figure}
 
-After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost anyways use one of the answers. Such users are highlighted in the image. They answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly.
+After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost always use one of the answers. Such user is highlighted in the figure. He answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly.
 
 % > > Default answer
 
@@ -619,7 +619,7 @@ We guessed that there are users who prefer using one answer by default when they
 
 We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
 
-This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included different skills in this simulation to better illustrate conditions of real data because such clusters of levels exist there.
+This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included two skills in this simulation to better illustrate conditions in real data.
 
 \begin{figure}
   \includegraphics[height=8cm]{img/simulated_default}
@@ -631,9 +631,9 @@ When we look at resulting projection \ref{fig:simulated_default} of simulated pe
 
 We conclude that users proffering one answer over another can cause separation of items by correct answer in projection.
 
-% > > Filter out users
+% > > User answer performance
 
-\subsection{Filter users}\label{filter-users}
+\subsection{User answer performance}\label{user-answer-performance}
 
 % how to detect this in real data
 
@@ -641,7 +641,7 @@ The previous simulation showed that preferred answer could cause separation of i
 
 We observed before that whole dataset uses both answers approximately the same, but for a single user, this may not be true. In this experiment, we want to quantify whether each user prefers some answer or not. For this, we used a difference of user answer performances.
 
-User answer performance is calculated as a ratio of items which user answered correctly to all items when looking only at items with a particular correct answer. We calculate this value for each possible correct answer and each user. Then we combine this set of user answer performances for each user to one value using their difference. This gives us single value representing whether the user uses some answer by default. Value ranges from 0.0 which represents no preferred answer at all to 0.5 which is largest possible preference.
+User answer performance is calculated as a ratio of items which user answered correctly to all items when looking only at items with a particular correct answer. We calculate this value for each possible correct answer and each user. Then we combine this set of user answer performances for each user to one value using their difference. This gives us single value representing whether the user uses some answer by default. Value ranges from 0.0 which represents no preferred answer at all to 1.0 which is largest possible preference.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/uneven_answers_hist}
@@ -649,21 +649,25 @@ User answer performance is calculated as a ratio of items which user answered co
   \label{fig:uneven_answers_hist}
 \end{figure}
 
-Figure \ref{fig:uneven_answers_hist} shows histogram of this values calculated for each user on one item-set. There are few visible groups of users. The largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of the spectrum are users who use only one answer (values close to 1.0). And in the middle, there are users who probably prefer one answer but use both answers. It is visible that there is quite a large amount of users with a small preference for one of the answers. (It does not matter which one.)
+Figure \ref{fig:uneven_answers_hist} shows histogram of user answer differences on one item-set. There are few visible groups of users. The largest group have uniform performance on all answers (represented by values close to 0.0). On the other end of the spectrum are users who use only one answer (values close to 1.0). Users in the middle of spectrum probably prefer one of the answers but use both. It is visible that there is quite a large amount of users with a small preference for one of the answers. (It does not matter which one.)
+
+% metric reasoning
+
+We choose to use a difference of performance instead of how much user uses each answer because we do not have to normalize it in any way. If we choose to use usage of answers we have to compare this to correct ratio as it is not guaranteed that item-set contains the same amount of items for all correct answers. Using difference of performance resolves this for us.
 
 % similar items from different levels are little closer to each other
 
-It is worth mentioning that it is normal that there is some difference between user answer performance. Even "correct" system would have some non-zero differences, but they should be only close to zero. We can use this to filter out users which difference in performance is too large. We thought that this would remove the separation of items based on a correct answer from a projection. And it does. Figure \ref{fig:answers_normalization} shows projection before and after filtering users based on their answer performance difference. In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.2 was chosen based on comparing our histogram with simulated data. Colors in this particular image represent correct answers to items. It is visible that separation by answer is less visible after filtering out part of the users.
+It is worth mentioning that there would be some difference between user answer performance even if users in the system do not have a preference for a single answer. But they should be distributed only close to 0.0.
+
+We can use this to filter out users which difference in performance is too large. We thought that this would remove the separation of items based on a correct answer from a projection. Figure \ref{fig:answers_normalization} shows projection before and after filtering out users that have a great difference in performance on items by their answer. Colors in this particular image represent correct answers to items. It is visible that separation by answer is less visible after filtering out part of the users.
+
+In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.2. This value was chosen based on comparing our histogram with simulated data.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/answers_normalization}
   \caption{Effect of filtering out users}
   \label{fig:answers_normalization}
 \end{figure}
-
-In section \ref{regularities-level-regularity} of the second chapter we also mentioned that there are words in different levels which should appear closer to each other than they do use standard pipeline without filtering of users. Such pair of words is shown in figure \ref{fig:answers_normalization} with the black straight line connecting them. The distance between them shrank. But this also caused that all possible answers are now mixed. One could argue whether this is better or worse than before as questions with different answers in our particular tutoring system probably should not be as similar. But this depends on the goal and specific use-case for which is similarity used.
-
-We choose to use a difference of performance instead of how much user uses each answer because we do not have to normalize it in any way. If we choose to use usage of answers we have to compare this to correct ratio as it is not guaranteed that item-set contains the same amount of items for all correct answers. Using difference of performance resolves this for us.
 
 % answer regularity summary
 
@@ -686,25 +690,6 @@ As we mentioned before, performance matrix is relatively sparse. Missing values 
 % structure of performance matrix
 
 Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels. Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
-
-Based on this we can divide users into eight groups. All groups are listen in table \ref{tab:user-groups}. First three columns say whether this group contains users who solved particular levels. We say that user solved level when he answered at least 30 items (which is 1/3 of questions for observed item-set). Groups are not represented in data uniformly. Most of the users fall into two groups. These two groups are users who either solve only first or only second level.
-
-\begin{table}
-  \begin{tabular}{ | l | l | l | l | l | }
-    \hline
-      1   & 2   & 3   & Users \\ \hline
-      no  & no  & no  & 35\%  \\ \hline
-      yes & no  & no  & 31\%  \\ \hline
-      no  & yes & no  & 9\%   \\ \hline
-      no  & no  & yes & 8\%   \\ \hline
-      yes & yes & no  & 7\%   \\ \hline
-      no  & yes & yes & 2\%   \\ \hline
-      yes & no  & yes & 2\%   \\ \hline
-      yes & yes & yes & 7\%   \\ \hline
-  \end{tabular}
-  \caption{Groups of users}
-  \label{tab:user-groups}
-\end{table}
 
 % simulation of missing values
 
