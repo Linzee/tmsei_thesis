@@ -241,7 +241,7 @@ To better understand how is similarity of items determined and then used we have
 
 \begin{enumerate}
   \item
-    \textbf{Feature matrix} is matrix (items $\times$ features) containing source data. As we said earlier, this could represent any property of items. This matrix consists of one vector for each item, and it may represent item statement, solution or solutions of the item and naturally even users performance. 
+    \textbf{Feature matrix} is matrix (items $\times$ features) containing source data. As we said earlier, this could represent any property of items. This matrix consists of one vector for each item, and it may represent item statement, solution or solutions of the item and naturally even users performance.
 
     The first step we take is converting raw logged information into this matrix. We used correctness of first users answer to a specific item. It will contain value 1 in case of the correct answer and 0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
 
@@ -515,7 +515,7 @@ When introducing the problem of unneeded clusters in section \ref{regularities} 
 
 % Quantification of level-answer clustering
 
-Quantification of the regularity of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We use the k-means clustering algorithm \cite{TODO} to find \textit{levels $\ldot$ correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index \cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value 1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
+Quantification of the regularity of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We use the k-means clustering algorithm \cite{TODO} to find \textit{levels $\cdot$ correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index \cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value 1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/clustering_quality}
