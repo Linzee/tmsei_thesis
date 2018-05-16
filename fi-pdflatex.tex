@@ -9,7 +9,7 @@
 \newcommand{\radek}{doc. Mgr. Radek Pel\'anek, Ph.D.}
 
 \documentclass[
-  digital, %% This option enables the default options for the
+  print, %digital, %% This option enables the default options for the
            %% digital version of a document. Replace with `printed`
            %% to enable the default options for the printed version
            %% of a document.
@@ -58,8 +58,7 @@
     TeXtitle      = {Techniques for measuring similarity of educational items},
     keywords      = {adaptive Learning, tutoring system, similarity, educational item, similarity measures, exploitative analysis, clustering, projections, machine learning, data analysis},
     TeXkeywords   = {adaptive Learning, tutoring system, similarity, educational item, similarity measures, exploitative analysis, clustering, projections, machine learning, data analysis},
-    abstract      = {This work focuses on measuring of item similarity in tutoring systems using correctness of answers from users. We knew that some unexplained regularities might appear in a similarity of items. In observed tutoring system they caused separation of items into surprising clusters. This work focus on an exploitative analysis of possible causes. We found multiple high-level factors affecting similarity of items and therefore its clusters and projections. We show that structure of the system can affect item similarities. E. g.,  answer preferred by users causing separation of items by correct answer or user interface affecting the structure of missing data. We validated these using simulations. Findings are useful for further usage in the analyzed system or replicating similar experiments in other tutoring systems.
-                    },
+    abstract      = {Work focuses on measuring of item similarity in tutoring systems using correctness of answers from users. We knew that some unexplained regularities might appear in a similarity of items. In observed tutoring system they caused separation of items into surprising clusters. Core of the work consists of an exploitative analysis of possible causes. We found multiple high-level factors affecting similarity of items and therefore its clusters and projections. We show that structure of the system can affect item similarities. E. g.,  answer preferred by users causing separation of items by correct answer or pattern of missing data. We validated these conclusions using simulations. Findings are useful for further usage in the analyzed system or replicating similar experiments in other tutoring systems and context.},
     thanks        = {These are the acknowledgments for my thesis, which can
 
                      span multiple paragraphs.},
@@ -689,13 +688,13 @@ As we mentioned before, performance matrix is relatively sparse. Missing values 
 
 % structure of performance matrix
 
-Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in figure \ref{fig:missing_patter_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
+Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in figure \ref{fig:missing_pattern_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
 %TODO diagram of missing data
 \begin{figure}
-  \includegraphics[width=\textwidth]{img/missing_patter_diagram}
+  \includegraphics[width=5cm]{img/missing_pattern_diagram}
   \caption{Diagram showing pattern of missing data}
-  \label{fig:missing_patter_diagram}
+  \label{fig:missing_pattern_diagram}
 \end{figure}
 
 % > > > Simulation of missing values
