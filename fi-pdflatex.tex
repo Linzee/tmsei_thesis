@@ -59,14 +59,14 @@
     TeXtitle      = {Techniques for measuring similarity of educational items},
     keywords      = {adaptive Learning, tutoring system, similarity, educational item, similarity measures, exploitative analysis, clustering, projections, machine learning, data analysis},
     TeXkeywords   = {adaptive Learning, tutoring system, similarity, educational item, similarity measures, exploitative analysis, clustering, projections, machine learning, data analysis},
-    abstract      = {Work focuses on measuring of item similarity in tutoring systems using correctness of answers from users. We knew that some unexplained regularities might appear in a similarity of items. In observed tutoring system they caused separation of items into surprising clusters. Core of the work consists of an exploitative analysis of possible causes. We found multiple high-level factors affecting similarity of items and therefore its clusters and projections. We show that structure of the system can affect item similarities. E. g.,  answer preferred by users causing separation of items by correct answer or pattern of missing data. We validated these conclusions using simulations. Findings are useful for further usage in the analyzed system or replicating similar experiments in other tutoring systems and context.},
-    thanks        = {First, I would like to thank my advisor \radek{} for providing me the opportunity to work in the Adaptive Learning group. I want to thank him for giving the right pointers and asking the right questions. I appreciate his expertise and his time he was always willing to find for me.
+    abstract      = {Work focuses on measuring of item similarity in tutoring systems using correctness of answers from users. We knew that some unexplained regularities might appear in a similarity of items. In observed tutoring system they caused separation of items into surprising clusters. The core of the work consists of an exploitative analysis of possible causes. We found multiple high-level factors affecting similarity of items and therefore its clusters and projections. We show that structure of the system can affect item similarities. Such factors are users preferring one answer causing separation of items by correct answer or pattern of missing data causing clusters. We validated these conclusions using simulations. Findings are useful for further usage in the analyzed system or replicating similar experiments in other tutoring systems and context.},
+    thanks        = {
+    First, I would like to thank my advisor \radek{} for providing me the opportunity to work in the Adaptive Learning group. I want to thank him for giving the right pointers and asking the right questions. I appreciate his expertise and his time he was always willing to find for me.
 
-AL group
+    My further thanks go other members of Adaptive Learning group, my family, and friends, who were very accommodating of my needs and supported me during my work.
 
-My further thanks go to my family and friends, who were very accommodating of my needs and supported me during my work.
-
-Finally, I would like to thank all the people who were motivating me to do my best by being smarter than me. Because if you are the smartest person in the room, you are in the wrong room.},
+    Finally, I would like to thank all the people who were motivating me to do my best by being smarter than me. Because if you are the smartest person in the room, you are in the wrong room.
+    },
     bib           = thesis.bib,
     style         = fithesis-custom-style
 }
@@ -762,7 +762,7 @@ Results are visible in Figure \ref{fig:simulated_performance}. We concluded that
 
 % super intro
 
-This short chapter summarizes recommendations gathered after looking at results of our experiments. We list both general recommendations which I think are useful for everyone and practical recommendations for future work on this specific tutoring system.
+This short chapter summarizes recommendations gathered after looking at results of our experiments. We list both general recommendations which we think are useful for everyone and practical recommendations for future work on this specific tutoring system.
 
 % > Factors affecting different stages
 
@@ -778,14 +778,14 @@ This short chapter summarizes recommendations gathered after looking at results 
 
 As we have learned, there are a few stages used in our pipeline for computing similarity. Figure \ref{fig:affected_diagram} depicts the possible effect of single value changed in a log of users performance. Apparently, in performance matrix, this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this stage, it is still straight as answers to item affect only similarities which include this item. Although, when we apply next stage of processing like projection, or clustering single changed value can affect all of the items.
 
-% intro, affected a portion of data on different stages of the pipeline
+% intro affected a portion of data on different stages of the pipeline
 
 In third chapter \ref{evaluation} we described a few high-level factors which can cause regularities in similarity that we found. There were only three high-level factors that we tested, but we can already divide them into two categories based on how they affect similarities of items.
 
 \begin{table}
   \begin{tabular}{ | l | l | }
       \hline
-      \cellcolor[gray]{1.0} & Using one answer by default                 \\
+      \cellcolor[gray]{1.0} & Users preferring one answer                 \\
       \hline
       Performance & Uneven performance for user      \\
       Similarity  & Higher similarity of some answer \\
@@ -810,15 +810,15 @@ In third chapter \ref{evaluation} we described a few high-level factors which ca
   \label{tab:effect-of-factors-on-stages}
 \end{table}
 
-Table \ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage they all cause some clusters. However, they all differ at how they affect stages before last stage. For example in similarity matrix two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects stability of values.
+Table \ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage, they all cause some clusters. However, they all differ in how they affect stages before the last stage. For example in similarity matrix, two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects the stability of values.
 
-It is worth knowing how high-level factor can affect each stage of similarity pipeline. Factor of missing answers does not affect outlier detection techniques which utilize only similarity of items. (Only if technique compares them to each other, this factor affects the result.)
+It is worth knowing how high-level factor can affect each stage of similarity pipeline. The factor of missing answers does not affect outlier detection techniques which utilize the only similarity of items. (Only if technique compares them to each other, this factor affects the result.)
 
 % > Practical recommendations
 
 \section{Practical recommendations}\label{practical-recommendations}
 
-We now understand used similarity pipeline, therefore, we can give some recommendations for future work on this tutoring system.
+We now understand used similarity pipeline. Therefore we can give some recommendations for future work on this tutoring system.
 
 % similarity
 
