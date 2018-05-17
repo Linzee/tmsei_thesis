@@ -115,11 +115,11 @@ One possible way how to achieve this is to use similarity of items. The similari
 
 % type of work
 
-The main part of this work consists of an explorative analysis of one such tutoring system. We were trying to find the different factors of tutoring system which can affect similarity of items and explain them.
+This work consists mostly of exploitative analysis of similarity measures and their use cases on a dataset from \umimeCesky{}. Especially we focused on using data about user performance from single exercise. We were trying to find the different factors of tutoring system which can affect similarity of items and explain them.
 
 % goal of this work
 
-We want to understand different factors mainly because some of them form unexpected regularities of items in projections and clusterings. We also want to know whether we can replicate this behavior on simulated data.
+We want to understand different factors mainly because some of them cause unexpected regularities of items in projections and clusterings. We also want to know whether we can replicate this behavior on simulated data.
 
 % structure of this work
 
@@ -214,7 +214,7 @@ This section explains possible approaches to measuring the similarity of educati
 
 % what is a similarity, how can we compute it
 
-Items can be converted into vectors of numeric values. This will be useful for measuring similarity. For performance data, this is a vector containing correctness or time from all users to given item.
+Items can be converted into vectors of numeric values. This conversion is useful for measuring similarity. For performance data, this is a vector containing correctness or time from all users to given item.
 
 Other properties of items like item statement may also be represented as a vector, e.g., by using a standard technique in natural language processing -- bag-of-words. It is counting occurrences of each possible word that can appear in item statement.
 
@@ -279,7 +279,7 @@ A similar pipeline was previously used in multiple articles \cite{pelanek2018pro
 
 \subsection{Similarity measures}\label{similarity-measures}
 
-There are many possibilities how to calculate the similarity of two vectors describing the performance of users. As we focus on using performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs \cite{choi2010survey}. See table \ref{tab:boolean-attributes}.
+There are many possibilities how to calculate the similarity of two vectors describing the performance of users. As we focus on using performance matrix which contains only two (boolean) values, we can summarize the performance of all users on two items by using just four values using count of encountered answer pairs \cite{choi2010survey}. Four values are described in Table \ref{tab:boolean-attributes}. We selected a few similarity measures we are using in this work. They are defined in Table \ref{tab:boolean-similarity-measures}.
 
 Some of the measures are not using information about correct and incorrect answers symmetrically. For example, Sokal measure uses both $a$ and $d$ interchangeably, but similar measure Jaccard does not. Especially, some metrics ignore value $d$. Therefore we choose to use $a$ as a count of incorrect answers for both items because they are rarer than correct answers.
 
@@ -306,6 +306,8 @@ Some of the measures are not using information about correct and incorrect answe
       Cosine  & \ppl{$a / \sqrt{ (a+b)(a+c) }$}                 \\
       \hline
   \end{tabular}
+  \caption{Boolean similarity measures}
+  \label{tab:boolean-similarity-measures}
 \end{table}
 
 % > Previous work
@@ -570,7 +572,7 @@ This section describes in detail some of our experiments we concluded which rela
 
 \subsection{Total similarity of items}\label{total-similarity-of-items}
 
-When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{zhang2006detecting}\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point, we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
+When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by \citeauthor{zhang2006detecting}\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point, we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This regularity could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
 
 For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Distribution of this values is shown for item-set \cviceniB{} in Figure \ref{fig:histogram_i_y}.
 
@@ -610,7 +612,7 @@ After exploring performance matrix some more, we can see that there are users wh
 
 We guessed that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
-We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. This is used to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
+We used simulation for this. Simulation is extended over basic simulation described in second chapter \ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. We use it to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
 
 This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included two skills in this simulation to better illustrate conditions in real data.
 
@@ -634,7 +636,7 @@ The previous simulation showed that preferred answer could cause separation of i
 
 We observed before that whole dataset uses both answers approximately the same, but for a single user, this may not be true. In this experiment, we want to quantify whether each user prefers some answer or not. For this, we used a difference of user answer performances.
 
-User answer performance is calculated as a ratio of items which user answered correctly to all items when looking only at items with a particular correct answer. We calculate this value for each possible correct answer and each user. Then we combine this set of user answer performances for each user to one value using their difference. This gives us single value representing whether the user uses some answer by default. Value ranges from 0.0 which represents no preferred answer at all to 1.0 which is largest possible preference.
+User answer performance is calculated as a ratio of items which user answered correctly to all items when looking only at items with a particular correct answer. We calculate this value for each possible correct answer and each user. Then we combine this set of user answer performances for each user to one value using their difference. This metric gives us single value representing whether the user uses some answer by default. Value ranges from 0.0 which represents no preferred answer at all to 1.0 which is largest possible preference.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/uneven_answers_hist}
@@ -752,9 +754,11 @@ Results are visible in Figure \ref{fig:simulated_performance}. We concluded that
 
 % super intro
 
-This short chapter summarizes recommendations gathered after looking at results of our experiments. We list both general recommendations which I think are useful and practical recommendations for future work on this specific dataset.
+This short chapter summarizes recommendations gathered after looking at results of our experiments. We list both general recommendations which I think are useful for everyone and practical recommendations for future work on this specific tutoring system.
 
-% intro, affected a portion of data on different stages of the pipeline
+% > Factors affecting different stages
+
+\section{Factors affecting different stages}\label{factors-affecting-different-stages}
 
 \begin{figure}
   \includegraphics[width=10cm]{img/affected_diagram}
@@ -762,51 +766,66 @@ This short chapter summarizes recommendations gathered after looking at results 
   \label{fig:affected_diagram}
 \end{figure}
 
-As we have learned, there are a few stages used in our pipeline for computing similarity. We come from raw logs through calculated similarity to some its use-case. Diagram \ref{fig:affected_diagram} depicts the possible effect of single value changed in a log of users performance. Apparently, in performance matrix, this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this stage, it is still straight as answers to item affect only similarities which include this item. Although, when we apply some additional level of processing like clustering, dimensionality reduction, or second level of similarity each changed value can affect all of the items. At this stage, we compare each item to each item.
+% affected a portion of data on different stages of the pipeline
 
-It is apparent that single changed value does not change much. It is the underlying truth about items and users that affect similarity measures. This results also show that chosen pipeline is robust and complex as it allows us to uncover hidden information in performance data.
+As we have learned, there are a few stages used in our pipeline for computing similarity. Figure \ref{fig:affected_diagram} depicts the possible effect of single value changed in a log of users performance. Apparently, in performance matrix, this is only single value. When we continue with computing similarity matrix single row and single column can be affected in some way. On this stage, it is still straight as answers to item affect only similarities which include this item. Although, when we apply next stage of processing like projection, or clustering single changed value can affect all of the items.
 
-This work consists mostly of exploitative analysis of similarity measures and their use cases on a dataset from \umimeCesky{}. Especially we focused on using data about user performance from single exercise. In the beginning, we knew about the existence of some regularities in data that caused clusters of items that were same in some way that should not be present in the data we used. On the way for explaining them, we found multiple high-level factors that can affect results of calculated similarity and projections of items in tutoring systems. We also encountered some problems and therefore can give some recommendations for future work in this or comparable area.
+% intro, affected a portion of data on different stages of the pipeline
 
-% > Factors affecting different stages
+In third chapter \ref{evaluation} we described a few high-level factors which can cause regularities in similarity that we found. There were only three high-level factors that we tested, but we can already divide them into two categories based on how they affect similarities of items.
 
-\section{Factors affecting different stages}\label{factors-affecting-different-stages}
+\begin{table}
+  \begin{tabular}{ | l | l | }
+      \hline
+       & Using one answer by default                 \\
+      \hline
+      Performance & Uneven performance for user      \\
+      Similarity  & Higher similarity of some answer \\
+      Projection  & Clusters                         \\
+      \hline
+       & Pattern in missing data                     \\
+      \hline
+      Performance & Missing values                   \\
+      Similarity  & Stability of similarity          \\
+      Projection  & Clusters                         \\
+      \hline
+       & Mean level performance                      \\
+      \hline
+      Performance & Mean performance of items        \\
+      Similarity  & Higher similarity of some level  \\
+      Projection  & Clusters                         \\
+      \hline
+  \end{tabular}
+  \caption{Effect of high-level factors on different stages of similarity pipeline}
+  \label{tab:effect-of-factors-on-stages}
+\end{table}
 
-In third chapter \ref{evaluation} we described a few high-level factors which can cause clusters of items that we found. We described only a few factors affecting tutoring systems that we tested, but there may as well be other that we did not imagine. We can already divide them into categories based on the stage of pipeline they affect. Possible choices here are similarity matrix or some specific use cases.
+%TODO describe tab:effect-of-factors-on-stages
 
-First described factor was the usage of some answer by default. This regularity is visible even directly in similarity matrix. Typically items with one of the correct answers have higher total similarity than items in another group. Therefore this factor falls into the first category. It is revealed in similarity matrix.
 
-On the other hand, regularity caused by missing data is not present in similarity matrix. This factor reveals only after some usage of similarity, e.g., projection or clustering.
-
-It is worth knowing which high-level factor can affect which stages of similarity pipeline to be prepared they can appear there. For example factor of missing answers does not affect techniques which use similarities of a single item. Only if technique compares them to each other, this factor affects the result.
+It is worth knowing how high-level factor can affect each stage of similarity pipeline. For example factor of missing answers does not affect outlier detection techniques which utilize only similarity of items. Only if technique compares them to each other, this factor affects the result.
 
 % > Practical recommendations
 
 \section{Practical recommendations}\label{practical-recommendations}
 
-% similarity
+We now understand used similarity pipeline, therefore, we can give some recommendations for future work on this tutoring system.
 
-It is important to choose appropriate pipeline for calculating similarity. One we experimented with is a good choice. Because it is utilizing data about performance and we understand it. However, there are some unneeded regularities we have to think about when using it.
+% similarity
 
 For developers of the system it is worth knowing that structure of user interface can affect data in some unexpected way (refer to section \ref{regularities}). In case that similarity would be used extensively it may be useful to implement some changes to the user interface to prevent such regularities.
 
-% different pipeline - a small number of answers
+% data normalization
 
-Another possible solution is to normalize data in some way when processing them. For example, because item-sets with a large number of correct answers are not affected by preferred answers, we can use some modified pipeline only for item-sets with a small number of answers.
+Another possible solution is to normalize data in some way when processing them. In section \ref{user-answer-performance} we proposed one such normalization for the factor of using one answer by default. However, it is not so straightforward to normalize factor of missing answers.
 
 % similarity measure choice
 
 We did not find any difference in the usability of observed similarity measures. Therefore we recommend using any measure that is good performing and convenient to use. Based on previous research this can be Pearson correlation coefficient applied two times sequentially. This measure has good stability of results even on smaller datasets and is easy to implement.
 
-% in visualizations
+% projection and clustering are affected the same
 
-Most straightforward visualization of item similarity is projections. Visualizing some known property like belongingness level or place of an item in taxonomy can be used to verify whether it is good or may need some refinement. Another possible use is interactively displaying single item-set and observing particular items manually.
-
-% clustering
-
-Projections and clustering usually suffer from same problems. E. g., Pattern of missing answers affects both of them. This problem cannot be easily solved. But as this regularity is caused by instability of items similarity, it can be improved by using more stable similarity measure.
-
-But projections and clustering are also affected by the formation of clusters of same items with a same correct answer. When using them, we have to be aware of this.
+Projection and clustering both suffer from same problems. They are both affected by all described high-level factors.
 
 % in outlier detection
 
@@ -820,19 +839,19 @@ We also found multiple properties that do not affect anything. E.g., the ratio o
 
 \section{General recommendations}\label{general-recommendations}
 
-As we saw, when using similarity with some particular dataset problems specific to it may arise. While trying to explain this patterns in our particular data we used we run into multiple situations which can repeat even when explaining some different data using similarity techniques.
+As we saw, when using similarity with some particular dataset problems specific to it may arise. While trying to explain this patterns in our particular data we used we run into multiple situations which can repeat even when explaining some different data using similarity techniques. That is why we also want to give some general recommendations.
 
 % determine range
 
-I think it is always a good idea to first determine the range of effect. E. g., whether this problem also appears when we use some different measure or source of data. I know it is basic. But it can be easily forgotten when facing some specific problem. And it was in great help to us. Such experiments were explained in first section \ref{evaluation-basic} of the previous chapter.
+We think it is always a good idea to first determine the if behavior we are interested in is present in whole dataset and all even when we alter used techniques. We determined whether is observed behavior present in all item-sets and using any similarity measure. This experiments were explained in first section \ref{evaluation-basic} of the previous chapter and helped us a lot in understanding regularities.
 
 % simulations
 
-I found it useful to use simulations when we are dealing with techniques from which we obtain some results, but it is hard to explain why (projection). Altering inputs and observing output is a way of explaining what is happening inside.
+We found it useful to use simulations when we are dealing with techniques from which we obtain some results, but it is hard to explain why (projection). Altering inputs and observing output is a way of explaining what is happening inside.
 
 % more dimensions of PCA
 
-Usually, when using PCA only first two principal components are used, but I found it useful to look at more some other dimensions as well. This approach was used in section \ref{missing-values} when the first dimension correlated with the performance of items and did not give us any useful information.
+Usually, when using PCA only first two principal components are used. But we found it useful to look at following dimensions as well. This approach was used in section \ref{missing-values} when the first dimension correlated with the performance of items and did not give us any useful information. Only looking at following dimensions gave us any useful information.
 
 % --------------------------- %
 % Conclusion                  %
@@ -844,10 +863,16 @@ Usually, when using PCA only first two principal components are used, but I foun
 
 We explored differences in using different methods for measuring the similarity of educational items based on data about the correctness of users answers. Before starting this work, we knew there were some unclear circumstances considering the formation of clusters in projection and therefore the distribution of similarities of items. All the experiments we concluded were focused on this behavior. Now we understand how the structure of system may affect performance data and similarity of items itself.
 
-We determined whether is this behavior present in whole dataset and all similarity measures. Multiple experiments using both real and simulated data were concluded. And as a result, we were able to answer questions proposed in section \ref{specific-questions}. We found multiple high-level factors that can cause regularities which were validated using simulations. We are pretty sure about the cause of one of the regularities and described some factors that can cause other observed regularity. We think that in real data there may be multiple factors causing level regularity as it is not straightforward to explain clusters of items from the same level.
+We determined whether this behavior is present in whole dataset and all similarity measures or not. Multiple experiments using both real and simulated data were concluded. And as a result, we were able to answer questions proposed in section \ref{specific-questions}. We found multiple high-level factors that can cause regularities which were validated using simulations. We explained three high-level factors which can be cause for observed regularities in similarity. We showed that in real data there might be multiple factors causing level regularity.
 
 Most of the findings discovered in this dataset may not be directly transferable to another tutoring system. But used analysis can also help understand other tutoring systems. Alternatively, maybe even systems which are not used for learning but contains items with similar properties.
 
+% wider view of the solved problem
+
+%TODO here
+
+AL currently on programming problems
+some of the findings beneficial
 Before beginning work on this thesis, I also contributed to research about the similarity of programming problems \cite{pelanek2018programming} which can also benefit from some of the results. %TODO do this better
 
 % Ideas for future work
