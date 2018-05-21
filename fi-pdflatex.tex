@@ -62,7 +62,7 @@
     TeXtitle      = {Techniques for measuring similarity of educational items},
     keywords      = {adaptive learning, tutoring system, similarity, educational item, similarity measures, explorative analysis, clustering, projections, machine learning, data analysis},
     TeXkeywords   = {adaptive learning, tutoring system, similarity, educational item, similarity measures, explorative analysis, clustering, projections, machine learning, data analysis},
-    abstract      = {This work focuses on the measuring of item similarity in tutoring systems utilizing correctness of answers from users. We knew that there are some unexplained regularities might appear in a similarity of items. In the system \umimeCesky{} they caused separation of items into surprising clusters. The core of the work consists of an explorative analysis of possible causes for this regularities. We show that structure of the system can affect item similarities and describe three such factors present in the system.  All conclusions were validated using simulations. Our findings are useful for further usage in the analyzed system or replication of similar experiments in other tutoring systems or context.},
+    abstract      = {This work focuses on the measuring of item similarity in tutoring systems utilizing correctness of answers from users. We knew that there are some unexplained regularities might appear in a similarity of items. In the system \umimeCesky{} they caused separation of items into surprising clusters. The core of the work consists of an explorative analysis of possible causes for this regularities. We show that structure of the system can affect item similarities and describe three such factors present in the system. All conclusions were validated using simulations. Our findings are useful for further usage in the analyzed system or replication of similar experiments in other tutoring systems or context.},
     thanks        = {
     First, I would like to thank my advisor \radek{} for providing me the opportunity to work in the Adaptive Learning group. I want to thank him for giving the right pointers and asking the right questions. I appreciate his expertise and his time he was always willing to find for me.
 
@@ -785,36 +785,25 @@ As we have learned, there are a few stages used in our pipeline for computing si
 In the third chapter~\ref{evaluation} we described a few high-level factors that can cause regularities in similarity that we found. There were only three high-level factors that we tested, but we can already divide them into two categories based on how they affect similarities of items.
 
 \begin{table}
-  \begin{tabular}{ | l | l | }
+  \setlength{\tabcolsep}{0.12em} % for the horizontal padding
+  {\scriptsize\renewcommand{\arraystretch}{1.0}% for the vertical padding
+    \begin{tabular}{ | l | l l l | }
       \hline
-      \cellcolor[gray]{1.0} & Users preferring one answer \\
+      \cellcolor[gray]{1.0} & Users preferring one answer      & Pattern in missing data & Mean level performance            \\
       \hline
-      Performance & Uneven performance for user      \\
-      Similarity  & Higher similarity of some answer \\
-      Projection  & Clusters                         \\
+      Performance           & Uneven performance for user      & Missing values          & Mean performance of items         \\
+      Similarity            & Higher similarity of some answer & Stability of similarity & Higher similarity of some level   \\
+      Projection            & Clusters                         & Clusters                & Clusters                          \\
       \hline
-      \hline
-      \cellcolor[gray]{1.0} & Pattern in missing data     \\
-      \hline
-      Performance & Missing values                   \\
-      Similarity  & Stability of similarity          \\
-      Projection  & Clusters                         \\
-      \hline
-      \hline
-      \cellcolor[gray]{1.0} & Mean level performance      \\
-      \hline
-      Performance & Mean performance of items        \\
-      Similarity  & Higher similarity of some level  \\
-      Projection  & Clusters                         \\
-      \hline
-  \end{tabular}
+    \end{tabular}
+  }
   \caption{Effect of high-level factors on different stages of similarity pipeline}
   \label{tab:effect-of-factors-on-stages}
 \end{table}
 
-Table~\ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage, they all cause some clusters. However, they all differ in how they affect stages before the last stage. For example in similarity matrix, two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects the stability of values.
+Table~\ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage, they all cause some clusters. However, they all differ in how they affect stages before the last stage. For example in similarity matrix, two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects the stability of values (affects it indirectly).
 
-It is worth knowing how high-level factor can affect each stage of similarity pipeline. The factor of missing answers does not affect outlier detection techniques which utilize the only similarity of items. (Only if technique compares them to each other, this factor affects the result.)
+It is worth knowing how high-level factor can affect each stage of similarity pipeline. The factor of missing answers does not affect outlier detection techniques which utilize only the similarity of items. (Only if technique compares them to each other, this factor affects the result.)
 
 % > Practical recommendations
 
