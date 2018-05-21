@@ -4,9 +4,10 @@ clean:
 	rm -rf tmp
 
 build:
-	pdflatex --shell-escape fi-pdflatex.tex
+	pdflatex fi-pdflatex.tex
 	biber fi-pdflatex
-	pdflatex --shell-escape fi-pdflatex.tex
+	pdflatex fi-pdflatex.tex
+	pdflatex fi-pdflatex.tex
 
 tmp:
 	mkdir -p tmp
