@@ -149,7 +149,7 @@ In this chapter, we start with describing specific problem this work is trying t
   \label{fig:sample_projection}
 \end{figure}
 
-This work focuses on tutoring system \umimeCesky{} that has thousands of items. For management of the items, we want to display them in some way that can be naturally interpreted. Figure~\ref{fig:sample_projection} shows such image. Each dot in the image represents one item, and its proximity to others represents how similar they are. E.g., item ``TODO'' is quite similar to ``TODO'', but it is not similar to ``TODO''.
+This work focuses on tutoring system \umimeCesky{} that has thousands of items. For management of the items, we want to display them in some way that can be naturally interpreted. Figure~\ref{fig:sample_projection} shows such image. Each dot in the image represents one item, and its proximity to others represents how similar they are. E.g., item ``b\_ografie'' is quite similar to ``b\_olog'', but it is not similar to ``zb\_tek''.
 
 However, there some unexplained regularities that can appear. They are causing separation of items into clusters which we want to get rid of or at least understand why they are formed.
 
@@ -346,7 +346,7 @@ In our analysis, we use both real data from the educational system and simulated
 
 \section{Simulated data}\label{simulated-data}
 
-When simulating data, we are trying to generate results which are similar to real tutoring system. However, we use much simpler model. Similar models were previously used in multiple studies~\cite{piech2015deep, pelanek2017measuring}.
+When simulating data, we are trying to generate results which are similar to real tutoring system. However, we use much simpler model. Similar models were previously used in multiple studies~\cite{pelanek2017measuring, piech2015deep}.
 
 The result of the simulation consists mainly of performance matrix with items as columns and users as its rows. First, we have to generate items. For each item, we choose its difficulty and skill required to solve this item. The difficulty of item is value drawn from normal distribution $\mathcal{N}(0,\,1)$.
 
