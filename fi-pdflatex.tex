@@ -70,7 +70,7 @@
 
     Finally, I would like to thank all the people who were motivating me to do my best by being smarter than me. Because if you are the smartest person in the room, you are in the wrong room.
     },
-    assignment    = task.pdf prohlaseni_autora_skolniho_dila.pdf,
+    assignment    = {task.pdf, prohlaseniAutoraSkolnihoDila.pdf},
     bib           = thesis.bib,
     style         = fithesis-custom-style
 }
@@ -193,7 +193,7 @@ Mentioned use cases of similarity are still quite abstract. But there are some s
 
 % Why this term
 
-In this work, we use the term ``items'' that may refer to problems, questions, assignments in different systems. Item is a single entry in an educational system which users can answer. Since many aspects of this work are generally applicable, we decided to use this broad term. The complexity of single item in tutoring system can differ greatly. In some tutoring systems, this may refer to simple choice from two options while in other one item is complex tasks which users solves in a matter of minutes.
+In this work, we use the term ``items'' that may refer to problems, questions, assignments in different systems. Item is a single entry in an educational system which users can answer. Since many aspects of this work are generally applicable, we decided to use this broad term. The complexity of single item in tutoring system can differ greatly. In some tutoring systems, this may refer to simple choice from two options while in other one item is complex tasks which users solve in a matter of minutes.
 
 % Data sources
 
@@ -224,7 +224,7 @@ Similarity measure quantifies the similarity between two items. Similarity can a
 
 Items can be converted into vectors of numeric values. This conversion is useful for measuring similarity. For performance data, this is a vector containing correctness or time from all users to given item.
 
-Other properties of items like item statement may also be represented as a vector, e.g., by using a standard technique in natural language processing -- bag-of-words. Method is counting occurrences of each possible word that can appear in item statement. Result is vector of fixed length.
+Other properties of items like item statement may also be represented as a vector, e.g., by using a standard technique in natural language processing -- bag-of-words. The method is counting occurrences of each possible word that can appear in item statement. The result is a vector of fixed length.
 
 When we have items represented as vectors, we can compare them pairwise to get similarity using some standard similarity measures like Pearson correlation coefficient, Cosine similarity, Sokal measure or Euclidean distance.
 
@@ -238,7 +238,7 @@ Another possible way to measuring similarity is counting edits which would conve
 
 % How is a projection (similarity) computed
 
-To better understand process used to determine similarity of items we have to understand its stage. Following text describes each stage separately. We call this process a standard pipeline, and it is used in most our experiments. When some of the further analysis modify it slightly, it is pointed out in the corresponding section. Whenever we do not specify otherwise, all projections were produced using this default pipeline. There are a few data structures and calculations involved in this process:
+To better understand the process used to determine a similarity of items we have to understand its stage. Following text describes each stage separately. We call this process a standard pipeline, and it is used in most our experiments. When some of the further analysis modify it slightly, it is pointed out in the corresponding section. Whenever we do not specify otherwise, all projections were produced using this default pipeline. There are a few data structures and calculations involved in this process:
 
 \begin{figure}
   \includegraphics[width=10cm]{img/pipeline_diagram}
@@ -352,7 +352,7 @@ The result of the simulation consists mainly of performance matrix with items as
 
 After that, we continued with the construction of users. We generate skills for all the users. They are random values from normal distribution $\mathcal{N}(0,\,1)$ and are stored in a user\,$\times$\,skills matrix.
 
-Next, we simulate each user answering to each item. The user answers correctly with probability given by a logistic function of the difference of item difficulty $d$ and user skill $s$. User skill is one of the his skills that corresponds to the skill required for given item.
+Next, we simulate each user answering to each item. The user answers correctly with probability given by a logistic function of the difference of item difficulty $d$ and user skill $s$. User skill is one of his skills that correspond to the skill required for given item.
 
 \begin{gather*}
 \sigma(x) = \frac{1}{1 + e^-1x} \\
@@ -518,7 +518,7 @@ We tried using both first users answer and last in performance matrix. However, 
 
 \subsection{Level of regularity on different item-sets}\label{level-of-regularity-on-different-item-sets}
 
-When introducing the problem of unneeded clusters in section~\ref{regularities} we showed that one particular item-set shows this behavior. However, we we did not show whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+When introducing the problem of unneeded clusters in section~\ref{regularities} we showed that one particular item-set shows this behavior. However, we did not show whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
 
 % Quantification of level-answer clustering
 
@@ -574,7 +574,7 @@ We can conclude that clusters are present despite used similarity measure.
 
 \section{Answers regularity}\label{evaulation-answers-regularity}
 
-This section describes in detail some of our experiments we concluded that relate to separation of items into clusters of same correct answers. We describe four experiments in total. They brought us to finding one more regularity, and in the end explaining separation items by their correct answer.
+This section describes in detail some of the experiments we concluded that relate to separation of items into clusters of same correct answers. We describe four experiments in total. They brought us to finding one more regularity, and in the end explaining separation items by their correct answer.
 
 % > > Total similarity of items
 
@@ -596,7 +596,7 @@ For this purpose, we define another property of items. The total similarity is a
 
 This is not specific to only one item-set (displayed in Figure~\ref{fig:histogram_i_y}) almost all item-sets display similar pattern. Although for some item-sets, it is more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
 
-We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter~\ref{fig:umimecesky_doplnovacka}.) We found that preferred answer could be located on both left and right button. In particular, in concept \cviceniB{} that have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' that has the same possible answers is preferred one ``y'' on the right.
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in the second chapter~\ref{fig:umimecesky_doplnovacka}.) We found that preferred answer could be located on both left and right button. In particular, in concept \cviceniB{} that have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' that has the same possible answers is preferred one ``y'' on the right.
 
 This experiment told us only that there is some underlying difference between items with different correct answers but did not tell us what.
 
@@ -612,7 +612,7 @@ Performance matrix shows answers from users to items. Each column in Figure~\ref
   \label{fig:performance_matrix}
 \end{figure}
 
-After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. This can be seen in highlighted row of Figure~\ref{fig:performance_matrix}. He answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly. There are even users who almost always use one of the answers.
+After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. This can be seen in the highlighted row of Figure~\ref{fig:performance_matrix}. He answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly. There are even users who almost always use one of the answers.
 
 % > > Default answer
 
@@ -620,7 +620,7 @@ After exploring performance matrix some more, we can see that there are users wh
 
 We guessed that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
-We used simulation for this. Simulation was slightly refined over basic simulation described in second chapter~\ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. We use it to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
+We used simulation for this. This simulation is slightly refined over basic simulation described in second chapter~\ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. We use it to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
 
 This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included two skills in this simulation to better illustrate conditions in real data.
 
@@ -680,7 +680,7 @@ To sum it up. When we simulated users, we gave them all habit to use one answer 
 
 \section{Levels regularity}\label{evaulation-levels-regularity}
 
-This section describes in detail some of our experiments we concluded that relate to the formation of items into clusters of the same level. It describes two experiments showing high-level factors that can cause level regularity.
+This section describes in detail some of the experiments we concluded that relate to the formation of items into clusters of the same level. It describes two experiments showing high-level factors that can cause level regularity.
 
 % > > Missing values
 
@@ -783,7 +783,7 @@ As we have learned, there are a few stages used in our pipeline for computing si
 
 % intro affected a portion of data on different stages of the pipeline
 
-In the third chapter~\ref{evaluation} we described a few high-level factors that can cause regularities in similarity that we found. There were only three high-level factors that we tested, but we can already divide them into two categories based on how they affect similarities of items.
+In the third chapter, we described a few high-level factors that can cause regularities in similarity that we found. There were only three high-level factors that we tested, but it is already visible, that we can divide them into two categories based on how they affect similarities of items.
 
 \begin{table}
   \setlength{\tabcolsep}{0.12em} % for the horizontal padding
@@ -802,7 +802,7 @@ In the third chapter~\ref{evaluation} we described a few high-level factors that
   \label{tab:effect-of-factors-on-stages}
 \end{table}
 
-Table~\ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage, they all cause some clusters. However, they all differ in how they affect stages before the last stage. For example in similarity matrix, two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects the stability of values (affects it indirectly).
+Table~\ref{tab:effect-of-factors-on-stages} summarizes how described high-level factors affect each stage of similarity pipeline. When we use similarity for computation of projection in at the last stage, they all cause some clusters. However, they all differ in how they affect stages before the last. For example in similarity matrix, two of observed factors cause higher similarity of some group of items while the factor of pattern in missing data only affects the stability of values (affects it indirectly).
 
 It is worth knowing how high-level factor can affect each stage of similarity pipeline. The factor of missing answers does not affect outlier detection techniques which utilize only the similarity of items. (Only if technique compares them to each other, this factor affects the result.)
 
@@ -881,7 +881,7 @@ Alternatively, some of the results may be even transferable into a system that i
 
 This work was concluded as exploration analysis, and hence its results consist mostly of gathered information and recommendations for future work. In particular, implementing proposed recommendations when using similarity of items in mentioned tutoring system. The similarity of items is currently not used in the system \umimeCesky{} but increasing number of items will soon call for some automated management of problem pool. For this reason, it will be useful to analyze methods for detecting problems with item pool further.
 
-In particular, compare the usefulness of different visualizations for authors making decision about system. Also, implementation of automatic detection of duplicate and outlier items may be useful. In some special cases, it may be even possible to recommend kinds of items that are missing from the system using similarity of items.
+In particular, compare the usefulness of different visualizations for authors deciding on changes in a system. Also, implementation of automatic detection of duplicate and outlier items may be useful. In some special cases, it may be even possible to recommend kinds of items that are missing from the system using similarity of items.
 
 It also may be useful to look at the same data from another perspective and observe whether there are similar regularities when we calculate similarities of users instead.
 
