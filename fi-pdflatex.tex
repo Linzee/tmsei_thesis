@@ -224,7 +224,7 @@ Similarity measure quantifies the similarity between two items. Similarity can a
 
 Items can be converted into vectors of numeric values. This conversion is useful for measuring similarity. For performance data, this is a vector containing correctness or time from all users to given item.
 
-Other properties of items like item statement may also be represented as a vector, e.g., by using a standard technique in natural language processing -- bag-of-words. It is counting occurrences of each possible word that can appear in item statement.
+Other properties of items like item statement may also be represented as a vector, e.g., by using a standard technique in natural language processing -- bag-of-words. Method is counting occurrences of each possible word that can appear in item statement. Result is vector of fixed length.
 
 When we have items represented as vectors, we can compare them pairwise to get similarity using some standard similarity measures like Pearson correlation coefficient, Cosine similarity, Sokal measure or Euclidean distance.
 
@@ -250,7 +250,7 @@ To better understand process used to determine similarity of items we have to un
   \item
     \textbf{Feature matrix} is matrix (items\,$\times$\,features) containing source data. As we said earlier, this could represent any property of items. This matrix consists of one vector for each item, and it may represent item statement, solutions of the item and naturally even users performance.
 
-    The first step we take is converting raw logged information into this matrix. We used correctness of first users answer to a specific item. It will contain value~1 in case of the correct answer and~0 for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
+    The first step we take is converting raw logged information into this matrix. We used correctness of first users answer to a specific item. It will contain value~1~in case of the correct answer and~0~for incorrect. It is worth mentioning that performance matrix is relatively sparse as it is not common for users to solve all the items in the system.
 
     In our particular case, we call this matrix a \textbf{performance matrix} because it contains information about user performance.
 
@@ -494,7 +494,7 @@ Following two chapters are focusing on this questions. First, we describe conclu
 
 \chapter{Evaluation}\label{evaluation}
 
-The chapter is explaining factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which have similar answers will be similar (close to each other) in projection. But we focus on high-level factors in tutoring systems that can cause this behavior.
+The chapter is describing several experiments we concluded to find factors that can affect resulting projections produced from real-world data. We are focusing on higher level factors that can cause a formation of clusters in projection. On a low level, it is apparent that items which have similar answers will be similar (close to each other) in projection.
 
 % > Basic
 
@@ -518,11 +518,11 @@ We tried using both first users answer and last in performance matrix. However, 
 
 \subsection{Level of regularity on different item-sets}\label{level-of-regularity-on-different-item-sets}
 
-When introducing the problem of unneeded clusters in section~\ref{regularities} we showed that one particular item-set shows this behavior. However, we still do not know whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
+When introducing the problem of unneeded clusters in section~\ref{regularities} we showed that one particular item-set shows this behavior. However, we we did not show whether this is true for all the item-sets. We decided it may be useful to quantify how recognizable are this clusters on all item-sets.
 
 % Quantification of level-answer clustering
 
-Quantification of the regularity of clusters in the projections is executed by comparing its k-means clustering to correct level and answer of items. We use the k-means clustering algorithm~\cite{hartigan1979algorithm} to find \textit{levels\,$\cdot$\,correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index~\cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value~1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
+Quantification of the regularity of clusters in the projections is executed using k-means and adjusted Rand index. We use the k-means clustering algorithm~\cite{hartigan1979algorithm} to find \textit{levels\,$\cdot$\,correct answers} clusters in data about item similarity. Level of regularity is then determined using adjusted Rand index~\cite{santos2009use}. We compare extracted clustering with the original one (clusters created as a combination of item level and correct answer). Value~1.0 represents that k-means was able to divide all items into same clusters as original classification. On the other hand, lover values show that it is hard to divide items correctly and there are no distinct clusters. This process is repeated multiple times to account for random initialization of k-means algorithm.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{img/clustering_quality}
@@ -542,13 +542,13 @@ We can conclude that regularities are present in some form in all item-sets.
 
 Another question is whether using Pearson correlation coefficient is not cause of some of the regularities. Therefore, we tried exchanging measure used for computing similarity of items to verify that previous results are not specific to a single measure. We evaluated all four previously chosen measures.
 
+% preserving of clusters
+
 \begin{figure}
   \includegraphics[height=10cm]{img/measures}
   \caption{Comparison of four similarity measures projected by PCA using the same item-set}
   \label{fig:measures}
 \end{figure}
-
-% preserving of clusters
 
 Figure~\ref{fig:measures} shows four different similarity measures used on same data. Resulting projections are different. However, they all preserve information which is causing items from the same level and same answer to form clusters. Used colors represent different levels and markers are used to distinguish different answers.
 
@@ -574,7 +574,7 @@ We can conclude that clusters are present despite used similarity measure.
 
 \section{Answers regularity}\label{evaulation-answers-regularity}
 
-This section describes in detail some of our experiments we concluded that relate to separation of items into clusters of same correct answers. We describe four experiments in total. They brought us to finding one more regularity, and in the end explaining regularity of splitting items by their correct answer.p
+This section describes in detail some of our experiments we concluded that relate to separation of items into clusters of same correct answers. We describe four experiments in total. They brought us to finding one more regularity, and in the end explaining separation items by their correct answer.
 
 % > > Total similarity of items
 
@@ -582,7 +582,7 @@ This section describes in detail some of our experiments we concluded that relat
 
 When exploring data, it may be useful to detect outliers. One possible way of how to detect an outlier is looking at the sum of its similarities or distances to other $k$ nearest neighbors. This was done for example by Zhang and Wang~\cite{zhang2006detecting}. In particular, this means that an item with a low sum of similarities to other items may be an outlier. At this point, we encountered another regularity in data. It was detected that items with some correct answer might have greater similarity than other answers. This regularity could cause problems with using such outlier detection as items having some correct answers have a higher probability to be selected as an outlier, and it is not true.
 
-For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Distribution of this values is shown for item-set \cviceniB{} in Figure~\ref{fig:histogram_i_y}.
+For this purpose, we define another property of items. The total similarity is a sum of one items vector of similarities (one column of similarity matrix) to other items. This property is normalized to range 0.0-1.0 and tells us how much is item similar to other items. Histograms of two possible answers of item-set \cviceniB{} is displayed on Figure~\ref{fig:histogram_i_y}. It is visible that items with answer ``i'' has higher total similarities that items with answer ``y''.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/histogram_i_y}
@@ -596,7 +596,7 @@ For this purpose, we define another property of items. The total similarity is a
 
 This is not specific to only one item-set (displayed in Figure~\ref{fig:histogram_i_y}) almost all item-sets display similar pattern. Although for some item-sets, it is more distinct than for others. Sets consisting of items with many possible answers does not behave this way. But that is to be expected.
 
-We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter~\ref{fig:umimecesky_doplnovacka}) Our finding was that preferred answer could be located on both left and right button. In particular, in concept \cviceniB{} that have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' that has the same possible answers is preferred one ``y'' on the right.
+We picked few item-sets which have very distinct clusters of answers and looked whether the answer with higher similarity is located on the left or the right in the user interface. (User interface was shown in second chapter~\ref{fig:umimecesky_doplnovacka}.) We found that preferred answer could be located on both left and right button. In particular, in concept \cviceniB{} that have possible answers ``i'' (left) and ``y'' (right) the preferred one is the left answer. But for concept ``Koncovky přídavných jmen'' that has the same possible answers is preferred one ``y'' on the right.
 
 This experiment told us only that there is some underlying difference between items with different correct answers but did not tell us what.
 
@@ -604,7 +604,7 @@ This experiment told us only that there is some underlying difference between it
 
 \subsection{Performance matrix}\label{performance-matrix}
 
-In performance matrix, there are some users which performance differs greatly on different answers. This can be seen in Figure~\ref{fig:performance_matrix}. Each column in image depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items (columns) in the matrix are sorted that all items with correct answer ``i'' are on the left and items with another possible correct answer ``y'' are on the right.
+Performance matrix shows answers from users to items. Each column in Figure~\ref{fig:performance_matrix} depicts answers to one item. Each row corresponds to one user and colors represent correctness of answer (green is correct, red incorrect) or missing answer (gray). Items (columns) in the matrix are sorted that all items with correct answer ``i'' are on the left and items with another possible correct answer ``y'' are on the right.
 
 \begin{figure}
   \includegraphics[width=10cm]{img/performance_matrix}
@@ -612,7 +612,7 @@ In performance matrix, there are some users which performance differs greatly on
   \label{fig:performance_matrix}
 \end{figure}
 
-After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. There are even users who almost always use one of the answers. Such user is highlighted in the figure. He answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly.
+After exploring performance matrix some more, we can see that there are users who have much higher performance on items with one answer than another. This can be seen in highlighted row of Figure~\ref{fig:performance_matrix}. He answered almost all items with one answer (right) correctly and items with another answer (left) incorrectly. There are even users who almost always use one of the answers.
 
 % > > Default answer
 
@@ -620,7 +620,7 @@ After exploring performance matrix some more, we can see that there are users wh
 
 We guessed that there are users who prefer using one answer by default when they do not know the answer. Firstly we wanted to determine whether preferring one answer over another can affect projection and create clusters of different answers.
 
-We used simulation for this. Simulation is extended over basic simulation described in second chapter~\ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. We use it to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
+We used simulation for this. Simulation was slightly refined over basic simulation described in second chapter~\ref{simulated-data}. There are a few differences over basic simulation. For each item, we also choose a correct answer. We use it to offset logistic function higher or lower to simulate higher chance of succeeding when solving items which correct answer is the users preferred one. In this experiment, we used offset 0.2 which corresponds to 20\% higher chance to answer correctly one answer and 20\% lower on items with another answer. Also, there are no missing values in performance matrix as simulated users answer to all items.
 
 This specific simulation is using two uncorrelated skills and two answers. They are distributed in a way that there is the same amount of each combination (1/4 of items). We included two skills in this simulation to better illustrate conditions in real data.
 
@@ -632,7 +632,7 @@ This specific simulation is using two uncorrelated skills and two answers. They 
 
 When we look at resulting projection~\ref{fig:simulated_default} of simulated performance data we can see that it has same properties as our real data. There are clusters (in this case caused by uncorrelated skills) that have items separated by the correct answer (represented by different colors).
 
-We conclude that users proffering one answer over another can cause separation of items by correct answer in projection.
+We conclude that users preferring one answer over another can cause separation of items by correct answer in projection.
 
 % > > User answer performance
 
@@ -660,17 +660,17 @@ We choose to use a difference of performance instead of how much user uses each 
 
 % similar items from different levels are little closer to each other
 
-It is worth mentioning that there would be some difference between user answer performance even if users in the system do not have a preference for a single answer. But they should be distributed only close to 0.0.
-
-We can use this to filter out users which difference in performance is too large. We thought that this would remove the separation of items based on a correct answer from a projection. Figure~\ref{fig:answers_normalization} shows projection before and after filtering out users that have a great difference in performance on items by their answer. Colors in this particular image represent correct answers to items. It is visible that separation by answer is less visible after filtering out part of the users.
-
-In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.2. This value was chosen based on comparing our histogram with simulated data.
-
 \begin{figure}
   \includegraphics[width=\textwidth]{img/answers_normalization}
   \caption{Effect of filtering out users}
   \label{fig:answers_normalization}
 \end{figure}
+
+It is worth mentioning that there would be some difference between user answer performance even if users in the system do not have a preference for a single answer. But they should be distributed only close to 0.0.
+
+We can use this to filter out users which difference in performance is too large. We thought that this would remove the separation of items based on a correct answer from a projection. Figure~\ref{fig:answers_normalization} shows projection before and after filtering out users that have a great difference in performance on items by their answer. Colors in this particular image represent correct answers to items. It is visible that separation by answer is less visible after filtering out part of the users.
+
+In this particular case, we consider that user should be filtered out when his difference on answers is greater than 0.2. This value was chosen based on comparing our histogram with simulated data.
 
 % answer regularity summary
 
@@ -680,7 +680,7 @@ To sum it up. When we simulated users, we gave them all habit to use one answer 
 
 \section{Levels regularity}\label{evaulation-levels-regularity}
 
-This section describes in detail some of our experiments we concluded that relate to the formation of items into clusters of the same level. The section contains two experiments showing some factors that can cause level regularity.
+This section describes in detail some of our experiments we concluded that relate to the formation of items into clusters of the same level. It describes two experiments showing high-level factors that can cause level regularity.
 
 % > > Missing values
 
@@ -688,11 +688,11 @@ This section describes in detail some of our experiments we concluded that relat
 
 % Can missing data affect the result of similarity calculation?
 
-As we mentioned before, performance matrix is relatively sparse. Missing values are not distributed randomly, but they form a pattern. Our question is whether this pattern of missing values can affect similarity of items and projections.
+As we mentioned before, performance matrix is relatively sparse. However, missing values are not distributed randomly, but they form a pattern. Our question is whether this pattern of missing values can affect similarity of items and projections.
 
 % structure of performance matrix
 
-Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in figure~\ref{fig:missing_pattern_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
+Items in each item-set of the system are divided into up to three levels. The difficulty of the levels differs. That is why users in the system usually do not solve all of the available levels (this is also shown in Figure~\ref{fig:missing_pattern_diagram}). Less experienced users tend to solve only first or first two levels. Still, more experienced users solve only higher levels. This is causing visible pattern in performance matrix. Some user rows contain information only about specific levels and are missing all values of other levels.
 
 \begin{figure}
   \includegraphics[width=5cm]{img/missing_pattern_diagram}
@@ -735,10 +735,11 @@ The pattern of missing data is another high-level factor that we explained and c
 Another possible factor affecting similarities and therefore projections can be difficulty od items. The first part of this section analyzes difficulty of items in the tutoring system. Then we try to replicate this data using simulation.
 
 \begin{figure}
-  \includegraphics[width=10cm]{img/items_performance_levels}
+  \includegraphics[width=8cm]{img/items_performance_levels}
   \caption{Boxplot showing performance of items divided into three levels}
   \label{fig:item_performance_levels}
 \end{figure}
+
 
 Figure~\ref{fig:item_performance_levels} shows boxplot of items performance (ratio of correct answers to all answers) from one item-set. Given item-set contains three levels with mean performances 94\%, 86\%, and 71\% respectively.
 
@@ -746,15 +747,15 @@ Items are divided in such manner that difficulty of levels raises. However, this
 
 For this simulation, we variate difficulty of questions. In the standard simulation, we use the difficulty of items drawn from same normal distribution $\mathcal{N}(0,\,1)$. The only difference is that we alternate mean value of normal distributions for each simulated level. For this particular experiment, we fitted this shifts to correspond to performances observed in real item-set ($\mathcal{N}(1.4,\,1), \mathcal{N}(2.0,\,1), \text{and} \mathcal{N}(3.0,\,1)$).
 
-\begin{figure}
-  \includegraphics[width=10cm]{img/simulated_performance}
-  \caption{Three simulated levels with different mean performance}
-  \label{fig:simulated_performance}
-\end{figure}
-
 % different performance of items in levels does not cause such clusters
 
 Results are visible in Figure~\ref{fig:simulated_performance}. We concluded that this factor could also cause clusters of items from the same level. However, they are not as apparent as with the previous factor of pattern in missing data.
+
+\begin{figure}
+  \includegraphics[width=8cm]{img/simulated_performance}
+  \caption{Three simulated levels with different mean performance}
+  \label{fig:simulated_performance}
+\end{figure}
 
 % --------------------------- %
 % Recommendations             %
