@@ -2,7 +2,7 @@
 
 This work focuses on the measuring of item similarity in tutoring systems utilizing correctness of answers from users. We knew that some unexplained regularities might appear in a similarity of items. In the system Umíme česky they caused separation of items based on their correct answer and level they are assigned into. The core of the work consists of an explorative analysis of possible causes for this regularities. We show that structure of the system can affect item similarities and describe three such factors present in the system. All conclusions were validated using simulations. Our findings are useful for further usage in the analyzed system or replication of similar experiments in other tutoring systems.
 
-![Similarity pipeline diagram](../img/pipeline_diagram.svg)
+![Similarity pipeline diagram](pipeline_diagram.svg)
 
 ## Full text of thesis
 
