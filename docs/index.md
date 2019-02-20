@@ -6,7 +6,7 @@ This work focuses on the measuring of item similarity in tutoring systems utiliz
 
 ## Full text of thesis
 
-I finished this work in may of 2018 but some minor fixes may still appear. Therefore the latest version of full text is always available at [GitHub](https://github.com/Linzee/tmsei_thesis/raw/master/fi-pdflatex.pdf).
+I finished this work in may of 2018 and it is submitted in [IS MUNI](https://is.muni.cz/th/l5dzj). Some minor fixes may appear therefore the latest version of text is always available at [GitHub](https://github.com/Linzee/tmsei_thesis/raw/master/fi-pdflatex.pdf).
 
 ## Interactive environment
 
